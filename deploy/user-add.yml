@@ -1,0 +1,17 @@
+---
+##
+# Add a new user
+#
+- hosts: all
+  user: root
+
+  tasks:
+
+    - name: Create user group.
+      action: group name=$user_name
+
+    - name: Create the user account.
+      action: user name=$user_name group=$user_name state=present
+
+    - name: SSH Folder.
+      action: file path=/home/$user_name/.ssh state=directory owner=$user_name group=$user_name mode=755

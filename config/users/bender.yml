@@ -1,0 +1,18 @@
+---
+##
+# Setup the bender user.
+#
+- name: Users | Group for bender.
+  action: group name=bender
+
+- name: Users | Create bender user.
+  action: user name=bender group=bender
+
+- name: Users | SSH folder for Bender
+  action: file path=/home/bender/.ssh state=directory owner=bender group=bender mode=755
+
+- name: Users | Directory for Jenkins stuff
+  action: file path=/home/bender/jenkins state=directory owner=bender group=bender mode=755
+
+- name: Users | Bender's auth key for ssh
+  action: copy src=users/home-bender-ssh-authorized_keys dest=/home/bender/.ssh/authorized_keys mode=644 owner=bender group=bender

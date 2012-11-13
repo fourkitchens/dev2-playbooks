@@ -20,3 +20,4 @@
     - include: dotcloud/dotcloud.yml tags=dotcloud
     - include: linux/tty.yml tags=tty
     - include: memcache/memcache.yml tags=memcache
+    - include: users/bender.yml tags=users
