@@ -58,6 +58,27 @@
       action: file path=/etc/update-motd.d/50-landscape-sysinfo state=absent
       tags: common
 
+    ##
+    # Etckeeper
+    #
+    - name: etckeeper | Configuration file
+      action: copy src=files/etc-etckeeper-etckeeper-conf.j2 dest=/etc/etckeeper/etckeeper.conf
+      tags: common
+
+    - name: etckeeper | Initialize.
+      action: command etckeeper init creates=/etc/.git
+      tags: common
+
+
+
+
+
+
+
+
+
+
+
 
 
 
