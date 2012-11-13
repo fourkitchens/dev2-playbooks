@@ -1,6 +1,9 @@
 ---
 ##
-# Add a new user
+# Add a new user. Variables must be passed on the command line:
+#
+# user_name = The name of the new user, will also be used for group name.
+# user_mail = The user's email address as set on fourkitchens.com. Used for authorized_keys.
 #
 - hosts: all
   user: root
@@ -11,7 +14,10 @@
       action: group name=$user_name
 
     - name: Create the user account.
-      action: user name=$user_name group=$user_name state=present
+      action: user name=$user_name group=$user_name shell=/bin/bash state=present
 
     - name: SSH Folder.
       action: file path=/home/$user_name/.ssh state=directory owner=$user_name group=$user_name mode=755
+
+    - name: Authorized keys from 4K.com
+      action: get_url thirsty=yes url=http://fourkitchens.com/authorized_keys?mail=$user_mail dest=/home/$user_name/.ssh/authorized_keys owner=$user_name group=$user_name mode=644

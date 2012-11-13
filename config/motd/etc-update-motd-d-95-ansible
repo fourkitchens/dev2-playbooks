@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo " +----------------------------------------------------------------------------+"
-echo " | Four Kitchens' Development Server.                                         |"
+echo " | Four Kitchens Development Server.                                          |"
 echo " |                                                                            |"
 echo " | Please don't install packages or change configuration manually, as your    |"
 echo " | changes will be lost. To correctly modify configuration, edit the files in |"
