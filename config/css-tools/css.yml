@@ -1,0 +1,18 @@
+---
+##
+# CSS compiling tools.
+#
+- name: CSS | Install rubygems package
+  action: apt pkg=rubygems state=installed
+
+- name: CSS | Install SASS
+  action: command gem install sass creates=/usr/local/bin/sass
+
+- name: CSS | Install Susy (no more --pre required as it's 1.0 now)
+  action: command gem install susy
+
+- name: CSS | Install Compass
+  action: command gem install compass creates=/usr/local/bin/compass
+
+- name: CSS | Install Respond-to
+  action: command gem install respond-to

@@ -1,0 +1,9 @@
+---
+##
+# Dotcloud support
+#
+- name: Dotcloud | Python pip for dotcloud
+  action: apt pkg=python-pip state=installed
+
+- name: Dotcloud | Install dotcloud cli
+  action: command pip install dotcloud creates=/usr/local/bin/dotcloud

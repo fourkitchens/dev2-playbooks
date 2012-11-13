@@ -1,0 +1,92 @@
+---
+##
+# Apt package installation of required software.
+#
+- name: General | Install required packages.
+  action: apt pkg=$item state=installed
+  with_items:
+    - php5
+    - apache2
+    - mysql-server
+    - mysql-client
+    - php5-mysql
+    - php-apc
+    - php5-xmlrpc
+    - php-soap
+    - php5-gd
+    - python-mysqldb
+
+##
+# PHP Setup.
+#
+- name: PHP | Configuration file - php.ini
+  action: template src=lamp/etc-php5-apache2-php-ini.j2 dest=/etc/php5/apache2/php.ini
+
+- name: APC | Cache configuration file - apc.ini
+  action: template src=lamp/etc-php5-conf-d-apc-ini.j2 dest=/etc/php5/conf.d/apc.ini
+
+##
+# MySQL database setup.
+#
+- name: MySQL | Configuration file - my.cnf
+  action: template src=lamp/etc-mysql-my-cnf.j2 dest=/etc/mysql/my.cnf
+
+##
+# This does the equivalent of mysql_secure_installation.
+#
+- name: MySQL | Set the root password.
+  action: mysql_user user=root password=$mysql_root_password host=localhost
+
+- name: MySQL | Config for easy access as root user
+  action: template src=lamp/root-my-cnf.j2 dest=/root/.my.cnf
+
+- name: MySQL | Delete anonymous MySQL server user for $server_hostname
+  action: mysql_user user="" host="$server_hostname" state="absent"
+
+- name: MySQL | Delete anonymous MySQL server user for localhost
+  action: mysql_user user="" state="absent"
+
+- name: MySQL | Secure the MySQL root user for IPV6 localhost (::1)
+  action: mysql_user user="root" password="$mysql_root_password" host="::1"
+
+- name: MySQL | Secure the MySQL root user for IPV4 localhost (127.0.0.1)
+  action: mysql_user user="root" password="$mysql_root_password" host="127.0.0.1"
+
+- name: MySQL | Secure the MySQL root user for localhost domain (localhost)
+  action: mysql_user user="root" password="$mysql_root_password" host="localhost"
+
+- name: MySQL | Secure the MySQL root user for $server_hostname domain
+  action: mysql_user user="root" password="$mysql_root_password" host="$server_hostname"
+
+- name: MySQL | Remove the MySQL test database
+  action: mysql_db db=test state=absent
+
+##
+# Apache2 setup.
+#
+- name: Apache | Enable some required modules
+  action: command a2enmod rewrite vhost_alias
+
+- name: Apache | Configuration file for our site
+  action: template src=lamp/etc-apache2-sites-available-devserver.j2 dest=/etc/apache2/sites-available/devserver
+
+- name: Apache | Disable the default site
+  action: command a2dissite default
+
+- name: Apache | Enable our new site
+  action: command a2ensite devserver
+
+- name: Apache | Robots.txt file that prevents search engines from spidering dev site.
+  action: copy src=lamp/var-www-robots-txt dest=/var/www/robots.txt
+
+- name: Apache | htaccess file for user access control.
+  action: copy src=lamp/etc-apache2-htpasswd dest=/etc/apache2/htpasswd
+
+##
+# Restart services
+#
+- name: Restart Apache
+  action: service name=apache2 state=restarted
+
+- name: Restart MySQL
+  action: service name=mysql state=restarted

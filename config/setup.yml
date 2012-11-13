@@ -1,0 +1,22 @@
+---
+##
+# Ansible playbook for setting up dev2.
+#
+- hosts: all
+  user: root
+
+  vars_files:
+    - settings.yml
+
+  tasks:
+    - include: sendmail/sendmail.yml tags=sendmail
+    - include: motd/motd.yml tags=motd
+    - include: etckeeper/etckeeper.yml tags=etckeeper
+    - include: lamp/lamp.yml tags=lamp
+    - include: drush/drush.yml tags=drush
+    - include: nodejs/nodejs.yml tags=nodejs
+    - include: redis/redis.yml tags=redis
+    - include: css-tools/css.yml tags=css
+    - include: dotcloud/dotcloud.yml tags=dotcloud
+    - include: linux/tty.yml tags=tty
+    - include: memcache/memcache.yml tags=memcache

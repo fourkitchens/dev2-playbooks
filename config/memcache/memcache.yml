@@ -8,3 +8,6 @@
   with_items:
     - php5-memcache
     - memcached
+
+- name: Restart Memcache
+  action: service name=memcached state=restarted

@@ -1,0 +1,6 @@
+---
+##
+# Apt package installation of general software.
+#
+- name: Sendmail | Install required packages.
+  action: apt pkg=sendmail state=installed
