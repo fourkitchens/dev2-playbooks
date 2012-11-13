@@ -1,5 +1,5 @@
 ##
-# Ansible provided setup. See https://github.com/fourkitchens/server-playbooks.
+# Ansible provided setup.
 ##
 
 ##
@@ -13,13 +13,25 @@
 	ServerAdmin {{ apache_server_admin }}
 	ServerAlias {{ apache_server_alias }}
 
-	VirtualDocumentRoot /home/%-4/www/%-3
+	VirtualDocumentRoot /home/%-5/www/%-4
+
+  # Disallow all search engines from spidering dev sites.
+  <Location "/robots.txt">
+    SetHandler None
+  </Location>
+  Alias /robots.txt /var/www/robots.txt
 
 	<Directory /home/*/www/*>
 		Options Indexes FollowSymLinks MultiViews
 		AllowOverride All
-		Order allow,deny
-		allow from all
+		Order deny,allow
+		Deny from all
+    AuthType Basic
+    AuthGroupFile /dev/null
+    AuthName "Four Kitchens Sandbox"
+    AuthUserFile /etc/apache2/htpasswd
+    Require valid-user
+    Satisfy Any
 	</Directory>
 
 </VirtualHost>

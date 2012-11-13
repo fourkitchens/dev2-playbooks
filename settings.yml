@@ -6,7 +6,7 @@
 # Hostname is important as we need to delete an anonymous MySQL
 # user that is created with this name, make sure you match this
 # up with the output of the command 'hostname' on the server.
-server_hostname: 'example.com'
+server_hostname: 'dev2'
 
 # php.ini
 php_max_execution_time: '90'
@@ -30,14 +30,8 @@ mysql_collation_server: 'utf8_general_ci'
 innodb_file_per_table: 'innodb_file_per_table'
 
 # mysql
-mysql_root_password: 'password'
+mysql_root_password: '403f4kfjMLAPCS2MMe'
 
 # apache
-apache_server_admin: 'webmaster@example.com'
-apache_server_alias: '*.*.example.com'
-
-# vsftpd
-vsftpd_anonymous_enable: 'NO'
-vsftpd_local_enable: 'YES'
-vsftpd_write_enable: 'YES'
-vsftpd_local_umask: '002'
+apache_server_admin: 'it@fourkitchens.com'
+apache_server_alias: '*.*.dev2.fourkitchens.com'
