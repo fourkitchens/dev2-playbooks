@@ -35,3 +35,6 @@ mysql_root_password: '403f4kfjMLAPCS2MMe'
 # apache
 apache_server_admin: 'it@fourkitchens.com'
 apache_server_alias: '*.*.dev2.fourkitchens.com'
+
+# ssh
+ssh_password_auth: 'no'

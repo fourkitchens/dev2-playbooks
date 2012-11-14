@@ -21,3 +21,4 @@
     - include: linux/tty.yml tags=tty
     - include: memcache/memcache.yml tags=memcache
     - include: users/bender.yml tags=users
+    - include: ssh/ssh.yml tags=ssh

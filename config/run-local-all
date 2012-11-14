@@ -1,4 +1,4 @@
 #!/bin/sh
 
 # Script for running the play on the localhost, everything included.
-ansible-playbook -c local --tags="sendmail,motd,etckeeper,lamp,drush,nodejs,redis,css,dotcloud,tty,memcache" ./setup.yml
+ansible-playbook -c local --tags="sendmail,motd,etckeeper,lamp,drush,nodejs,redis,css,dotcloud,tty,memcache,ssh" ./setup.yml
