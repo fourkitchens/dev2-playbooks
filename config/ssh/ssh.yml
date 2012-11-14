@@ -4,3 +4,6 @@
 #
 - name: SSH | Server config
   action: template src=ssh/etc-ssh-sshd-config.j2 dest=/etc/ssh/sshd_config
+
+- name: SSH | Restart service
+  action: service name=ssh state=restarted
