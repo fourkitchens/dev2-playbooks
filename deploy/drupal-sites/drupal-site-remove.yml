@@ -1,0 +1,23 @@
+---
+##
+# Remove a 'trunk' Drupal site from the server.
+#
+# domain_name: The domain name of the site.
+#  eg: example.webchef2.com
+#
+- hosts: all
+  user: root
+
+  tasks:
+
+    - name: Disable the site
+      action: command a2dissite $domain_name
+
+    - name: Delete the checkout
+      action: file path=/var/www/vhosts/$domain_name state=absent
+
+    - name: Delete the vhost config file.
+      action: file path=/etc/apache2/sites-available/$domain_name state=absent
+
+    - name: Restart apache2
+      action: service name=apache2 state=restarted
