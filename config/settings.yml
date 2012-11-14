@@ -37,6 +37,8 @@ apache_server_admin: 'it@fourkitchens.com'
 apache_server_alias: '*.*.webchef2.com'
 apache_server_virtual_docroot: '/home/%-4/www/%-3'
 apache_server_directory: '/home/*/www/*'
+apache_server_home_alias: 'www.webchef2.com webchef2.com'
+apache_server_home_docroot: '/var/www/home'
 
 # ssh
 ssh_password_auth: 'no'

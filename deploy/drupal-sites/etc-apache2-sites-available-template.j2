@@ -1,0 +1,42 @@
+##
+# Ansible provided setup. Do not modify here.
+##
+
+##
+# A trunk server Apache config template.
+#
+<VirtualHost *:80>
+  ServerAdmin it@fourkitchens.com
+  ServerName {{ domain_name }}
+  ServerAlias {{ domain_name }}
+
+  DocumentRoot /var/www/vhosts/{{ domain_name }}
+
+  # Disallow all search engines from spidering dev sites.
+  <Location "/robots.txt">
+    SetHandler None
+  </Location>
+  Alias /robots.txt /var/www/robots.txt
+
+  <Directory /var/www/vhosts/{{ domain_name }}>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Order deny,allow
+    Deny from all
+    AuthType Basic
+    AuthGroupFile /dev/null
+    AuthName "Four Kitchens Staging"
+    AuthUserFile /etc/apache2/htpasswd
+    Require valid-user
+    Satisfy Any
+  </Directory>
+
+  ErrorLog /var/log/apache2/{{ domain_name }}.error.log
+
+  # Possible values include: debug, info, notice, warn, error, crit,
+  # alert, emerg.
+  LogLevel warn
+
+  CustomLog /var/log/apache2/{{ domain_name }}.access.log combined
+
+</VirtualHost>

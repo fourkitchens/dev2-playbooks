@@ -2,9 +2,10 @@
 ##
 # Create a new 'trunk' Drupal site on the server.
 #
-# repo: The github repository.
-# project_name: The machine name of the project
-#
+# repo: The github repository
+#   eg: git@github.com:fourkitchens/trainingwheels-drupal-files-example.git
+# domain_name: The domain name of the site.
+#  eg: example.webchef2.com
 #
 - hosts: all
   user: root
@@ -12,10 +13,22 @@
   tasks:
 
     - name: Checkout the git repo
-      action: git repo=$repo dest=/var/www/vhosts/$project_name version=master
+      action: git repo=$repo dest=/var/www/vhosts/$domain_name version=master
 
     - name: Let Bender own the repo.
-      action: "command chown -R bender: /var/www/vhosts/$project_name"
+      action: "command chown -R bender: /var/www/vhosts/$domain_name"
 
-    - name: Create sites/default/files if it doesn't exist.
-      action: file /var/www/vhosts/$project_name/sites/default/files owner=www-data group=www-data
+    - name: Create sites/default/files if it doesn't exist ensure it's owned by the www-data user.
+      action: file path=/var/www/vhosts/$domain_name/sites/default/files state=directory owner=www-data group=www-data
+
+    - name: Make www-data the owner of all sites/default/files
+      action: "command chown -R www-data: /var/www/vhosts/$domain_name/sites/default/files"
+
+    - name: Make a vhost config file.
+      action: template src=etc-apache2-sites-available-template.j2 dest=/etc/apache2/sites-available/$domain_name
+
+    - name: Enable our new site
+      action: command a2ensite $domain_name
+
+    - name: Restart apache2
+      action: service name=apache2 state=restarted

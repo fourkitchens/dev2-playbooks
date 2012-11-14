@@ -67,13 +67,13 @@
 - name: Apache | Enable some required modules
   action: command a2enmod rewrite vhost_alias
 
-- name: Apache | Configuration file for our site
+- name: Apache | Configuration file for our devserver site
   action: template src=lamp/etc-apache2-sites-available-devserver.j2 dest=/etc/apache2/sites-available/devserver
 
 - name: Apache | Disable the default site
   action: command a2dissite default
 
-- name: Apache | Enable our new site
+- name: Apache | Enable our new devserver site
   action: command a2ensite devserver
 
 - name: Apache | Robots.txt file that prevents search engines from spidering dev site.
@@ -84,6 +84,21 @@
 
 - name: Apache | Directory for virtual hosts.
   action: file path=/var/www/vhosts state=directory mode=755 owner=bender group=bender
+
+##
+# The home page of the server, mostly for people who are lost.
+#
+- name: Apache | Clone the repo for the home site.
+  action: git repo=git@github.com:fourkitchens/dev-server-landing.git dest=/var/www/home version=master
+
+- name: Apache | Make Bender the owner of the home site.
+  action: "command chown -R bender: /var/www/home"
+
+- name: Apache | Configuration file for the home site.
+  action: template src=lamp/etc-apache2-sites-available-home.j2 dest=/etc/apache2/sites-available/home
+
+- name: Apache | Enable our new home site
+  action: command a2ensite home
 
 ##
 # Restart services
