@@ -10,10 +10,10 @@
 # ... will set the webroot for the request to /home/pete/www/training
 #
 <VirtualHost *:80>
-	ServerAdmin {{ apache_server_admin }}
-	ServerAlias {{ apache_server_alias }}
+  ServerAdmin {{ apache_server_admin }}
+  ServerAlias {{ apache_server_alias }}
 
-	VirtualDocumentRoot /home/%-5/www/%-4
+  VirtualDocumentRoot {{ apache_server_virtual_docroot }}
 
   # Disallow all search engines from spidering dev sites.
   <Location "/robots.txt">
@@ -21,17 +21,17 @@
   </Location>
   Alias /robots.txt /var/www/robots.txt
 
-	<Directory /home/*/www/*>
-		Options Indexes FollowSymLinks MultiViews
-		AllowOverride All
-		Order deny,allow
-		Deny from all
+  <Directory {{ apache_server_directory }}>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Order deny,allow
+    Deny from all
     AuthType Basic
     AuthGroupFile /dev/null
     AuthName "Four Kitchens Sandbox"
     AuthUserFile /etc/apache2/htpasswd
     Require valid-user
     Satisfy Any
-	</Directory>
+  </Directory>
 
 </VirtualHost>

@@ -1,0 +1,13 @@
+---
+##
+# Create a new 'trunk' on the server.
+#
+# repo: The github repository for the Drupal webroot.
+#
+#
+- hosts: all
+  user: root
+
+  tasks:
+
+    - name:

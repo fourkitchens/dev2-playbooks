@@ -1,9 +1,9 @@
 ---
 ##
-# Add a new user. Variables must be passed on the command line:
+# Add a new user.
 #
-# user_name = The name of the new user, will also be used for group name.
-# user_mail = The user's email address as set on fourkitchens.com. Used for authorized_keys.
+# user_name: The name of the new user, will also be used for group name.
+# user_mail: The user's email address as set on fourkitchens.com. Used for authorized_keys.
 #
 - hosts: all
   user: root
