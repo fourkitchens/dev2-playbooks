@@ -19,3 +19,9 @@
 
 - name: Users | Allow Bender sudo access to the server.
   action: copy src=users/etc-sudoers-d-bender dest=/etc/sudoers.d/bender owner=root group=root mode=440
+
+- name: Users | Get the repo of the deploy scripts
+  action: git repo=git@github.com:fourkitchens/dev2-playbooks.git dest=/home/bender/dev2-playbooks version=master
+
+- name: Users | Let Bender own the repo.
+  action: "command chown -R bender: /home/bender/dev2-playbooks"
