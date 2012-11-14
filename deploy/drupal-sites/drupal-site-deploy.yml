@@ -1,0 +1,21 @@
+---
+##
+# Create a new 'trunk' Drupal site on the server.
+#
+# repo: The github repository.
+# project_name: The machine name of the project
+#
+#
+- hosts: all
+  user: root
+
+  tasks:
+
+    - name: Checkout the git repo
+      action: git repo=$repo dest=/var/www/vhosts/$project_name version=master
+
+    - name: Let Bender own the repo.
+      action: "command chown -R bender: /var/www/vhosts/$project_name"
+
+    - name: Create sites/default/files if it doesn't exist.
+      action: file /var/www/vhosts/$project_name/sites/default/files owner=www-data group=www-data

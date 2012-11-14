@@ -82,6 +82,9 @@
 - name: Apache | htaccess file for user access control.
   action: copy src=lamp/etc-apache2-htpasswd dest=/etc/apache2/htpasswd
 
+- name: Apache | Directory for virtual hosts.
+  action: file path=/var/www/vhosts state=directory mode=755 owner=bender group=bender
+
 ##
 # Restart services
 #
