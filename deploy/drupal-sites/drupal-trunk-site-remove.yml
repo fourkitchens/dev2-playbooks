@@ -4,6 +4,8 @@
 #
 # domain_name: The domain name of the site.
 #  eg: example.webchef2.com
+# db_name: The name of the database to remove.
+# db_user: The username of the db user to remove.
 #
 - hosts: localhost
   user: root
