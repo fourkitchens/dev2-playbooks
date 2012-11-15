@@ -5,7 +5,7 @@
 # domain_name: The domain name of the site.
 #  eg: example.webchef2.com
 #
-- hosts: all
+- hosts: localhost
   user: root
   connection: local
 

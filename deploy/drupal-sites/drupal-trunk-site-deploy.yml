@@ -10,7 +10,7 @@
 # db_user: The username of the db user.
 # db_pass: The password of the db user.
 #
-- hosts: all
+- hosts: localhost
   user: root
   connection: local
 
