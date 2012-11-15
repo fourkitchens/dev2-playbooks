@@ -39,9 +39,6 @@
     - name: Create MySQL user
       action: mysql_user name=$db_user password=$db_pass priv=$db_name.*:ALL
 
-    - name: Allow any user on this server to SELECT data
-      action: shell echo "GRANT SELECT ON $db_name.* to '*'@'localhost'" | mysql
-
     - name: Add a drush alias for the site
       action: template src=./etc-drush-alias-template dest=/etc/drush/$domain_name.alias.drushrc.php
 
