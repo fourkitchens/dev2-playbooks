@@ -1,0 +1,41 @@
+---
+##
+# Create a new dev Drupal site on the server.
+#
+# repo: The github repository
+#   eg: git@github.com:fourkitchens/trainingwheels-drupal-files-example.git
+# site_name: The machine name of the site.
+#  eg: client1
+# user_name: The user for whom the site is created.
+# db_name: The name of the database to create.
+# db_user: The username of the db user.
+# db_pass: The password of the db user.
+#
+- hosts: all
+  user: root
+
+  tasks:
+
+    - name: Simple test to make sure the user exists
+      action: command test -d /home/$user_name creates=/home/$user_name
+
+    - name: Checkout the git repo
+      action: git repo=$repo dest=/home/$user_name/www/$site_name version=master
+
+    - name: Let current user own the repo.
+      action: "command chown -R $user_name: /home/$user_name/www/$site_name"
+
+    - name: Create sites/default/files if it doesn't exist then ensure it's owned by the www-data user.
+      action: file path=/home/$user_name/www/$site_name/sites/default/files state=directory owner=www-data group=www-data
+
+    - name: Make www-data the owner of all sites/default/files with the users group
+      action: "command chown -R www-data:$user_name /home/$user_name/www/$site_name/sites/default/files"
+
+    - name: Allow anyone in the group to write to the files
+      action: command chmod -R g+w /home/$user_name/www/$site_name/sites/default/files
+
+    - name: Create MySQL db
+      action: mysql_db name=$db_name
+
+    - name: Create MySQL user
+      action: mysql_user name=$db_user password=$db_pass priv=$db_name.*:ALL/*.*:SELECT

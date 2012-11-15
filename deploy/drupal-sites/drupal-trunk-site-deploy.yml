@@ -6,6 +6,9 @@
 #   eg: git@github.com:fourkitchens/trainingwheels-drupal-files-example.git
 # domain_name: The domain name of the site.
 #  eg: example.webchef2.com
+# db_name: The name of the database to create.
+# db_user: The username of the db user.
+# db_pass: The password of the db user.
 #
 - hosts: all
   user: root
@@ -28,7 +31,19 @@
       action: template src=etc-apache2-sites-available-template.j2 dest=/etc/apache2/sites-available/$domain_name
 
     - name: Enable our new site
-      action: command a2ensite $domain_name
+      action: command a2ensite $domain_name creates=/etc/apache2/sites-enabled/$domain_name
+
+    - name: Create MySQL db
+      action: mysql_db name=$db_name
+
+    - name: Create MySQL user
+      action: mysql_user name=$db_user password=$db_pass priv=$db_name.*:ALL
+
+    - name: Allow any user on this server to SELECT data
+      action: shell echo "GRANT SELECT ON $db_name.* to '*'@'localhost'" | mysql
+
+    - name: Add a drush alias for the site
+      action: template src=./etc-drush-alias-template dest=/etc/drush/$domain_name.alias.drushrc.php
 
     - name: Restart apache2
       action: service name=apache2 state=restarted

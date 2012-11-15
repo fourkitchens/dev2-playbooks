@@ -1,0 +1,6 @@
+<?php
+
+$aliases['{{ domain_name }}'] = array(
+  'uri' => '{{ domain_name }}',
+  'root' => '/var/www/vhosts/{{ domain_name }}',
+);

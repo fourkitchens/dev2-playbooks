@@ -16,3 +16,6 @@
 
 - name: Drush | Run drush once so it downloads it's dependencies
   action: command drush
+
+- name: Drush | Create a folder to hold site aliases
+  action: file path=/etc/drush state=directory
