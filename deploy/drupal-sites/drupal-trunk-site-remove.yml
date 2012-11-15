@@ -7,8 +7,15 @@
 #
 - hosts: all
   user: root
+  connection: local
 
   tasks:
+
+    - name: Check to ensure variables are passed correctly and that target domain exists
+      action: command test -d /var/www/vhosts/$domain_name creates=/var/www/vhosts/$domain_name
+
+    - name: Check to see vars are passed and target config exists.
+      action: command test -f /etc/apache2/sites-available/$domain_name creates=/etc/apache2/sites-available/$domain_name
 
     - name: Disable the site
       action: command a2dissite $domain_name

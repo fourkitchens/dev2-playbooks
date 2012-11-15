@@ -4,6 +4,7 @@
 #
 - hosts: all
   user: root
+  connection: local
 
   tasks:
 

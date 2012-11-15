@@ -2,7 +2,8 @@
 ##
 # Ansible playbook for setting up dev2.
 #
-- hosts: all
+- hosts: localhost
+  connection: local
   user: root
 
   vars_files:

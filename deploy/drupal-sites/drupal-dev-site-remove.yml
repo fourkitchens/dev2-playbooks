@@ -1,0 +1,27 @@
+---
+##
+# Remove a dev Drupal site on the server.
+#
+# site_name: The machine name of the site.
+#  eg: client1
+# user_name: The user for whom the site is created.
+# db_name: The name of the database to create.
+# db_user: The username of the db user.
+#
+- hosts: localhost
+  connection: local
+  user: root
+
+  tasks:
+
+    - name: Simple test to make sure the user and site exists
+      action: command test -d /home/$user_name/www/$site_name creates=/home/$user_name/www/$site_name
+
+    - name: Delete the site folder
+      action: file state=absent path=/home/$user_name/www/$site_name
+
+    - name: Remove MySQL db
+      action: mysql_db name=$db_name state=absent
+
+    - name: Remove MySQL user
+      action: mysql_user name=$db_user state=absent
