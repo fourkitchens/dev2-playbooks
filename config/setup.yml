@@ -20,7 +20,7 @@
     - include: css-tools/css.yml tags=css
     - include: dotcloud/dotcloud.yml tags=dotcloud
     - include: linux/tty.yml tags=tty
-    - include: linux/tty.yml tags=ntp
+    - include: linux/ntp.yml tags=ntp
     - include: memcache/memcache.yml tags=memcache
     - include: users/bender.yml tags=users
     - include: ssh/ssh.yml tags=ssh
