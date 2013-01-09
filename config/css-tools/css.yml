@@ -11,8 +11,5 @@
 - name: CSS | Install Susy (no more --pre required as it's 1.0 now)
   action: command gem install susy
 
-- name: CSS | Install Compass
-  action: command gem install compass creates=/usr/local/bin/compass
-
-- name: CSS | Install Respond-to
-  action: command gem install respond-to
+- name: CSS | Install Aurora
+  action: command gem install compass-aurora
