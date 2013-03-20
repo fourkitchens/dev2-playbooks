@@ -26,15 +26,6 @@
     - name: Let current user own the repo.
       action: "command chown -R $user_name: /home/$user_name/www/$site_name"
 
-    - name: Create sites/default/files if it doesn't exist then ensure it's owned by the www-data user.
-      action: file path=/home/$user_name/www/$site_name/sites/default/files state=directory owner=www-data group=www-data
-
-    - name: Make www-data the owner of all sites/default/files with the users group
-      action: "command chown -R www-data:$user_name /home/$user_name/www/$site_name/sites/default/files"
-
-    - name: Allow anyone in the group to write to the files
-      action: command chmod -R g+w /home/$user_name/www/$site_name/sites/default/files
-
     - name: Create MySQL db
       action: mysql_db name=$db_name
 
