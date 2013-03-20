@@ -16,3 +16,9 @@
 
 - name: CSS | Install Respond-to
   action: command gem install respond-to
+
+- name: CSS | Install Aurora
+  action: command gem install compass-aurora
+
+- name: CSS | Install Animation
+  action: command gem install animation --pre

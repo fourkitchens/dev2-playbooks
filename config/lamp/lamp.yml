@@ -70,6 +70,9 @@
 - name: Apache | Enable Apache vhost_alias module
   action: command a2enmod vhost_alias creates=/etc/apache2/mods-enabled/vhost_alias.load
 
+- name: Apache | Main configuration file
+  action: template src=lamp/etc-apache2-apache2-conf.j2 dest=/etc/apache2/apache2.conf
+
 - name: Apache | Configuration file for our devserver site
   action: template src=lamp/etc-apache2-sites-available-devserver.j2 dest=/etc/apache2/sites-available/devserver
 
