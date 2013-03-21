@@ -3,7 +3,7 @@
 # Varnish 3.0 installation
 #
 - name: Varnish | Add the Varnish apt key
-  action: apt-key url=http://repo.varnish-cache.org/debian/GPG-key.txt
+  action: apt_key url=http://repo.varnish-cache.org/debian/GPG-key.txt
 
 - name: Varnish | Add the Varnish repo
   action: command add-apt-repository 'deb http://repo.varnish-cache.org/ubuntu/ precise varnish-3.0'
