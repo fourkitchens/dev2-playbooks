@@ -15,4 +15,7 @@
   action: apt pkg=varnish state=installed
 
 - name: Varnish | Copy configuration file
-  action: template src=etc-varnish-default-vcl.j2 dest=/etc/varnish/default.vcl
+  action: template src=varnish/etc-varnish-default-vcl.j2 dest=/etc/varnish/default.vcl
+
+- name: Varnish | Restart Varnish
+  action: service varnish restart
