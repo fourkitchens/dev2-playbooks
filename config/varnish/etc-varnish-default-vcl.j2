@@ -98,7 +98,7 @@ sub vcl_recv {
     }
   }
 
-  # This is the default vcl_recv code that we override for the express purpose of
+  # From here down is the default vcl_recv code that we override for the express purpose of
   # allowing caching on Authorization headers.
   if (req.restarts == 0) {
     if (req.http.x-forwarded-for) {
