@@ -42,5 +42,9 @@ apache_server_name: 'webchef2'
 apache_server_home_alias: 'www.webchef2.com webchef2.com'
 apache_server_home_docroot: '/var/www/home'
 
+# varnish
+varnish_port: 80
+varnish_size: '1G'
+
 # ssh
 ssh_password_auth: 'no'
