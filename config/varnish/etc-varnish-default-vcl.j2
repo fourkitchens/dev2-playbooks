@@ -132,6 +132,11 @@ sub vcl_fetch {
 
 # In the event of an error, show friendlier messages.
 sub vcl_error {
+  if (obj.status == 401) {
+     # Prompt for password.
+     set obj.http.WWW-Authenticate = "Basic realm=Secured";
+  }
+
   # Redirect to some other URL in the case of a homepage failure.
   #if (req.url ~ "^/?$") {
   #  set obj.status = 302;
@@ -151,11 +156,11 @@ sub vcl_error {
     .error { color: #222; }
   </style>
 </head>
-<body onload="setTimeout(function() { window.location = '/' }, 5000)">
+<body onload="setTimeout(function() { window.location = '/' }, 30000)">
   <div id="page">
     <h1 class="title">Page Unavailable</h1>
     <p>The page you requested is temporarily unavailable.</p>
-    <p>We're redirecting you to the <a href="/">homepage</a> in 5 seconds.</p>
+    <p>We're redirecting you to the <a href="/">homepage</a> in 30 seconds.</p>
     <div class="error">(Error "} + obj.status + " " + obj.response + {")</div>
   </div>
 </body>
