@@ -18,4 +18,4 @@
   action: template src=varnish/etc-varnish-default-vcl.j2 dest=/etc/varnish/default.vcl
 
 - name: Varnish | Restart Varnish
-  action: service varnish restart
+  action: service name=varnish state=restarted
