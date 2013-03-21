@@ -73,6 +73,9 @@
 - name: Apache | Main configuration file
   action: template src=lamp/etc-apache2-apache2-conf.j2 dest=/etc/apache2/apache2.conf
 
+- name: Apache | Main configuration file for ports
+  action: template src=lamp/etc-apache2-ports-conf.j2 dest=/etc/apache2/ports.conf
+
 - name: Apache | Configuration file for our devserver site
   action: template src=lamp/etc-apache2-sites-available-devserver.j2 dest=/etc/apache2/sites-available/devserver
 

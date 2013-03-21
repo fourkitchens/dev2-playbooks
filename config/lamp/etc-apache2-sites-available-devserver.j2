@@ -9,7 +9,7 @@
 #
 # ... will set the webroot for the request to /home/pete/www/training
 #
-<VirtualHost *:8080>
+<VirtualHost *:{{ apache_port }}>
   ServerAdmin {{ apache_server_admin }}
   ServerAlias {{ apache_server_alias }}
 
