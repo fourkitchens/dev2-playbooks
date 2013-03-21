@@ -38,4 +38,4 @@
       action: service name=apache2 state=restarted
 
     - name: Remove drush alias
-      action: file path=/etc/drush/$domain_name state=absent
+      action: file path=/etc/drush/$domain_name.alias.drushrc.php state=absent
