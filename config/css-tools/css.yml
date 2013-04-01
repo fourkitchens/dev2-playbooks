@@ -5,20 +5,27 @@
 - name: CSS | Install rubygems package
   action: apt pkg=rubygems state=installed
 
-- name: CSS | Install SASS
+- name: SASS | Install SASS
   action: command gem install sass creates=/usr/local/bin/sass
 
-- name: CSS | Install Susy (no more --pre required as it's 1.0 now)
+- name: SASS | Install Susy (no more --pre required as it is 1.0 now)
   action: command gem install susy
 
-- name: CSS | Install Compass
-  action: command gem install compass creates=/usr/local/bin/compass
+- name: SASS | Install Compass
+  action: command gem install compass
 
-- name: CSS | Install Respond-to
+- name: SASS | Install Respond-to
   action: command gem install respond-to
 
-- name: CSS | Install Aurora
+- name: SASS | Install Aurora
   action: command gem install compass-aurora
 
-- name: CSS | Install Animation
+- name: SASS | Install Animation
   action: command gem install animation --pre
+
+- name: SASS | Install Singularity
+  action: command gem install singularitygs
+
+- name: Roole | Install Roole
+  action: command npm install roole -g
+
