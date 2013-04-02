@@ -5,26 +5,19 @@
 - name: CSS | Install rubygems package
   action: apt pkg=rubygems state=installed
 
-- name: SASS | Install SASS
-  action: command gem install sass creates=/usr/local/bin/sass
-
-- name: SASS | Install Susy (no more --pre required as it is 1.0 now)
-  action: command gem install susy
-
-- name: SASS | Install Compass
-  action: command gem install compass
-
-- name: SASS | Install Respond-to
-  action: command gem install respond-to
-
-- name: SASS | Install Aurora
-  action: command gem install compass-aurora
-
-- name: SASS | Install Animation
-  action: command gem install animation --pre
-
-- name: SASS | Install Singularity
-  action: command gem install singularitygs
+- name: SASS | Install Sass and all ruby gems
+  action: gem name=$item state=latest
+  with_items:
+    - sass
+    - compass
+    - singularitygs
+    - susy
+    - toolkit
+    - respond-to
+    - breakpoint
+    - compass-aurora
+    - animation
+    - color-schemer
 
 - name: Roole | Install Roole
   action: command npm install roole -g
