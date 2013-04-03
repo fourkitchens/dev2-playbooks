@@ -16,8 +16,10 @@
     - respond-to
     - breakpoint
     - compass-aurora
-    - animation
     - color-schemer
+
+- name: SASS | Install Animation (pre-release)
+  action: command gem install animation --pre
 
 - name: Roole | Install Roole
   action: command npm install roole -g
