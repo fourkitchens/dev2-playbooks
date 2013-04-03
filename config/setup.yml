@@ -13,6 +13,7 @@
     - include: sendmail/sendmail.yml tags=sendmail
     - include: motd/motd.yml tags=motd
     - include: etckeeper/etckeeper.yml tags=etckeeper
+    - include: users/bender.yml tags=users
     - include: lamp/lamp.yml tags=lamp
     - include: drush/drush.yml tags=drush
     - include: nodejs/nodejs.yml tags=nodejs
@@ -22,6 +23,5 @@
     - include: linux/tty.yml tags=tty
     - include: linux/ntp.yml tags=ntp
     - include: memcache/memcache.yml tags=memcache
-    - include: users/bender.yml tags=users
     - include: ssh/ssh.yml tags=ssh
     - include: varnish/varnish.yml tags=varnish
