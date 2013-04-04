@@ -18,6 +18,10 @@ In vagrant/settings.yml:
 In etc/hosts:
 * Add your new hostname with the IP address you find in vagrant/VagrantFile
 
+### 3) Start vagrant
+
+    vagrant up
+
 ## Using deploy scripts
 
 Deploy a trunk site with the address 'test.webchef2.com':
