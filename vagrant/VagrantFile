@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+Vagrant::Config.run do |config|
+  config.vm.define :dev do |dev_config|
+    dev_config.ssh.forward_agent = true
+
+    dev_config.vm.box         = "precise64"
+    dev_config.vm.box_url     = "http://files.vagrantup.com/precise64.box"
+    dev_config.vm.host_name   = "local-dev"
+
+    dev_config.vm.customize ["modifyvm", :id, "--memory", "512"]
+    dev_config.vm.customize ["modifyvm", :id, "--cpus", "1"]
+
+    # Shared folders through NFS. This is supported in Mac and Linux. Windows may have
+    # issues, see Vagrant site for documentation.
+    config.vm.network :hostonly, "10.1.0.10"
+    config.vm.share_folder("dev2", "/home/vagrant/playbooks", "../", :nfs => true)
+
+    # We specify a fixed IP address above, so don't use port forwarding, rather make
+    # an entry into your /etc/hosts for the actual IP address.
+    # dev_config.vm.forward_port
+
+    dev_config.vm.provision :shell, :path => "provision/ansible-setup.sh"
+    dev_config.vm.provision :shell, :path => "provision/local-dev-setup.sh"
+
+    # Load a local setup file if it exists, so you can use it to
+    # provide additional provisioning steps.
+    if File.exist?(File.join(File.dirname(__FILE__), "setup.local.sh"))
+      dev_config.vm.provision :shell, :path => "setup.local.sh"
+    end
+  end
+end
