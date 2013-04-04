@@ -12,7 +12,7 @@ See: https://fourkitchens.atlassian.net/wiki/display/FK/Dev2+on+Rackspace+Cloud
 ### 2) Modify the settings
 
 In vagrant/settings.yml:
-* Set the hostname correctly, for example dev.local.
+* Set the hostname correctly, for example local.dev.
 * Set memory requirements, etc.
 
 In etc/hosts:
