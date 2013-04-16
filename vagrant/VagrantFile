@@ -1,24 +1,26 @@
-#!/usr/bin/env ruby
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
 
-Vagrant::Config.run do |config|
+Vagrant.configure("2") do |config|
   config.vm.define :dev do |dev_config|
+
     dev_config.ssh.forward_agent = true
 
     dev_config.vm.box         = "precise64"
     dev_config.vm.box_url     = "http://files.vagrantup.com/precise64.box"
-    dev_config.vm.host_name   = "local-dev"
+    dev_config.vm.hostname        = "local-dev"
 
-    dev_config.vm.customize ["modifyvm", :id, "--memory", "512"]
-    dev_config.vm.customize ["modifyvm", :id, "--cpus", "1"]
+    # VirtualBox specific configuration.
+    dev_config.vm.provider :virtualbox do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "1024"]
+      vb.customize ["modifyvm", :id, "--cpus", "1"]
+    end
 
     # Shared folders through NFS. This is supported in Mac and Linux. Windows may have
     # issues, see Vagrant site for documentation.
-    config.vm.network :hostonly, "10.1.0.10"
-    config.vm.share_folder("dev2", "/home/vagrant/playbooks", "../", :nfs => true)
-
-    # We specify a fixed IP address above, so don't use port forwarding, rather make
-    # an entry into your /etc/hosts for the actual IP address.
-    # dev_config.vm.forward_port
+    dev_config.vm.network :private_network, ip: "10.1.0.10"
+    dev_config.vm.synced_folder "../", "/home/vagrant/playbooks", :nfs => true
+    dev_config.vm.synced_folder "~/www", "/home/vagrant/www", :nfs => true, :create => true
 
     dev_config.vm.provision :shell, :path => "provision/ansible-setup.sh"
     dev_config.vm.provision :shell, :path => "provision/local-dev-setup.sh"
