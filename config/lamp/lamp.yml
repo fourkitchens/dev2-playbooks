@@ -15,6 +15,7 @@
     - php-soap
     - php5-gd
     - php5-curl
+    - php5-xdebug
     - python-mysqldb
 
 ##
