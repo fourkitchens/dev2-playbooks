@@ -31,7 +31,7 @@ echo 'Checking out Ansible...'
 mkdir /usr/local/src/ansible || error_exit "Unable to create the directory for Ansible."
 git clone https://github.com/ansible/ansible.git /usr/local/src/ansible > /dev/null || error_exit "Unable to clone the git repository for Ansible."
 cd /usr/local/src/ansible
-git checkout v1.1 > /dev/null 2>&1 || error_exit "Unable to checkout the required tag."
+git checkout devel > /dev/null 2>&1 || error_exit "Unable to checkout the required tag."
 
 echo ''
 echo '======================================================================='
