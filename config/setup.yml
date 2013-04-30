@@ -18,7 +18,7 @@
     - include: drush/drush.yml tags=drush
     - include: nodejs/nodejs.yml tags=nodejs
     - include: redis/redis.yml tags=redis
-    - include: css-tools/css.yml tags=css
+    - include: ruby/ruby.yml tags=ruby
     - include: dotcloud/dotcloud.yml tags=dotcloud
     - include: linux/tty.yml tags=tty
     - include: linux/ntp.yml tags=ntp

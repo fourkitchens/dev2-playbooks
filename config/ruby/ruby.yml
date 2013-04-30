@@ -1,14 +1,10 @@
 ---
 ##
-# CSS compiling tools.
+# Ruby tools
 #
-- name: CSS | Install rubygems and bundler package
-  action: apt pkg=$item state=installed
-  with_items:
-    - rubygems
-    - ruby-bundler
+- name: Ruby | Install rubygems
 
-- name: SASS | Install Sass and all ruby gems
+- name: Ruby | Install Sass and all ruby gems
   action: gem name=$item state=latest
   with_items:
     - sass
@@ -20,10 +16,7 @@
     - breakpoint
     - compass-aurora
     - color-schemer
+    - bundler
 
 - name: SASS | Install Animation (pre-release)
   action: command gem install animation --pre
-
-- name: Roole | Install Roole
-  action: command npm install roole -g
-
