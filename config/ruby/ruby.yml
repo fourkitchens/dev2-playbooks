@@ -3,6 +3,7 @@
 # Ruby tools
 #
 - name: Ruby | Install rubygems
+  action: apt pkg=rubygems state=installed
 
 - name: Ruby | Install Sass and all ruby gems
   action: gem name=$item state=latest
