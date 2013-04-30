@@ -2,8 +2,11 @@
 ##
 # CSS compiling tools.
 #
-- name: CSS | Install rubygems package
-  action: apt pkg=rubygems state=installed
+- name: CSS | Install rubygems and bundler package
+  action: apt pkg=$item state=installed
+  with_items:
+    - rubygems
+    - ruby-bundler
 
 - name: SASS | Install Sass and all ruby gems
   action: gem name=$item state=latest
