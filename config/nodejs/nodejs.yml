@@ -12,6 +12,13 @@
   action: apt update-cache=yes
 
 - name: Node.js | Install nodejs and npm
-  action: apt pkg=$item state=installed
+  action: apt pkg=nodejs state=installed
+
+- name: Node.js | Install required npm packages
+  action: npm name=$item global=yes
   with_items:
-    - nodejs
+    - coffee-script
+    - roole
+    - yo
+    - grunt-cli
+    - bower
