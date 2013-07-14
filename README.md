@@ -9,9 +9,9 @@ See: https://fourkitchens.atlassian.net/wiki/display/FK/Dev2+on+Rackspace+Cloud
 
 ### 1) Install the latest Vagrant and VirtualBox.
 
-### 2) Modify the settings
+### 2) Clone this Repo and then Modify the vagrant settings file within this repo.
 
-In vagrant/settings.yml:
+In the repo's vagrant/settings.yml:
 * Set the hostname correctly, for example local.dev.
 * Set memory requirements, etc.
 
