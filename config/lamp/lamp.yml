@@ -28,6 +28,32 @@
 - name: APC | Cache configuration file - apc.ini
   action: template src=lamp/etc-php5-conf-d-apc-ini.j2 dest=/etc/php5/conf.d/apc.ini
 
+# xhprof installation
+- name: XhProf | Get xhprof from facebook
+  get_url: url=https://github.com/facebook/xhprof/archive/master.zip dest=/tmp/master.zip
+- name: XhProf | Unzip master.zip
+  action: shell unzip master.zip chdir=/tmp
+- name: XhProf | Compile XhProf so that this is php 5.4 ready
+  action: shell  phpize chdir=/tmp/xhprof-master/extension/
+- name: XhProf | Configure XhProf
+  shell: ./configure chdir=/tmp/xhprof-master/extension/
+- name: XhProf | Make XhProf
+  shell: make chdir=/tmp/xhprof-master/extension/
+- name: XhProf | install xhprof
+  shell: make install chdir=/tmp/xhprof-master/extension/
+- name: XhProf | Adding to the php ini file
+  ini_file: dest=/etc/php5/apache2/php.ini section=xhprof option=extension value=xhprof.so
+- name: XhProf | Adding output dir to php.ini
+  lineinfile: dest=/etc/php5/apache2/php.ini insertafter='xhprof.so' regexp='xhprof.output_dir' line=xhprof.output_dir=\"/var/tmp/xhprof\"
+- name: XhProf | Adding to the php cli ini file
+  ini_file: dest=/etc/php5/cli/php.ini section=xhprof option=extension value=xhprof.so
+- name: XhProf | Adding output dir to php.ini
+  lineinfile: dest=/etc/php5/cli/php.ini insertafter='xhprof.so' regexp='xhprof.output_dir' line=xhprof.output_dir=\"/var/tmp/xhprof\"
+- name: XhProf | Adding xhprof temp dir
+  shell: mkdir xhprof chdir=/var/tmp/
+- name: XHProf | Changing perms for xhprof temp dir
+  shell: chmod 777 xhprof chdir=/var/tmp/
+    
 ##
 # MySQL database setup.
 #
