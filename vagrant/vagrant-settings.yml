@@ -49,3 +49,8 @@ varnish_auth: 'Basic Zms6ZmtidWlsZA=='
 
 # ssh
 ssh_password_auth: 'no'
+
+# mongo
+mongo_root_password: 'R4nTBXL7BsaAtci'
+mongo_app_password: 'FQ2Q8NtzdVJVguJ'
+mongo_restart_timeout: 60

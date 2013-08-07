@@ -25,3 +25,4 @@
     - include: memcache/memcache.yml tags=memcache
     - include: ssh/ssh.yml tags=ssh
     - include: varnish/varnish.yml tags=varnish
+    - include: mongo/mongo.yml tabs=mongodb
