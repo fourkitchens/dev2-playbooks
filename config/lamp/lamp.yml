@@ -18,6 +18,7 @@
     - curl
     - php5-xdebug
     - python-mysqldb
+    - unzip
 
 ##
 # PHP Setup.
@@ -27,6 +28,35 @@
 
 - name: APC | Cache configuration file - apc.ini
   action: template src=lamp/etc-php5-conf-d-apc-ini.j2 dest=/etc/php5/conf.d/apc.ini
+##
+# xhprof installation
+#
+- name: Clear out xhprof tmp install if it exists
+  action: file path=/tmp/xhprof-master state=absent
+  
+- name: XhProf | Get xhprof from facebook
+  get_url: url=https://github.com/facebook/xhprof/archive/master.zip dest=/tmp/master.zip force=yes
+  
+- name: XhProf | Unzip -o master.zip
+  action: shell unzip -o master.zip chdir=/tmp
+
+- name: XhProf | Compile XhProf so that this is php 5.4 ready
+  action: shell  phpize chdir=/tmp/xhprof-master/extension/
+
+- name: XhProf | Configure XhProf
+  shell: ./configure chdir=/tmp/xhprof-master/extension/
+
+- name: XhProf | Make XhProf
+  shell: make chdir=/tmp/xhprof-master/extension/
+
+- name: XhProf | install xhprof
+  shell: make install chdir=/tmp/xhprof-master/extension/
+
+- name: XhProf | Configure PHP to use Compile xhprof extension
+  action: copy dest=/etc/php5/conf.d/xhprof.ini src=lamp/etc-php5-conf-d-xhprof-ini.j2
+
+- name: XhProf | Adding xhprof temp dir
+  action: file path=/var/tmp/xhprof state=directory mode=0777
 
 ##
 # MySQL database setup.
