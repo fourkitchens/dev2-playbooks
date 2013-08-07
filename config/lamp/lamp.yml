@@ -18,6 +18,7 @@
     - curl
     - php5-xdebug
     - python-mysqldb
+    - unzip
 
 ##
 # PHP Setup.
