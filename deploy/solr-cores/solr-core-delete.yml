@@ -13,7 +13,7 @@
 
   tasks:
 
-    - name: Add to the core file.
+    - name: Delete from the core file.
       action: lineinfile dest=/usr/share/tomcat6/solr/solr.xml regexp="<core name=\"$core_name\" instanceDir=\"$core_name\" />" state=absent
 
     - name: Restart tomcat
