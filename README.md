@@ -11,6 +11,8 @@ See: https://fourkitchens.atlassian.net/wiki/display/FK/Dev2+on+Rackspace+Cloud
 
 ### 2) Clone this Repo and then Modify the vagrant settings file within this repo.
 
+Copy the vagrant/vagrants-settings.yml file to vagrant/settings.yml
+
 In the repo's vagrant/settings.yml:
 * Set the hostname correctly, for example local.dev.
 * Set memory requirements, etc.

@@ -25,4 +25,9 @@
     - include: memcache/memcache.yml tags=memcache
     - include: ssh/ssh.yml tags=ssh
     - include: varnish/varnish.yml tags=varnish
-    - include: mongo/mongo.yml tabs=mongodb
+    - include: mongo/mongo.yml tags=mongodb
+    - include: solr/solr.yml tags=solr
+
+  handlers:
+    - name: restart tomcat
+      service: name=tomcat6 state=restarted
