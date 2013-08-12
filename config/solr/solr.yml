@@ -1,0 +1,81 @@
+---
+##
+#  Apt package installation of solr software.
+#  tomcat6 and openjdk 6 are best friends
+#
+- name: Tomcat | Install required packages.
+  action: apt pkg=$item state=installed
+  with_items:
+    - openjdk-6-jdk
+    - tomcat6
+    - tomcat6-admin
+    - tomcat6-common
+    - tomcat6-user
+
+# Configure Tomcat
+- name: Tomcat | Configure Tomcat server
+  template: src=solr/etc-tomcat6-server-xml.j2 dest=/etc/tomcat6/server.xml
+
+- name: Tomcat | Symlink install directory
+  file: src=/usr/share/tomcat6 path=/usr/share/tomcat state=link
+
+- name: Tomcat | Configure Tomcat users
+  template: src=solr/etc-tomcat6-tomcat-users-xml.j2 dest=/etc/tomcat6/tomcat-users.xml
+
+- name: Tomcat | Start Tomcat
+  service: name=tomcat6 state=restarted enabled=yes
+
+- name: Tomcat | wait for tomcat to start
+  wait_for: port={{tomcat_port}}
+
+##
+# Apache solr
+#
+- name: SOLR | Create webapps directory for SOLR
+  action: file path=/usr/share/tomcat6/webapps state=directory owner=tomcat6 group=tomcat6 mode=700
+
+- name: SOLR | Get Apache SOLR version 3.6.2 for Drupal 3.x config.
+  action: copy src=solr/solr.tgz dest=/tmp/solr.tgz
+
+- name: SOLR | Untar SOLR - contains minimum amount of files needed.
+  action: shell tar -xvzf solr.tgz  chdir=/tmp
+
+- name: SOLR | Copy war to tomcat
+  action: copy src=solr/apache-solr-3.6.2.war dest=/usr/share/tomcat6/webapps/solr.war
+
+- name: SOLR | Copy solr directory
+  action: shell cp -R /tmp/solr /usr/share/tomcat6
+
+- name: SOLR | Moving original solr schema example files
+  action: command mv schema.xml schema.orig.xml chdir=/usr/share/tomcat6/solr/conf
+
+- name: SOLR | moving original solrconfig example files
+  action: command mv solrconfig.xml solrconfig.orig.xml chdir=/usr/share/tomcat6/solr/conf
+
+- name: SOLR | moving original protwords.txt example files
+  action: command mv protwords.txt protwords.orig.txt chdir=/usr/share/tomcat6/solr/conf
+
+##
+# Search API SOLR module and Apachesolr modules both have these files
+# They are effectively the same, minus a few spaces.
+#
+- name: SOLR | copying drupal Search Api Solr module config files
+  action: copy src=solr/solr-3.x/schema.xml dest=/usr/share/tomcat6/solr/conf/schema.xml
+
+- name: SOLR | copying drupal Search Api Solr module config files solrconfig
+  action: copy src=solr/solr-3.x/solrconfig.xml dest=/usr/share/tomcat6/solr/conf/solrconfig.xml force=yes
+
+  name: SOLR | copying drupal module config files solrconfig
+  action: copy src=solr/solr-3.x/protwords.txt dest=/usr/share/tomcat6/solr/conf/protwords.txt
+
+- name: SOLR | Copy config
+  action: copy src=solr/etc-tomcat6-catalina-localhost-solr.xml dest=/etc/tomcat6/Catalina/localhost/solr.xml
+
+- name: SOLR | Copy multicore config
+  action: copy src=solr/usr-share-tomcat6-solr-solr.xml dest=/usr/share/tomcat6/solr/solr.xml
+
+- name: SOLR | Restart tomcat
+  action: service name=tomcat6 state=restarted
+
+- name: SOLR | copying drupal module config files solrconfig
+  action: copy src=solr/solr-3.x/solrconfig.xml dest=/usr/share/tomcat6/solr/conf/solrconfig.xml force=yes
