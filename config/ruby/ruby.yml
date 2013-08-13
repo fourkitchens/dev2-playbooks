@@ -18,6 +18,7 @@
     - compass-aurora
     - color-schemer
     - bundler
+    - github-pages
 
 - name: SASS | Install Animation (pre-release)
   action: command gem install animation --pre
