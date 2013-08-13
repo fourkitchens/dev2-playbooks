@@ -42,6 +42,15 @@ Dev site remove:
 
     ansible-playbook --extra-vars="user_name=mark site_name=test db_name=mark_test db_user=mark_test" drupal-dev-site-remove.yml
 
+
+SOLR core create (in deploy/solr-cores):
+
+    ansible-playbook --extra-vars="core_name=test_dd" solr-core-add.yml
+
+SOLR core remove (in deploy/solr-cores):
+
+    ansible-playbook --extra-vars="core_name=test_dd" solr-core-delete.yml
+    
 Drush sync:
 
     drush sa
