@@ -1,0 +1,18 @@
+---
+# The main playbook to deploy the site
+
+- hosts: all
+  roles:
+   - common
+
+- hosts: development
+  roles:
+   -
+
+- hosts: vagrant
+  roles:
+   -
+
+- hosts: live
+  roles:
+   -

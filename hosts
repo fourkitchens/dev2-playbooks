@@ -1,0 +1,13 @@
+[all:children]
+development
+live
+vagrant
+
+[development]
+dev2
+
+[live]
+web4
+
+[vagrant]
+local.dev

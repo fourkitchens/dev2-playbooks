@@ -1,0 +1,6 @@
+---
+# The playbook for common tasks
+
+- include: sendmail.yml tags=sendmail
+- include: motd.yml tags=motd
+- include: etckeeper.yml tags=etckeeper

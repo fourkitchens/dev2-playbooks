@@ -6,7 +6,7 @@
   action: apt pkg=etckeeper state=installed
 
 - name: etckeeper | Configuration file
-  action: copy src=etckeeper/etc-etckeeper-etckeeper-conf.j2 dest=/etc/etckeeper/etckeeper.conf
+  template: src=etc/etckeeper/etckeeper-conf.j2 dest=/etc/etckeeper/etckeeper.conf
 
 - name: etckeeper | Initialize.
   action: command etckeeper init creates=/etc/.git
