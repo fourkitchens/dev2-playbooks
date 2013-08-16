@@ -11,16 +11,27 @@
 #  "192.10.0.0"/24;
 # }
 
-# Default backend definition.  Set this to point to your content
-# server.
-#
-backend default {
+backend apache {
   .host = "127.0.0.1";
-  .port = "8080";
+  .port = "{{ apache_port }}";
+}
+backend nginx {
+  .host = "127.0.0.1";
+  .port = "{{ nginx_port }}";
 }
 
 # Respond to incoming requests.
 sub vcl_recv {
+  set req.backend = {{ varnish_default_backend }};
+
+  # Switch backend based on GET arguments or X headers.
+  if (req.url ~ "(\?|&){{ varnish_backend_get_key }}=nginx" || req.http.{{ varnish_backend_header_key }} == "nginx") {
+    set req.backend = nginx;
+  }
+  else if (req.url ~ "(\?|&){{ varnish_backend_get_key }}=apache" || req.http.{{ varnish_backend_header_key }} == "apache") {
+    set req.backend = apache;
+  }
+
   # If Authorization header is not available, then deny. This auth is checked here
   # in Varnish AND in Apache. Changing one requires changing the other
   if (!req.http.Authorization ~ "{{ varnish_auth }}") {
