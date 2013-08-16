@@ -106,3 +106,20 @@ echo "localhost" > /etc/ansible/hosts
 or:
 
     ansible-playbook --tags="common,..." setup.yml
+
+## Multiple Webservers
+
+The dev2 playbooks now install both apache and nginx. This will allow us to more closely emulate Pantheon (nginx+php-fpm), or more common (apache) application server environments. You can switch between the two by sending either a GET argument (```varnish_backend``` by default) or by setting a request header (```X-varnish-backend``` by default).
+
+For example, the following requests would hit the respective servers:
+
+* apache
+ * http://fpl.local.dev?varnish_backend=apache
+ * http://fpl.local.dev (X-varnish-backend: apache)
+* nginx
+ * http://fpl.local.dev?varnish_backend=nginx
+ * http://fpl.local.dev (X-varnish-backend: nginx)
+
+The default webserver can be set from your settings file before running the playbooks but will be set to apache by default.
+
+Protip: you can use the chrome extension [ModHeader](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj) to send custom headers and avoid needing to use GET arguments on every request.
