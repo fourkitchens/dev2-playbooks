@@ -45,9 +45,9 @@ mysql_root_password: 'password'
 # apache
 apache_port: 8080
 apache_server_admin: 'you@fourkitchens.com'
-apache_server_alias: '*.*.local.dev'
-apache_server_virtual_docroot: '/home/%-4/www/%-3'
-apache_server_directory: '/home/*/www/*'
+apache_server_alias: '*.local.dev'
+apache_server_virtual_docroot: '/home/vagrant/www/%-3'
+apache_server_directory: '/home/vagrant/www/*'
 apache_server_name: 'local'
 apache_server_home_alias: 'local.dev'
 apache_server_home_docroot: '/var/www/home'
