@@ -9,6 +9,13 @@
 server_hostname: 'local.dev'
 
 # php.ini
+phpfpm_user: 'phpfpm'
+phpfpm_group: 'phpfpm'
+phpfpm_pm_start_servers: '2'
+phpfpm_listen: '/run/phpfpm.sock'
+phpfpm_listen_owner: 'nginx'
+phpfpm_listen_group: 'nginx'
+phpfpm_listen_mode: '0600'
 php_max_execution_time: '90'
 php_display_errors: 'On'
 php_display_startup_errors: 'On'
@@ -17,6 +24,9 @@ php_post_max_size: '32M'
 php_upload_max_filesize: '32M'
 php_date_timezone: 'US/Central'
 php_memory_limit: '256M'
+php_cgi_fix_pathinfo: '0'
+php_short_open_tag: 'Off'
+
 # apc.ini
 apc_rfc1867: '1'
 apc_shm_size: '90M'
@@ -42,10 +52,22 @@ apache_server_name: 'local'
 apache_server_home_alias: 'local.dev'
 apache_server_home_docroot: '/var/www/home'
 
+# nginx
+nginx_user: 'nginx'
+nginx_port: 8081
+nginx_default_server_name: '"~^(?<domain>[^\.]+)\.local.dev$"'
+nginx_default_root: '/home/vagrant/www/$domain'
+nginx_dev_robots: true
+nginx_worker_processes: '1'
+nginx_webroot: '/var/www'
+
 # varnish
 varnish_port: 80
 varnish_size: '1G'
 varnish_auth: 'Basic Zms6ZmtidWlsZA=='
+varnish_backend_get_key: 'varnish_backend'
+varnish_backend_header_key: 'X-varnish-backend'
+varnish_default_backend: 'apache'
 
 # ssh
 ssh_password_auth: 'no'
