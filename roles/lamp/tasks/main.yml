@@ -7,6 +7,7 @@
   with_items:
     - php5
     - apache2
+    - libapache2-mod-php5
     - mysql-server
     - mysql-client
     - php5-mysql
@@ -15,6 +16,8 @@
     - php-soap
     - php5-gd
     - php5-curl
+    - php5-fpm
+    - php5-intl
     - curl
     - php5-xdebug
     - python-mysqldb
@@ -23,20 +26,36 @@
 ##
 # PHP Setup.
 #
+- name: PHP | Create phpfpm group
+  action: group name=phpfpm system=yes
+
+- name: PHP | Create a user for phpfpm
+  action: user name=phpfpm group=phpfpm createhome=no system=yes shell=/bin/false
+
+- name: Configure php-fpm
+  action: template src=lamp/etc-php5-fpm-pool-d-www-conf.j2 dest=/etc/php5/fpm/pool.d/www.conf
+
+- name: CLI Config
+  action: copy dest=/etc/php5/cli/php.ini src=lamp/etc-php5-cli-php.ini
+
+- name: PHP configuration file php.ini for php-fpm
+  action: template src=lamp/etc-php5-fpm-php-ini.j2 dest=/etc/php5/fpm/php.ini
+
 - name: PHP | Configuration file - php.ini
   action: template src=lamp/etc-php5-apache2-php-ini.j2 dest=/etc/php5/apache2/php.ini
 
 - name: APC | Cache configuration file - apc.ini
   action: template src=lamp/etc-php5-conf-d-apc-ini.j2 dest=/etc/php5/conf.d/apc.ini
+
 ##
 # xhprof installation
 #
 - name: Clear out xhprof tmp install if it exists
   action: file path=/tmp/xhprof-master state=absent
-  
+
 - name: XhProf | Get xhprof from facebook
   get_url: url=https://github.com/facebook/xhprof/archive/master.zip dest=/tmp/master.zip force=yes
-  
+
 - name: XhProf | Unzip -o master.zip
   action: shell unzip -o master.zip chdir=/tmp
 
@@ -159,3 +178,6 @@
 
 - name: Restart MySQL
   action: service name=mysql state=restarted
+
+- name: Restart PHP-fpm
+  action: service name=php5-fpm state=restarted
