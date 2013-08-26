@@ -15,6 +15,7 @@
     - include: etckeeper/etckeeper.yml tags=etckeeper
     - include: users/bender.yml tags=users
     - include: lamp/lamp.yml tags=lamp
+    - include: nginx/nginx.yml tags=nginx
     - include: drush/drush.yml tags=drush
     - include: nodejs/nodejs.yml tags=nodejs
     - include: redis/redis.yml tags=redis
