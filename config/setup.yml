@@ -20,6 +20,7 @@
     - include: nodejs/nodejs.yml tags=nodejs
     - include: redis/redis.yml tags=redis
     - include: ruby/ruby.yml tags=ruby
+    - include: svn/svn.yml tags=svn
     - include: dotcloud/dotcloud.yml tags=dotcloud
     - include: linux/tty.yml tags=tty
     - include: linux/ntp.yml tags=ntp

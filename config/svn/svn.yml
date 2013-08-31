@@ -1,0 +1,6 @@
+---
+##
+# Subversion version control.
+#
+- name: Drush | Install PHP PEAR
+  action: apt pkg=subversion state=installed
