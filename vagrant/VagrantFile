@@ -12,8 +12,8 @@ Vagrant.configure("2") do |config|
 
     # VirtualBox specific configuration.
     dev_config.vm.provider :virtualbox do |vb|
-      vb.customize ["modifyvm", :id, "--memory", "1024"]
-      vb.customize ["modifyvm", :id, "--cpus", "1"]
+      vb.customize ["modifyvm", :id, "--memory", "2048"]
+      vb.customize ["modifyvm", :id, "--cpus", "2"]
     end
 
     # Shared folders through NFS. This is supported in Mac and Linux. Windows may have
