@@ -26,6 +26,7 @@ php_date_timezone: 'US/Central'
 php_memory_limit: '192M'
 php_cgi_fix_pathinfo: '0'
 php_short_open_tag: 'Off'
+php_xdebug_remote_enable: 0
 
 # apc.ini
 apc_rfc1867: '1'
