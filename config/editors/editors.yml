@@ -1,0 +1,13 @@
+---
+##
+# Install preferred editors
+#
+- name: Vim | Install vim-nox
+  action: apt pkg=vim-nox state=installed
+
+- name: Vim | Install vim-scripts
+  action: apt pkg=vim-scripts state=installed
+
+- name: Vim | Install vim-common
+  action: apt pkg=vim-common state=installed
+
