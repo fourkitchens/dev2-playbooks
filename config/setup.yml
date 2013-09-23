@@ -29,6 +29,7 @@
     - include: mongo/mongo.yml tags=mongodb
     - include: solr/solr.yml tags=solr
     - include: editors/editors.yml tags=vim,emacs,editors
+    - include: mc/mc.yml tags=mc
 
   handlers:
     - name: restart tomcat
