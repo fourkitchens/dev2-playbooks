@@ -11,3 +11,12 @@
 - name: Vim | Install vim-common
   action: apt pkg=vim-common state=installed
 
+- name: Emacs | Install emacs23-nox
+  action: apt pkg=emacs23-nox state=installed
+
+- name: Emacs | Install emacs23-common
+  action: apt pkg=emacs23-common state=installed
+
+- name: Emacs | Install emacs23-bin-common
+  action: apt pkg=emacs23-bin-common state=installed
+
