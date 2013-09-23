@@ -2,21 +2,16 @@
 ##
 # Install preferred editors
 #
-- name: Vim | Install vim-nox
-  action: apt pkg=vim-nox state=installed
+- name: Editors | Install Vim
+  action: apt pkg=$item state=installed
+  with_items:
+    - vim-nox
+    - vim-scripts
+    - vim-common
 
-- name: Vim | Install vim-scripts
-  action: apt pkg=vim-scripts state=installed
-
-- name: Vim | Install vim-common
-  action: apt pkg=vim-common state=installed
-
-- name: Emacs | Install emacs23-nox
-  action: apt pkg=emacs23-nox state=installed
-
-- name: Emacs | Install emacs23-common
-  action: apt pkg=emacs23-common state=installed
-
-- name: Emacs | Install emacs23-bin-common
-  action: apt pkg=emacs23-bin-common state=installed
-
+- name: Editors | Install Emacs
+  action: apt pkg=$item state=installed
+  with_items:
+    - emacs23-nox
+    - emacs23-common
+    - emacs23-bin-common

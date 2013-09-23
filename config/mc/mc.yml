@@ -2,8 +2,8 @@
 ##
 # Install Midnight Commander -- powerful text-based file manager
 #
-- name: Midnight Commander | Install mc
-  action: apt pkg=mc state=installed
-
-- name: Midnight Commander | Install mc-data
-  action: apt pkg=mc-data state=installed
+- name: Midnight Commander | Install packages
+  action: apt pkg=$item state=installed
+  with_items:
+    - mc
+    - mc-data
