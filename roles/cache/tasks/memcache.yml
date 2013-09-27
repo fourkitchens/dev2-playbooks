@@ -1,0 +1,5 @@
+---
+- name: Memcached | Install packages
+  action: apt pkg=$item state=installed
+  with_items:
+    - memcached

@@ -6,16 +6,17 @@
   action: apt pkg=$item state=installed
   with_items:
     - php5
-    - php5-mysql
     - php-apc
-    - php5-xmlrpc
-    - php-soap
-    - php5-gd
     - php5-curl
     - php5-fpm
+    - php5-gd
     - php5-intl
     - php5-ldap
+    - php5-memcache
+    - php5-mysql
+    - php-soap
     - php5-xdebug
+    - php5-xmlrpc
 
 ##
 # PHP Setup.
