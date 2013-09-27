@@ -13,6 +13,8 @@
 
 - name: SOLR | Copy war to tomcat
   action: copy src=usr/share/tomcat6/webapps/solr.war dest=/usr/share/tomcat6/webapps/solr.war
+  notify:
+    - restart tomcat
 
 - name: SOLR | Copy solr directory
   action: shell cp -R /tmp/solr /usr/share/tomcat6
@@ -32,18 +34,31 @@
 #
 - name: SOLR | copying drupal Search Api Solr module config files
   action: copy src=usr/share/tomcat6/solr/conf/schema.xml dest=/usr/share/tomcat6/solr/conf/schema.xml
+  notify:
+    - restart tomcat
 
 - name: SOLR | copying drupal Search Api Solr module config files solrconfig
   action: copy src=usr/share/tomcat6/solr/conf/solrconfig.xml dest=/usr/share/tomcat6/solr/conf/solrconfig.xml force=yes
+  notify:
+    - restart tomcat
 
   name: SOLR | copying drupal module config files solrconfig
   action: copy src=usr/share/tomcat6/solr/conf/protwords.txt dest=/usr/share/tomcat6/solr/conf/protwords.txt
+  notify:
+    - restart tomcat
 
 - name: SOLR | Copy config
   action: copy src=etc/tomcat6/Catalina/localhost/solr.xml dest=/etc/tomcat6/Catalina/localhost/solr.xml
+  notify:
+    - restart tomcat
 
 - name: SOLR | Copy multicore config
   action: copy src=usr/share/tomcat6/solr/solr.xml dest=/usr/share/tomcat6/solr/solr.xml
+  notify:
+    - restart tomcat
 
 - name: SOLR | copying drupal module config files solrconfig
   action: copy src=usr/share/tomcat6/solr/conf/solrconfig.xml dest=/usr/share/tomcat6/solr/conf/solrconfig.xml force=yes
+  notify:
+    - restart tomcat
+

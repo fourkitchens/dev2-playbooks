@@ -11,10 +11,16 @@
 # Configure Tomcat
 - name: Tomcat | Configure Tomcat server
   template: src=etc/tomcat6/server.xml.j2 dest=/etc/tomcat6/server.xml
+  notify:
+    - restart tomcat
 
 - name: Tomcat | Symlink install directory
   file: src=/usr/share/tomcat6 path=/usr/share/tomcat state=link
+  notify:
+    - restart tomcat
 
 - name: Tomcat | Configure Tomcat users
   template: src=etc/tomcat6/tomcat-users.xml.j2 dest=/etc/tomcat6/tomcat-users.xml
+  notify:
+    - restart tomcat
 

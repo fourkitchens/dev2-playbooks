@@ -1,7 +1,3 @@
 ---
-- name: Tomcat | Start Tomcat
+- name: restart tomcat
   service: name=tomcat6 state=restarted enabled=yes
-
-- name: Tomcat | wait for tomcat to start
-  wait_for: port={{tomcat_port}}
-
