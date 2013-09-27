@@ -1,0 +1,4 @@
+bender   ALL=(ALL:ALL) NOPASSWD: ALL
+
+# So that sudo sessions inherit forwarded keys.
+Defaults        env_keep="SSH_AUTH_SOCK PATH"

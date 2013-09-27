@@ -1,0 +1,39 @@
+---
+##
+# Setup the bender user.
+#
+- name: Users | Group for bender.
+  action: group name=bender
+
+- name: Users | Create bender user.
+  action: user name=bender group=bender shell=/bin/bash
+
+- name: Users | SSH folder for Bender
+  action: file path=/home/bender/.ssh state=directory owner=bender group=bender mode=755
+
+- name: Users | Directory for Jenkins stuff
+  action: file path=/home/bender/jenkins state=directory owner=bender group=bender mode=755
+
+- name: Users | Bender's auth key for ssh
+  action: copy src=home/bender/.ssh/authorized_keys dest=/home/bender/.ssh/authorized_keys mode=644 owner=bender group=bender
+
+- name: Users | Allow Bender sudo access to the server.
+  action: copy src=etc/sudoers.d/bender dest=/etc/sudoers.d/bender owner=root group=root mode=440
+
+- name: Users | Create ssh directory
+  action: file state=directory path=~/.ssh mode=700
+
+- name: Users | Ensure known hosts file is there
+  action: shell touch ~/.ssh/known_hosts
+
+- name: Users | Remove github.com from known host
+  action: shell ssh-keygen -R github.com
+
+- name: Users | Add github.com to known hosts
+  action: shell ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
+- name: Users | Get the repo of the deploy scripts
+  action: git repo=git@github.com:fourkitchens/dev2-playbooks.git dest=/home/bender/dev2-playbooks version=master
+
+- name: Users | Let Bender own the repo.
+  action: "command chown -R bender: /home/bender/dev2-playbooks"

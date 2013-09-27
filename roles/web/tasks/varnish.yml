@@ -16,7 +16,11 @@
 
 - name: Varnish | Copy configuration file
   action: template src=etc/varnish/default.vcl.j2 dest=/etc/varnish/default.vcl
+  notify:
+    - restart varnish
 
 - name: Varnish | Copy the daemon config file
   action: template src=etc/default/varnish.j2 dest=/etc/default/varnish
+  notify:
+    - restart varnish
 

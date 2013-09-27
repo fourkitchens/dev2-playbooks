@@ -24,20 +24,30 @@
 
 - name: MongoDB | Create root user
   action: mongodb_user database=admin user=root password=$mongo_root_password
+  notify:
+    - restart mongo
 
 - name: MongoDB | Create app user
   action: mongodb_user database=xhprof user=xhprof password=$mongo_app_password
+  notify:
+    - restart mongo
 
 - name: MongoDB | Configuration file mongodb.conf
   action: template src=etc/mongodb.conf.j2 dest=/etc/mongodb.conf
+  notify:
+    - restart mongo
 
 - name: MongoDB | .mongodb.cnf for root
-  action: template src=root/mongodb.cnf.j2 dest=/root/.mongodb.cnf
+  action: template src=root/.mongodb.cnf.j2 dest=/root/.mongodb.cnf
+  notify:
+    - restart mongo
 
 - name: MongoDB | Get the current users home
   action: shell echo $HOME
   register: user_home
 
 - name: MongoDB | .mongodb.cnf for admin user
-  action: template src=root/mongodb.cnf.j2 dest=${user_home.stdout}/.mongodb.cnf
+  action: template src=root/.mongodb.cnf.j2 dest=${user_home.stdout}/.mongodb.cnf
+  notify:
+    - restart mongo
 

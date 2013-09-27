@@ -9,7 +9,7 @@
   action: copy src=etc/update-motd.d/05-splash dest=/etc/update-motd.d/05-splash mode=755
 
 - name: General | Message of the day logo file.
-  action: copy src=etc/update-mot.d/dev2-terminal-logo dest=/etc/update-motd.d/dev2-terminal-logo mode=644
+  action: copy src=etc/update-motd.d/dev2-terminal-logo dest=/etc/update-motd.d/dev2-terminal-logo mode=644
 
 - name: General | Disable default motd scripts.
   action: file path=/etc/update-motd.d/00-header mode=444

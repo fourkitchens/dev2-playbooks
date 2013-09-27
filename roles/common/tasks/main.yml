@@ -1,6 +1,7 @@
 ---
 # The playbook for common tasks
 
+- include: bender.yml tags=bender
 - include: curl.yml tags=curl
 - include: editors.yml tags=editors
 - include: etckeeper.yml tags=etckeeper
@@ -9,5 +10,6 @@
 - include: ntp.yml tags=ntp
 - include: sendmail.yml tags=sendmail
 - include: ssh.yml tags=ssh
+- include: svn.yml tags=svn
 - include: tty.yml tags=tty
 - include: unzip.yml tags=unzip

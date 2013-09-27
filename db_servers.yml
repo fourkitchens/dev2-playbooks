@@ -2,6 +2,5 @@
 - hosts: db_servers
   user: root
   roles:
-   - common
    - db
 

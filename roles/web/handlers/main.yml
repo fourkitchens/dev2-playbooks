@@ -1,10 +1,13 @@
 ---
-- name: nginx | Restart nginx
+- name: restart apache
+  action: service name=apache2 state=restarted
+
+- name: restart nginx
   action: service name=nginx state=restarted
 
-- name: PHP | Restart PHP-fpm
+- name: restart php-fpm
   action: service name=php5-fpm state=restarted
 
-- name: Varnish | Restart Varnish
+- name: restart varnish
   action: service name=varnish state=restarted
 

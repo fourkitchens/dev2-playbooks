@@ -8,12 +8,15 @@
   with_items:
     - mysql-server
     - mysql-client
+    - python-mysqldb # Note: this is required for ansible.
 
 ##
 # MySQL database setup.
 #
 - name: MySQL | Configuration file - my.cnf
   action: template src=etc/mysql/my.cnf.j2 dest=/etc/mysql/my.cnf
+  notify:
+    - restart mysql
 
 ##
 # This does the equivalent of mysql_secure_installation.
@@ -23,6 +26,8 @@
 
 - name: MySQL | Config for easy access as root user
   action: template src=root/.my.cnf.j2 dest=/root/.my.cnf
+  notify:
+    - restart mysql
 
 - name: MySQL | Delete anonymous MySQL server user for $server_hostname
   action: mysql_user user="" host="$server_hostname" state="absent"
@@ -44,3 +49,4 @@
 
 - name: MySQL | Remove the MySQL test database
   action: mysql_db db=test state=absent
+

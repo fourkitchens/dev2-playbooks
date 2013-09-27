@@ -23,27 +23,43 @@
 #
 - name: PHP | Create phpfpm group
   action: group name=phpfpm system=yes
+  notify:
+    - restart php-fpm
 
 - name: PHP | Create a user for phpfpm
   action: user name=phpfpm group=phpfpm createhome=no system=yes shell=/bin/false
+  notify:
+    - restart php-fpm
 
 - name: PHP | Configure php-fpm
   action: template src=etc/php5/fpm/pool.d/www.conf.j2 dest=/etc/php5/fpm/pool.d/www.conf
+  notify:
+    - restart php-fpm
 
 - name: PHP | CLI Config
   action: copy src=etc/php5/cli/php.ini dest=/etc/php5/cli/php.ini
 
 - name: PHP | configuration file php.ini for php-fpm
   action: template src=etc/php5/fpm/php.ini.j2 dest=/etc/php5/fpm/php.ini
+  notify:
+    - restart php-fpm
 
 - name: PHP | Configuration file - php.ini
   action: template src=etc/php5/apache2/php.ini.j2 dest=/etc/php5/apache2/php.ini
+  notify:
+    - restart apache
 
 - name: PHP APC | Cache configuration file - apc.ini
   action: template src=etc/php5/conf.d/apc.ini.j2 dest=/etc/php5/conf.d/apc.ini
+  notify:
+    - restart apache
+    - restart php-fpm
 
 - name: PHP XDebug | Configuration file - xdebug.ini
   action: template src=etc/php5/conf.d/xdebug.ini.j2 dest=/etc/php5/conf.d/xdebug.ini
+  notify:
+    - restart apache
+    - restart php-fpm
 
 - name: PHP MongoDB | Looking for mongo in installed php modules
   command: php -m | grep 'mongo' -o
@@ -55,6 +71,9 @@
 
 - name: PHP MongoDB | Configure PHP to use PECL MongoDB extension
   action: copy src=etc/php5/conf.d/mongo.ini dest=/etc/php5/conf.d/mongo.ini
+  notify:
+    - restart apache
+    - restart php-fpm
 
 ##
 # xhprof installation
@@ -82,6 +101,9 @@
 
 - name: PHP XhProf | Configure PHP to use Compile xhprof extension
   action: copy src=etc/php5/conf.d/xhprof.ini dest=/etc/php5/conf.d/xhprof.ini
+  notify:
+    - restart apache
+    - restart php-fpm
 
 - name: PHP XhProf | Adding xhprof temp dir
   action: file path=/var/tmp/xhprof state=directory mode=0777

@@ -1,6 +1,11 @@
 ---
 # The main playbook to deploy the site
 
+- hosts: all
+  user: root
+  roles:
+   - common
+
 - include: cache_servers.yml
 - include: db_servers.yml
 - include: search_servers.yml
