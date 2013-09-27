@@ -18,6 +18,7 @@
     - php5-curl
     - php5-fpm
     - php5-intl
+    - php5-ldap
     - curl
     - php5-xdebug
     - python-mysqldb
@@ -46,6 +47,9 @@
 
 - name: APC | Cache configuration file - apc.ini
   action: template src=lamp/etc-php5-conf-d-apc-ini.j2 dest=/etc/php5/conf.d/apc.ini
+
+- name: XDebug | Configuration file - xdebug.ini
+  action: template src=lamp/etc-php5-conf-d-xdebug-ini.j2 dest=/etc/php5/conf.d/xdebug.ini
 
 ##
 # xhprof installation
