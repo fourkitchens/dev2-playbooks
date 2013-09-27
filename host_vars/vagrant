@@ -1,0 +1,26 @@
+# Settings specific to developer vagrant instances
+
+---
+# mysql
+mysql_root_password: 'password'
+
+# apache
+apache_server_admin: 'you@fourkitchens.com'
+apache_server_alias: '*.local.dev'
+apache_server_virtual_docroot: '/home/vagrant/www/%-3'
+apache_server_directory: '/home/vagrant/www/*'
+apache_server_name: 'local'
+apache_server_home_alias: 'local.dev'
+
+# nginx
+nginx_default_server_name: '"~^(?<domain>[^\.]+)\.local.dev$"'
+nginx_default_root: '/home/vagrant/www/$domain'
+
+# mongo
+mongo_root_password: 'password'
+mongo_app_password: 'password'
+
+# tomcat
+tomcat_user: 'user'
+tomcat_password: 'password'
+

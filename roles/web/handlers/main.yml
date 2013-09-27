@@ -1,0 +1,10 @@
+---
+- name: nginx | Restart nginx
+  action: service name=nginx state=restarted
+
+- name: PHP | Restart PHP-fpm
+  action: service name=php5-fpm state=restarted
+
+- name: Varnish | Restart Varnish
+  action: service name=varnish state=restarted
+

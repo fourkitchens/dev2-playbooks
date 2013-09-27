@@ -1,18 +1,7 @@
 ---
 # The main playbook to deploy the site
 
-- hosts: all
-  roles:
-   - common
+- include: web_servers.yml
+- include: db_servers.yml
+- include: search_servers.yml
 
-- hosts: development
-  roles:
-   -
-
-- hosts: vagrant
-  roles:
-   -
-
-- hosts: live
-  roles:
-   -

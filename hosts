@@ -1,13 +1,11 @@
-[all:children]
-development
-live
+[web_servers]
+dev2
 vagrant
 
-[development]
+[db_servers]
 dev2
+vagrant
 
-[live]
-web4
-
-[vagrant]
-local.dev
+[seach_servers]
+dev2
+vagrant

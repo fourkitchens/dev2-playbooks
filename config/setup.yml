@@ -2,12 +2,9 @@
 ##
 # Ansible playbook for setting up dev2.
 #
-- hosts: localhost
+- hosts: development
   connection: local
   user: root
-
-  vars_files:
-    - settings.yml
 
   tasks:
     - include: sendmail/sendmail.yml tags=sendmail

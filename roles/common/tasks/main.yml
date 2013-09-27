@@ -1,6 +1,13 @@
 ---
 # The playbook for common tasks
 
-- include: sendmail.yml tags=sendmail
-- include: motd.yml tags=motd
+- include: curl.yml tags=curl
+- include: editors.yml tags=editors
 - include: etckeeper.yml tags=etckeeper
+- include: mc.yml tags=mc
+- include: motd.yml tags=motd
+- include: ntp.yml tags=ntp
+- include: sendmail.yml tags=sendmail
+- include: ssh.yml tags=ssh
+- include: tty.yml tags=tty
+- include: unzip.yml tags=unzip

@@ -58,8 +58,6 @@ apache_server_home_docroot: '/var/www/home'
 # nginx
 nginx_user: 'nginx'
 nginx_port: 8081
-nginx_default_server_name: '"~^(?<domain>[^\.]+)\.local.dev$"'
-nginx_default_root: '/home/vagrant/www/$domain'
 nginx_dev_robots: true
 nginx_worker_processes: '1'
 nginx_webroot: '/var/www'

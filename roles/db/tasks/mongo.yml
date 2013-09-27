@@ -1,0 +1,43 @@
+---
+##
+# Configuration for MongoDB database
+#
+- name: MongoDB | Add the key
+  action: command apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+
+- name: MongoDB | Add the MongoDB repo
+  action: copy src=etc/apt/sources.list.d/mongodb.list dest=/etc/apt/sources.list.d/mongodb.list
+
+- name: MongoDB | Update the apt cache for the new repository
+  action: apt update-cache=yes
+
+- name: MongoDB | Install Mongo
+  action: apt pkg=$item state=installed
+  with_items:
+    - mongodb-10gen
+
+- name: MongoDB | Wait for Mongo to be listening for connections. It preallocates some space that takes a while.
+  action: wait_for port=27017 delay=4 timeout=$mongo_restart_timeout
+
+- name: MongoDB | Install pymongo
+  action: pip name=pymongo state=present
+
+- name: MongoDB | Create root user
+  action: mongodb_user database=admin user=root password=$mongo_root_password
+
+- name: MongoDB | Create app user
+  action: mongodb_user database=xhprof user=xhprof password=$mongo_app_password
+
+- name: MongoDB | Configuration file mongodb.conf
+  action: template src=etc/mongodb.conf.j2 dest=/etc/mongodb.conf
+
+- name: MongoDB | .mongodb.cnf for root
+  action: template src=root/mongodb.cnf.j2 dest=/root/.mongodb.cnf
+
+- name: MongoDB | Get the current users home
+  action: shell echo $HOME
+  register: user_home
+
+- name: MongoDB | .mongodb.cnf for admin user
+  action: template src=root/mongodb.cnf.j2 dest=${user_home.stdout}/.mongodb.cnf
+

@@ -1,0 +1,7 @@
+---
+- hosts: search_servers
+  user: root
+  roles:
+   - common
+   - search
+
