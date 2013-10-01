@@ -21,6 +21,7 @@
     - coffee-script
     - forever
     - grunt-cli
+    - jshint
     - node-inspector
     - roole
     - yo
