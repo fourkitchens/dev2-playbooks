@@ -1,0 +1,64 @@
+---
+##
+# Apache solr
+#
+- name: SOLR | Create webapps directory for SOLR
+  action: file path=/usr/share/tomcat6/webapps state=directory owner=tomcat6 group=tomcat6 mode=700
+
+- name: SOLR | Get Apache SOLR version 3.6.2 for Drupal 3.x config.
+  action: copy src=tmp/solr.tgz dest=/tmp/solr.tgz
+
+- name: SOLR | Untar SOLR - contains minimum amount of files needed.
+  action: shell tar -xvzf solr.tgz  chdir=/tmp
+
+- name: SOLR | Copy war to tomcat
+  action: copy src=usr/share/tomcat6/webapps/solr.war dest=/usr/share/tomcat6/webapps/solr.war
+  notify:
+    - restart tomcat
+
+- name: SOLR | Copy solr directory
+  action: shell cp -R /tmp/solr /usr/share/tomcat6
+
+- name: SOLR | Moving original solr schema example files
+  action: command mv schema.xml schema.orig.xml chdir=/usr/share/tomcat6/solr/conf
+
+- name: SOLR | moving original solrconfig example files
+  action: command mv solrconfig.xml solrconfig.orig.xml chdir=/usr/share/tomcat6/solr/conf
+
+- name: SOLR | moving original protwords.txt example files
+  action: command mv protwords.txt protwords.orig.txt chdir=/usr/share/tomcat6/solr/conf
+
+##
+# Search API SOLR module and Apachesolr modules both have these files
+# They are effectively the same, minus a few spaces.
+#
+- name: SOLR | copying drupal Search Api Solr module config files
+  action: copy src=usr/share/tomcat6/solr/conf/schema.xml dest=/usr/share/tomcat6/solr/conf/schema.xml
+  notify:
+    - restart tomcat
+
+- name: SOLR | copying drupal Search Api Solr module config files solrconfig
+  action: copy src=usr/share/tomcat6/solr/conf/solrconfig.xml dest=/usr/share/tomcat6/solr/conf/solrconfig.xml force=yes
+  notify:
+    - restart tomcat
+
+  name: SOLR | copying drupal module config files solrconfig
+  action: copy src=usr/share/tomcat6/solr/conf/protwords.txt dest=/usr/share/tomcat6/solr/conf/protwords.txt
+  notify:
+    - restart tomcat
+
+- name: SOLR | Copy config
+  action: copy src=etc/tomcat6/Catalina/localhost/solr.xml dest=/etc/tomcat6/Catalina/localhost/solr.xml
+  notify:
+    - restart tomcat
+
+- name: SOLR | Copy multicore config
+  action: copy src=usr/share/tomcat6/solr/solr.xml dest=/usr/share/tomcat6/solr/solr.xml
+  notify:
+    - restart tomcat
+
+- name: SOLR | copying drupal module config files solrconfig
+  action: copy src=usr/share/tomcat6/solr/conf/solrconfig.xml dest=/usr/share/tomcat6/solr/conf/solrconfig.xml force=yes
+  notify:
+    - restart tomcat
+

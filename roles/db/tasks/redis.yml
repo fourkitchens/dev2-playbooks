@@ -1,0 +1,8 @@
+---
+##
+# Redis server.
+#
+- name: Redis | Install redis
+  action: apt pkg=redis-server state=installed
+  notify:
+    - restart redis

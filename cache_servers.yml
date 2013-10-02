@@ -1,0 +1,6 @@
+---
+- hosts: cache_servers
+  user: root
+  roles:
+   - cache
+

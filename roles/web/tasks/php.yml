@@ -1,0 +1,109 @@
+---
+####
+# PHP
+#
+- name: PHP | Install required packages.
+  action: apt pkg=$item state=installed
+  with_items:
+    - php5
+    - php-apc
+    - php5-curl
+    - php5-fpm
+    - php5-gd
+    - php5-intl
+    - php5-ldap
+    - php5-memcache
+    - php5-mysql
+    - php-soap
+    - php5-xdebug
+    - php5-xmlrpc
+
+##
+# PHP Setup.
+#
+- name: PHP | Create phpfpm group
+  action: group name=phpfpm system=yes
+  notify:
+    - restart php-fpm
+
+- name: PHP | Create a user for phpfpm
+  action: user name=phpfpm group=phpfpm createhome=no system=yes shell=/bin/false
+  notify:
+    - restart php-fpm
+
+- name: PHP | Configure php-fpm
+  action: template src=etc/php5/fpm/pool.d/www.conf.j2 dest=/etc/php5/fpm/pool.d/www.conf
+  notify:
+    - restart php-fpm
+
+- name: PHP | CLI Config
+  action: copy src=etc/php5/cli/php.ini dest=/etc/php5/cli/php.ini
+
+- name: PHP | configuration file php.ini for php-fpm
+  action: template src=etc/php5/fpm/php.ini.j2 dest=/etc/php5/fpm/php.ini
+  notify:
+    - restart php-fpm
+
+- name: PHP | Configuration file - php.ini
+  action: template src=etc/php5/apache2/php.ini.j2 dest=/etc/php5/apache2/php.ini
+  notify:
+    - restart apache
+
+- name: PHP APC | Cache configuration file - apc.ini
+  action: template src=etc/php5/conf.d/apc.ini.j2 dest=/etc/php5/conf.d/apc.ini
+  notify:
+    - restart apache
+    - restart php-fpm
+
+- name: PHP XDebug | Configuration file - xdebug.ini
+  action: template src=etc/php5/conf.d/xdebug.ini.j2 dest=/etc/php5/conf.d/xdebug.ini
+  notify:
+    - restart apache
+    - restart php-fpm
+
+- name: PHP MongoDB | Looking for mongo in installed php modules
+  command: php -m | grep 'mongo' -o
+  register: mongo_db_present
+
+- name: PHP MongoDB | Install the PECL MongoDB extension
+  action: command pecl install mongo
+  when: mongo_db_present.stdout.find('mongo') == -1
+
+- name: PHP MongoDB | Configure PHP to use PECL MongoDB extension
+  action: copy src=etc/php5/conf.d/mongo.ini dest=/etc/php5/conf.d/mongo.ini
+  notify:
+    - restart apache
+    - restart php-fpm
+
+##
+# xhprof installation
+#
+- name: PHP XhProf | Clear out xhprof tmp install if it exists
+  action: file path=/tmp/xhprof-master state=absent
+
+- name: PHP XhProf | Get xhprof from facebook
+  get_url: url=https://github.com/facebook/xhprof/archive/master.zip dest=/tmp/master.zip force=yes
+
+- name: PHP XhProf | Unzip -o master.zip
+  action: shell unzip -o master.zip chdir=/tmp
+
+- name: PHP XhProf | Compile XhProf so that this is php 5.4 ready
+  action: shell phpize chdir=/tmp/xhprof-master/extension/
+
+- name: PHP XhProf | Configure XhProf
+  shell: ./configure chdir=/tmp/xhprof-master/extension/
+
+- name: PHP XhProf | Make XhProf
+  shell: make chdir=/tmp/xhprof-master/extension/
+
+- name: PHP XhProf | install xhprof
+  shell: make install chdir=/tmp/xhprof-master/extension/
+
+- name: PHP XhProf | Configure PHP to use Compile xhprof extension
+  action: copy src=etc/php5/conf.d/xhprof.ini dest=/etc/php5/conf.d/xhprof.ini
+  notify:
+    - restart apache
+    - restart php-fpm
+
+- name: PHP XhProf | Adding xhprof temp dir
+  action: file path=/var/tmp/xhprof state=directory mode=0777

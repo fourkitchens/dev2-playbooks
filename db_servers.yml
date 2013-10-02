@@ -1,0 +1,6 @@
+---
+- hosts: db_servers
+  user: root
+  roles:
+   - db
+
