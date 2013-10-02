@@ -1,0 +1,6 @@
+---
+# The playbook for tasks related to database servers.
+
+- include: mongo.yml tags=mongo
+- include: mysql.yml tags=mysql
+- include: redis.yml tags=redis

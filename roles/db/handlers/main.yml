@@ -1,0 +1,9 @@
+---
+- name: restart mysql
+  action: service name=mysql state=restarted
+
+- name: restart mongo
+  action: service name=mongodb state=restarted
+
+- name: restart redis
+  action: service name=redis-server state=restarted

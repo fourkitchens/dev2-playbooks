@@ -1,0 +1,18 @@
+---
+# The playbook for tasks related to webservers.
+
+# Webservers
+- include: apache.yml tags=apache
+- include: nginx.yml tags=nginx
+
+# Load balancers/ proxies
+- include: varnish.yml tags=varnish
+
+# Languages/ frameworks
+- include: node.yml tags=node
+- include: php.yml tags=php
+- include: python.yml tags=python
+- include: ruby.yml tags=ruby
+
+# Tools
+- include: drush.yml tags=drush

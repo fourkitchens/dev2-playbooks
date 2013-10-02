@@ -8,6 +8,8 @@ function error_exit
   exit 1
 }
 
+home=`pwd`
+
 echo ''
 echo '======================================================================='
 echo 'Setting up Ansible...'
@@ -38,7 +40,7 @@ echo '======================================================================='
 echo 'Installing Ansible...'
 make install > /dev/null 2>&1 || error_exit "Unable to install Ansible."
 mkdir -p /etc/ansible
-echo "localhost" > /etc/ansible/hosts
+cp $home/playbooks/vagrant/hosts /etc/ansible/hosts
 
 echo ''
 echo 'Finished Ansible setup.'

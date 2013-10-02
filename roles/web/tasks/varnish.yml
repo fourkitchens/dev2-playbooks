@@ -1,0 +1,26 @@
+---
+##
+# Varnish 3.0 installation
+#
+- name: Varnish | Add the Varnish apt key
+  action: apt_key url=http://repo.varnish-cache.org/debian/GPG-key.txt
+
+- name: Varnish | Add the Varnish repo
+  action: command add-apt-repository 'deb http://repo.varnish-cache.org/ubuntu/ precise varnish-3.0'
+
+- name: Varnish | Update the apt cache for the new repository
+  action: apt update-cache=yes
+
+- name: Varnish | Install Varnish
+  action: apt pkg=varnish state=installed
+
+- name: Varnish | Copy configuration file
+  action: template src=etc/varnish/default.vcl.j2 dest=/etc/varnish/default.vcl
+  notify:
+    - restart varnish
+
+- name: Varnish | Copy the daemon config file
+  action: template src=etc/default/varnish.j2 dest=/etc/default/varnish
+  notify:
+    - restart varnish
+

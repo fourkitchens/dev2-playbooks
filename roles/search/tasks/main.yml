@@ -1,0 +1,5 @@
+---
+# Playbooks related to search servers
+
+- include: tomcat.yml tags=tomcat
+- include: solr.yml tags=solr
