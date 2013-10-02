@@ -5,6 +5,7 @@
 - include: curl.yml tags=curl
 - include: editors.yml tags=editors
 - include: etckeeper.yml tags=etckeeper
+- include: htop.yml tags=htop
 - include: mc.yml tags=mc
 - include: motd.yml tags=motd
 - include: ntp.yml tags=ntp
