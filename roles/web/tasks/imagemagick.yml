@@ -1,0 +1,6 @@
+---
+####
+# Imagemagick
+#
+- name: Imagemagick | Install required packages.
+  action: apt pkg=imagemagick state=installed
