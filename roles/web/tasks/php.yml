@@ -10,6 +10,7 @@
     - php5-curl
     - php5-fpm
     - php5-gd
+    - php5-imagick
     - php5-intl
     - php5-ldap
     - php5-memcache
@@ -17,6 +18,9 @@
     - php-soap
     - php5-xdebug
     - php5-xmlrpc
+  notify:
+    - restart apache
+    - restart php-fpm
 
 ##
 # PHP Setup.
