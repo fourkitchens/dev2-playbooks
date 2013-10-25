@@ -123,3 +123,13 @@ For example, the following requests would hit the respective servers:
 The default webserver can be set from your settings file before running the playbooks but will be set to apache by default.
 
 Protip: you can use the chrome extension [ModHeader](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj) to send custom headers and avoid needing to use GET arguments on every request.
+
+## XHProf
+
+XHProf is available for your use on the server; however, there is a little bit of config that
+you'll need to do if you're using it with Drupal.
+
+1. Download the latest XHProf [source](https://github.com/facebook/xhprof/archive/master.zip dest=/tmp/master.zip) to ~/www.
+1. In your Drupal site's devel settings set the XHProf path to /home/YOU/www/xhprof-master and the
+site to http://xhprof-master.local.dev (if working locally).
+
