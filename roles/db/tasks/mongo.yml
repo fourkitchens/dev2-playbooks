@@ -12,23 +12,23 @@
   action: apt update-cache=yes
 
 - name: MongoDB | Install Mongo
-  action: apt pkg=$item state=installed
+  action: apt pkg={{ item }} state=installed
   with_items:
     - mongodb-10gen
 
 - name: MongoDB | Wait for Mongo to be listening for connections. It preallocates some space that takes a while.
-  action: wait_for port=27017 delay=4 timeout=$mongo_restart_timeout
+  action: wait_for port=27017 delay=4 timeout={{ mongo_restart_timeout }}
 
 - name: MongoDB | Install pymongo
   action: pip name=pymongo state=present
 
 - name: MongoDB | Create root user
-  action: mongodb_user database=admin user=root password=$mongo_root_password
+  action: mongodb_user database=admin user=root password={{ mongo_root_password }}
   notify:
     - restart mongo
 
 - name: MongoDB | Create app user
-  action: mongodb_user database=xhprof user=xhprof password=$mongo_app_password
+  action: mongodb_user database=xhprof user=xhprof password={{ mongo_app_password }}
   notify:
     - restart mongo
 
@@ -47,7 +47,7 @@
   register: user_home
 
 - name: MongoDB | .mongodb.cnf for admin user
-  action: template src=root/.mongodb.cnf.j2 dest=${user_home.stdout}/.mongodb.cnf
+  action: template src=root/.mongodb.cnf.j2 dest={{ user_home.stdout }}/.mongodb.cnf
   notify:
     - restart mongo
 
