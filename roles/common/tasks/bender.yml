@@ -34,6 +34,8 @@
 
 - name: Users | Get the repo of the deploy scripts
   action: git repo=git@github.com:fourkitchens/dev2-playbooks.git dest=/home/bender/dev2-playbooks version=master
+  when: github_playbooks == 1
 
 - name: Users | Let Bender own the repo.
   action: "command chown -R bender: /home/bender/dev2-playbooks"
+  when: github_playbooks == 1
