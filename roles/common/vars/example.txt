@@ -29,3 +29,5 @@ mongo_app_password: 'password'
 tomcat_user: 'user'
 tomcat_password: 'password'
 
+# Local overrides
+local_key: 1
