@@ -1,0 +1,3 @@
+- name: Users | User's auth key for ssh
+  action: copy src=home/vagrant/.ssh/authorized_keys dest=/home/vagrant/.ssh/authorized_keys mode=644 owner=vagrant group=vagrant
+  when: local_key == 1
