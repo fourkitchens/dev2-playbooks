@@ -1,28 +1,40 @@
 Dev2: Ubuntu 12.04 Development Server
 -------------------------------------
 
+
+Make some configuration changes to the playbooks
+--
+Copy your public key to the vagrant user -
+cp ~/.ssh/id_rsa.pub ~/dev2-playbooks/roles/common/files/home/vagrant/.ssh/authorized_keys
+go to roles/common/files/home/vagrant/.ssh/
+
+Copy the file roles/common/vars/example.txt to roles/common/var/main.yml
+
+cd vagrant
+
+type: vagrant up
+
+When prompted for the password by your cli - please use your machine password.
+
+(possibly adjust your mongo_db_restart)
+
 All Ansible scripts for configuring and doing deployment on dev2.
 
 See: https://fourkitchens.atlassian.net/wiki/display/FK/Dev2+on+Rackspace+Cloud
 
 ## Using Vagrant
 
-### 1) Install the latest Vagrant and VirtualBox.
+### 1) Install the latest Vagrant (http://downloads.vagrantup.com/) and VirtualBox (https://www.virtualbox.org/wiki/Downloads).
 
-### 2) Clone this Repo and then Modify the vagrant settings file within this repo.
+### 2) Clone this Repo in your home/{user} folder.
 
-Copy the vagrant/vagrants-settings.yml file to vagrant/settings.yml
+### 3) If you need specific settings - other than the defaults, copy the file at roles/common/vars/example.txt to roles/common/vars/main.yml and make any needed changes.
 
-In the repo's vagrant/settings.yml:
-* Set the hostname correctly, for example local.dev.
-* Set memory requirements, etc.
-
-In etc/hosts:
-* Add your new hostname with the IP address you find in vagrant/VagrantFile
-
-### 3) Start vagrant
+### 4) Start vagrant
 
     vagrant up
+
+### 5) After vagrants starts you can use: "vagrant ssh" to ssh into the box from there you can copy your public key into the vagrant user's .ssh authorized_keys.
 
 ## Using deploy scripts
 
@@ -50,7 +62,7 @@ SOLR core create (in deploy/solr-cores):
 SOLR core remove (in deploy/solr-cores):
 
     ansible-playbook --extra-vars="core_name=test_dd" solr-core-delete.yml
-    
+
 Drush sync:
 
     drush sa
