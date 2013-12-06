@@ -9,15 +9,6 @@
 - name: Ruby | Install Sass and all ruby gems
   action: gem name=$item state=latest
   with_items:
-    - sass
-    - compass
-    - singularitygs
-    - susy
-    - toolkit
-    - respond-to
-    - breakpoint
-    - compass-aurora
-    - color-schemer
     - bundler
 #    - github-pages This cannot be added until we have ruby 1.9.3
 
