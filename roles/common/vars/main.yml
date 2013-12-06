@@ -1,0 +1,33 @@
+# Settings specific to developer vagrant instances
+
+---
+# PHP
+php_xdebug_remote_enable: 1
+php_xdebug_remote_host: 10.1.0.1
+php_xdebug_remote_port: 9000
+
+# MySQL
+mysql_root_password: 'password'
+
+# Apache
+apache_server_admin: 'you@fourkitchens.com'
+apache_server_alias: '*.local.dev'
+apache_server_virtual_docroot: '/home/vagrant/www/%-3'
+apache_server_directory: '/home/vagrant/www/*'
+apache_server_name: 'local'
+apache_server_home_alias: 'local.dev'
+
+# nginx
+nginx_default_server_name: '"~^(?<domain>[^\.]+)\.local.dev$"'
+nginx_default_root: '/home/vagrant/www/$domain'
+
+# MongoDB
+mongo_root_password: 'password'
+mongo_app_password: 'password'
+
+# Tomcat
+tomcat_user: 'user'
+tomcat_password: 'password'
+
+# Local overrides
+local_key: 1
