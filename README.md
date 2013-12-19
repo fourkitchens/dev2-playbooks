@@ -1,43 +1,66 @@
 Dev2: Ubuntu 12.04 Development Server
 -------------------------------------
+Hello and welcome to the Four Kitchens development server README.  This repo uses ansible to allow you to spin up our bespoke development environment as a VM or in the cloud. You have a great amount of configuration options available to you via yml files but by default, after installing the latest virtual box and the latest version of vagrant you should be only a few steps away from a robust and comprehensive environment.
 
-
-Make some configuration changes to the playbooks
+Basic Install Summary:
 --
-Copy your public key to the vagrant user -
-cp ~/.ssh/id_rsa.pub ~/dev2-playbooks/roles/common/files/home/vagrant/.ssh/authorized_keys
-go to roles/common/files/home/vagrant/.ssh/
+* Install Vagrant
+* Install Virtual Box
+* Clone repo
+* Run vagrant commands to provision environment.
 
-Copy the file roles/common/vars/example.txt to roles/common/var/main.yml
+Custom Install Summary:
+--
+* Install Vagrant
+* Install Virtual Box
+* Clone repo
+* Create custom .yml files in specific directories to override default settings.
+* Run vagrant commands to provision environment.
 
-cd vagrant
 
-type: vagrant up
+Basic Set up:
+--
+A) Install Vagrant
+* Vagrant (http://downloads.vagrantup.com/)
 
-When prompted for the password by your cli - please use your machine password.
+B) Install Virtual Box
+* VirtualBox (https://www.virtualbox.org/wiki/Downloads).
 
-(possibly adjust your mongo_db_restart)
+C) Clone this Repo in your /home/{user} folder.
+* cd ~
+* git clone {repo clone info}
 
+D) Provision the environment
+* Go to the vagrant folder within the repo in your terminal: cd /home/{user}/{repofolder}/vagrant
+* Type the following in your terminal: vagrant up
+* Following the instructions, if prompted for your password, that will be your local machine password.
+* Ansible and virtual box will work together to download your VM image and then install and configure your environment. It will take some time.
+
+Post Set up options:
+--
+* After installation you can use: "vagrant ssh" to ssh into the box from there you can copy your public key into the vagrant user's .ssh authorized_keys. This will allow you to connect to your VM with your own key (if desired).
+
+Custom Set up:
+--
+Take a few extra actions on item C above:
+C) Clone this Repo in your /home/{user} folder.
+* cd ~
+* git clone {repo clone info}
+* Provide customized settings (advanced): 
+* Type the following on your terminal: cp /home/{user}/{repofolder}/roles/common/vars/example.txt /home/{user}/{repofolder}/roles/common/vars/roles/common/vars/main.yml
+* Customize the settings in that new main.yml file to your preferences
+
+(proceed to step D in Basic Set up)
+
+
+Ansible Scripts:
+--
 All Ansible scripts for configuring and doing deployment on dev2.
 
 See: https://fourkitchens.atlassian.net/wiki/display/FK/Dev2+on+Rackspace+Cloud
 
-## Using Vagrant
-
-### 1) Install the latest Vagrant (http://downloads.vagrantup.com/) and VirtualBox (https://www.virtualbox.org/wiki/Downloads).
-
-### 2) Clone this Repo in your home/{user} folder.
-
-### 3) If you need specific settings - other than the defaults, copy the file at roles/common/vars/example.txt to roles/common/vars/main.yml and make any needed changes.
-
-### 4) Start vagrant
-
-    vagrant up
-
-### 5) After vagrants starts you can use: "vagrant ssh" to ssh into the box from there you can copy your public key into the vagrant user's .ssh authorized_keys.
-
-## Using deploy scripts
-
+Deployment Scripts:
+--
 Deploy a trunk site with the address 'test.webchef2.com':
 
     ansible-playbook --extra-vars="repo=git@github.com:fourkitchens/trainingwheels-drupal-files-example.git domain_name=test.webchef2.com db_name=test db_user=test db_pass=test" drupal-trunk-site-deploy.yml
@@ -68,8 +91,31 @@ Drush sync:
     drush sa
     drush sql-sync @alias-of-main-site
 
-## Manual Server How-to Guide
 
+Multiple Webservers
+--
+The dev2 playbooks now install both apache and nginx. This will allow us to more closely emulate Pantheon (nginx+php-fpm), or more common (apache) application server environments. You can switch between the two by sending either a GET argument (```varnish_backend``` by default) or by setting a request header (```X-varnish-backend``` by default).
+
+For example, the following requests would hit the respective servers:
+
+* apache
+ * http://fpl.local.dev?varnish_backend=apache
+ * http://fpl.local.dev (X-varnish-backend: apache)
+* nginx
+ * http://fpl.local.dev?varnish_backend=nginx
+ * http://fpl.local.dev (X-varnish-backend: nginx)
+
+The default webserver can be set from your settings file before running the playbooks but will be set to apache by default.
+
+Protip: you can use the chrome extension [ModHeader](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj) to send custom headers and avoid needing to use GET arguments on every request.
+
+XHProf
+--
+You can utilize XHProf with mongodb xhprof which will provide you with a Drupal interface to view the XHProf results without using devel.
+
+
+Manual Server How-to Guide (Legacy)
+--
 ### 1) Obtain a fresh, up-to-date Ubuntu 12.04 installation.
 
 ### 2) Open a root terminal.
@@ -118,30 +164,4 @@ echo "localhost" > /etc/ansible/hosts
 or:
 
     ansible-playbook --tags="common,..." setup.yml
-
-## Multiple Webservers
-
-The dev2 playbooks now install both apache and nginx. This will allow us to more closely emulate Pantheon (nginx+php-fpm), or more common (apache) application server environments. You can switch between the two by sending either a GET argument (```varnish_backend``` by default) or by setting a request header (```X-varnish-backend``` by default).
-
-For example, the following requests would hit the respective servers:
-
-* apache
- * http://fpl.local.dev?varnish_backend=apache
- * http://fpl.local.dev (X-varnish-backend: apache)
-* nginx
- * http://fpl.local.dev?varnish_backend=nginx
- * http://fpl.local.dev (X-varnish-backend: nginx)
-
-The default webserver can be set from your settings file before running the playbooks but will be set to apache by default.
-
-Protip: you can use the chrome extension [ModHeader](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj) to send custom headers and avoid needing to use GET arguments on every request.
-
-## XHProf
-
-XHProf is available for your use on the server; however, there is a little bit of config that
-you'll need to do if you're using it with Drupal.
-
-1. Download the latest XHProf [source](https://github.com/facebook/xhprof/archive/master.zip dest=/tmp/master.zip) to ~/www.
-1. In your Drupal site's devel settings set the XHProf path to /home/YOU/www/xhprof-master and the
-site to http://xhprof-master.local.dev (if working locally).
 
