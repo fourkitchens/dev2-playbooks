@@ -15,6 +15,7 @@ Custom Install Summary:
 * Install Virtual Box
 * Clone repo
 * Create custom .yml files in specific directories to override default settings.
+* Run vagrant commands to provision environment.
 
 
 Basic Set up:
