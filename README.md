@@ -4,49 +4,50 @@ Hello and welcome to the Four Kitchens development server README.  This repo use
 
 Basic Install Summary:
 --
-# Install Vagrant
-# Install Virtual Box
-# Clone repo
-# Run vagrant commands to provision environment.
+* Install Vagrant
+* Install Virtual Box
+* Clone repo
+* Run vagrant commands to provision environment.
 
 Custom Install Summary:
 --
-## Install Vagrant
-## Install Virtual Box
-## Clone repo
-## Create custom .yml files in specific directories to override default settings.
+* Install Vagrant
+* Install Virtual Box
+* Clone repo
+* Create custom .yml files in specific directories to override default settings.
 
 
 Basic Set up:
 --
-## A) Install Vagrant
-### Vagrant (http://downloads.vagrantup.com/)
+A) Install Vagrant
+* Vagrant (http://downloads.vagrantup.com/)
 
-## B) Install Virtual Box
-### VirtualBox (https://www.virtualbox.org/wiki/Downloads).
+B) Install Virtual Box
+* VirtualBox (https://www.virtualbox.org/wiki/Downloads).
 
-## C) Clone this Repo in your /home/{user} folder.
-### 1) cd ~
-### 2) git clone {repo clone info}
+C) Clone this Repo in your /home/{user} folder.
+* cd ~
+* git clone {repo clone info}
 
-## D) Provision the environment
-### 1) Go to the vagrant folder within the repo in your terminal: cd /home/{user}/{repofolder}/vagrant
-### 2) Type the following in your terminal: vagrant up
-### 3) Following the instructions, if prompted for your password, that will be your local machine password.
-### 4) Ansible and virtual box will work together to download your VM image and then install and configure your environment. It will take some time.
+D) Provision the environment
+* Go to the vagrant folder within the repo in your terminal: cd /home/{user}/{repofolder}/vagrant
+* Type the following in your terminal: vagrant up
+* Following the instructions, if prompted for your password, that will be your local machine password.
+* Ansible and virtual box will work together to download your VM image and then install and configure your environment. It will take some time.
 
-## Post Set up options:
+Post Set up options:
+--
 * After installation you can use: "vagrant ssh" to ssh into the box from there you can copy your public key into the vagrant user's .ssh authorized_keys. This will allow you to connect to your VM with your own key (if desired).
 
 Custom Set up:
 --
 Take a few extra actions on item C above:
-## C) Clone this Repo in your /home/{user} folder.
-### 1) cd ~
-### 2) git clone {repo clone info}
-### 3) Provide customized settings (advanced): 
-### 4) Type the following on your terminal: cp /home/{user}/{repofolder}/roles/common/vars/example.txt /home/{user}/{repofolder}/roles/common/vars/roles/common/vars/main.yml
-### 5) Customize the settings in that new main.yml file to your preferences
+C) Clone this Repo in your /home/{user} folder.
+* cd ~
+* git clone {repo clone info}
+* Provide customized settings (advanced): 
+* Type the following on your terminal: cp /home/{user}/{repofolder}/roles/common/vars/example.txt /home/{user}/{repofolder}/roles/common/vars/roles/common/vars/main.yml
+* Customize the settings in that new main.yml file to your preferences
 
 (proceed to step D in Basic Set up)
 
