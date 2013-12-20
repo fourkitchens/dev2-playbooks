@@ -42,7 +42,10 @@ Type the following in your terminal:
 
    vagrant up
 
+
 Following the instructions, if prompted for your password, that will be your local machine password.
+
+If you have issues, specifically with "Guest Additions" you may need to install a guest additions package on your local machine.  (see: https://github.com/dotless-de/vagrant-vbguest ```vagrant plugin install vagrant-vbguest```)
 
 Ansible and virtual box will work together to download your VM image and then install and configure your environment. It will take some time.
 
