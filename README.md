@@ -32,9 +32,9 @@ C) Clone this Repo in your /home/{user} folder.
 
 D) Provision the environment
 * Go to the vagrant folder within the repo in your terminal: 
-    ```cd /home/{user}/dev2-playbooks/vagrant```
+```cd /home/{user}/dev2-playbooks/vagrant```
 * Type the following in your terminal: 
-    ```vagrant up```
+```vagrant up```
 * Following the instructions, if prompted for your password, that will be your local machine password.
 * Ansible and virtual box will work together to download your VM image and then install and configure your environment. It will take some time.
 
@@ -46,10 +46,13 @@ Custom Set up:
 --
 Take a few extra actions on item C above:
 C) Clone this Repo in your /home/{user} folder.
-    ```cd ~```
-    ``` git clone {repo clone info} ```
+```
+cd ~
+git clone {repo clone info}
+```
 * Provide customized settings (advanced): 
-* Type the following on your terminal: cp /home/{user}/{repofolder}/roles/common/vars/example.txt /home/{user}/{repofolder}/roles/common/vars/roles/common/vars/main.yml
+* Type the following on your terminal: 
+``` cp /home/{user}/{repofolder}/roles/common/vars/example.txt /home/{user}/{repofolder}/roles/common/vars/roles/common/vars/main.yml ```
 * Customize the settings in that new main.yml file to your preferences
 
 (proceed to step D in Basic Set up)
