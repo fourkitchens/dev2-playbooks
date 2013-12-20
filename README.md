@@ -5,7 +5,7 @@ Hello and welcome to the Four Kitchens development server README.  This repo use
 Basic Install Summary:
 --
 * Install Vagrant
-* Install Virtual Box
+* Install Virtual Box (4.2.18 for mavericks)
 * Clone repo
 * Run vagrant commands to provision environment.
 
@@ -25,6 +25,7 @@ Vagrant (http://downloads.vagrantup.com/)
 
 B) Install Virtual Box
 VirtualBox (https://www.virtualbox.org/wiki/Downloads).
+NOTE: If you are running Mavericks - install 4.2.18.
 
 C) Clone this Repo in your /home/{user} folder.
     
