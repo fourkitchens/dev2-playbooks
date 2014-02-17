@@ -111,3 +111,22 @@
 
 - name: PHP XhProf | Adding xhprof temp dir
   action: file path=/var/tmp/xhprof state=directory mode=0777
+
+###
+# Install Composer
+#
+
+- name: download composer installer
+  get_url: url=https://getcomposer.org/installer
+    dest=/tmp/composer-installer.php
+    mode=0755
+
+- name: run composer installer
+  command: /usr/bin/php composer-installer.php
+    chdir=/tmp
+    creates=/tmp/composer.phar
+
+- name: copy composer in place
+  sudo: true
+  command: /bin/cp /tmp/composer.phar /usr/local/bin/composer
+    creates=/usr/local/bin/composer
