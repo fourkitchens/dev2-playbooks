@@ -12,5 +12,3 @@
     - bundler
 #    - github-pages This cannot be added until we have ruby 1.9.3
 
-- name: SASS | Install Animation (pre-release)
-  action: command gem install animation --pre
