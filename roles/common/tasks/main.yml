@@ -14,3 +14,4 @@
 - include: svn.yml tags=svn
 - include: tty.yml tags=tty
 - include: unzip.yml tags=unzip
+- include: boris.yml tags=boris
