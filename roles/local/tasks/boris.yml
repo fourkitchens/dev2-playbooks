@@ -6,8 +6,8 @@
 - name: Boris | Clone repository 
   action: git repo=https://github.com/d11wtq/boris.git dest=/usr/local/share/boris version=v1.0.8
 
-- name: Boris | Create symlink in /usr/bin/local/
-  action: shell ln -s /usr/local/share/boris/bin/boris /usr/local/bin/boris
+- name: Boris | Create symlink in /usr/local/bin
+  action: shell creates=/usr/local/bin/boris ln -s /usr/local/share/boris/bin/boris /usr/local/bin/boris
 
 - name: boris-loader | Clone repository
   action: git repo=https://github.com/tobiassjosten/boris-loader.git dest=/home/vagrant/boris-loader
