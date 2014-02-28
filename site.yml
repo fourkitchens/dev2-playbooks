@@ -9,3 +9,7 @@
    - db
    - search
    - web
+- hosts: local
+  user: root
+  roles:
+    - local

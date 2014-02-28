@@ -1,7 +1,0 @@
----
-# A playbook that is only run on local vagrant installs.
-
-- hosts: all
-  user: root
-  roles:
-   - local 
