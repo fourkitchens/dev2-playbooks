@@ -9,7 +9,10 @@
   unarchive: src=/tmp/ImageMagick.tar.gz dest=/tmp
 
 - name: Imagemagick | Build and Install
-  shell: chdir=/tmp/ImageMagick-6.8.8-7 creaImageMagicktes=/usr/local/bin/convert ./configure && make && make install
+  shell: chdir=/tmp/ImageMagick-6.8.8-7 creates=/usr/local/bin/convert ./configure && make && make install
+
+- name: Imagemagick | Reload libraries
+  shell: ldconfig /usr/local/lib
 
 - name: Imagemagick | Cleanup
   file: path=$path state=absent
