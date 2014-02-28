@@ -2,5 +2,20 @@
 ####
 # Imagemagick
 #
-- name: Imagemagick | Install required packages.
-  action: apt pkg=imagemagick state=installed
+- name: Imagemagick | Download source
+  get_url: url=http://www.imagemagick.org/download/ImageMagick-6.8.8-7.tar.gz dest=/tmp/ImageMagick.tar.gz
+
+- name: Imagemagick | Untar source
+  unarchive: src=/tmp/ImageMagick.tar.gz dest=/tmp
+
+- name: Imagemagick | Build and Install
+  shell: chdir=/tmp/ImageMagick-6.8.8-7 creates=/usr/local/bin/convert ./configure && make && make install
+
+- name: Imagemagick | Reload libraries
+  shell: ldconfig /usr/local/lib
+
+- name: Imagemagick | Cleanup
+  file: path=$path state=absent
+  with_items:
+    - /tmp/ImageMagick.tar.gz
+    - /tmp/ImageMagick-6.8.8-7
