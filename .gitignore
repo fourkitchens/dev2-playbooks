@@ -1,2 +1,5 @@
 vagrant/.vagrant
 config/settings.yml
+*.swp
+*.swo
+*.un~

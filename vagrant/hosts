@@ -12,3 +12,6 @@ development
 
 [web_servers:children]
 development
+
+[local:children]
+development
