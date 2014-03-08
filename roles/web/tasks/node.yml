@@ -15,7 +15,7 @@
   action: apt pkg=nodejs state=installed
 
 - name: Node.js | Install required npm packages
-  action: npm name=$item global=yes
+  action: npm name={{ item }} global=yes
   with_items:
     - bower
     - coffee-script

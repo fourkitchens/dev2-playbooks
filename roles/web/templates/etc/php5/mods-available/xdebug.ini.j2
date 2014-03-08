@@ -1,4 +1,4 @@
-zend_extension=/usr/lib/php5/20090626/xdebug.so
+zend_extension=xdebug.so
 xdebug.remote_enable={{ php_xdebug_remote_enable }}
 {% if php_xdebug_remote_enable == 1 %}
   xdebug.remote_host={{ php_xdebug_remote_host }}
