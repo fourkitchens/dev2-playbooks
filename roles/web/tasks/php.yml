@@ -83,6 +83,9 @@
 
 - name: PHP MongoDB | Configure PHP to use PECL MongoDB extension
   action: copy src=etc/php5/mods-available/mongo.ini dest=/etc/php5/mods-available/mongo.ini
+
+- name: PHP MongoDB | Enable PECL MongoDB extension
+  file: src=/etc/php5/mods-available/mongo.ini dest=/etc/php5/mods-enabled/mongo.ini state=link
   notify:
     - restart apache
     - restart php-fpm
@@ -113,6 +116,9 @@
 
 - name: PHP XhProf | Configure PHP to use Compile xhprof extension
   action: copy src=etc/php5/mods-available/xhprof.ini dest=/etc/php5/mods-available/xhprof.ini
+
+- name: PHP XhProf | Enable PECL XhProf extension
+  file: src=/etc/php5/mods-available/xhprof.ini dest=/etc/php5/mods-enabled/xhprof.ini state=link
   notify:
     - restart apache
     - restart php-fpm
