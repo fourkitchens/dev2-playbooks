@@ -5,7 +5,7 @@
 phpfpm_user: 'phpfpm'
 phpfpm_group: 'phpfpm'
 phpfpm_pm_start_servers: '2'
-phpfpm_listen: '127.0.0.1:9000'
+phpfpm_listen: '/var/run/php5-fpm.sock'
 phpfpm_listen_owner: 'nginx'
 phpfpm_listen_group: 'nginx'
 phpfpm_listen_mode: '0600'
@@ -39,6 +39,7 @@ nginx_port: 8081
 nginx_dev_robots: true
 nginx_worker_processes: '1'
 nginx_webroot: '/var/www'
+nginx_fpm_listen: 'unix:/var/run/php5-fpm.sock'
 
 # Varnish
 varnish_port: 80
