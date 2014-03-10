@@ -85,10 +85,17 @@
   action: copy src=etc/php5/mods-available/mongo.ini dest=/etc/php5/mods-available/mongo.ini
 
 - name: PHP MongoDB | Enable PECL MongoDB extension
-  file: src=/etc/php5/mods-available/mongo.ini dest=/etc/php5/mods-available/mongo.ini state=link
+  file: src=/etc/php5/mods-available/mongo.ini dest=/etc/php5/apache2/conf.d/20-mongo.ini state=link
   notify:
     - restart apache
+
+- name: PHP MongoDB | Enable PECL MongoDB extension
+  file: src=/etc/php5/mods-available/mongo.ini dest=/etc/php5/fpm/conf.d/20-mongo.ini state=link
+  notify:
     - restart php-fpm
+
+- name: PHP MongoDB | Enable PECL MongoDB extension
+  file: src=/etc/php5/mods-available/mongo.ini dest=/etc/php5/cli/conf.d/20-mongo.ini state=link
 
 ##
 # xhprof installation
@@ -118,10 +125,17 @@
   action: copy src=etc/php5/mods-available/xhprof.ini dest=/etc/php5/mods-available/xhprof.ini
 
 - name: PHP XhProf | Enable PECL XhProf extension
-  file: src=/etc/php5/mods-available/xhprof.ini dest=/etc/php5/mods-available/xhprof.ini state=link
+  file: src=/etc/php5/mods-available/xhprof.ini dest=/etc/php5/apache2/conf.d/20-xhprof.ini state=link
   notify:
     - restart apache
+
+- name: PHP XhProf | Enable PECL XhProf extension
+  file: src=/etc/php5/mods-available/xhprof.ini dest=/etc/php5/fpm/conf.d/20-xhprof.ini state=link
+  notify:
     - restart php-fpm
+
+- name: PHP XhProf | Enable PECL XhProf extension
+  file: src=/etc/php5/mods-available/xhprof.ini dest=/etc/php5/cli/conf.d/20-xhprof.ini state=link
 
 - name: PHP XhProf | Adding xhprof temp dir
   action: file path=/var/tmp/xhprof state=directory mode=0777
