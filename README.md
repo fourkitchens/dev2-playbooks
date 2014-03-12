@@ -67,7 +67,7 @@ C) Clone this Repo in your /home/{user} folder.
 
 Provide customized settings (advanced).
 
-  1. Create a custom host vars file called ``all`` in ``/home/{user}/{repofolder}/vagrant/group_vars``
+  1. Create a custom host vars file called ``development`` in ``/home/{user}/{repofolder}/vagrant/group_vars``
   2. Assign variables as needed for your local host, i.e.
 
     ```
