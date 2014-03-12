@@ -3,7 +3,7 @@
 # Imagemagick
 #
 - name: Imagemagick | Download source
-  get_url: url=http://www.imagemagick.org/download/ImageMagick-6.8.8-7.tar.gz dest=/tmp/ImageMagick.tar.gz
+  get_url: url=http://www.imagemagick.org/download/ImageMagick.tar.gz dest=/tmp/ImageMagick.tar.gz
 
 - name: Imagemagick | Untar source
   unarchive: src=/tmp/ImageMagick.tar.gz dest=/tmp
