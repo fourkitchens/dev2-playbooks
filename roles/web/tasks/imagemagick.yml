@@ -9,7 +9,7 @@
   unarchive: src=/tmp/ImageMagick.tar.gz dest=/tmp
 
 - name: Imagemagick | Build and Install
-  shell: chdir=/tmp/ImageMagick-6.8.8-7 creates=/usr/local/bin/convert ./configure && make && make install
+  shell: chdir=/tmp/ImageMagick-6.8.8-7 creates=/usr/local/bin/convert ./configure '--with-png=yes' '--with-jpeg=yes' '--with-jp2=yes' '--with-freetype=yes' && make && make install
 
 - name: Imagemagick | Reload libraries
   shell: ldconfig /usr/local/lib
