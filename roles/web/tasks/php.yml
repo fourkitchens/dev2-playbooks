@@ -3,7 +3,7 @@
 # PHP
 #
 - name: PHP | Install required packages.
-  action: apt pkg=$item state=installed
+  action: apt pkg={{ item }} state=installed
   with_items:
     - php5
     - php-apc

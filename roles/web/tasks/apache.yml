@@ -3,7 +3,7 @@
 # Apache2 setup.
 #
 - name: Apache | Install required packages
-  action: apt pkg=$item state=installed
+  action: apt pkg={{ item }} state=installed
   with_items:
     - apache2
     - libapache2-mod-php5
