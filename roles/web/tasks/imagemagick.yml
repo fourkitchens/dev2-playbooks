@@ -3,19 +3,19 @@
 # Imagemagick
 #
 - name: Imagemagick | Download source
-  get_url: url=http://www.imagemagick.org/download/ImageMagick.tar.gz dest=/tmp/ImageMagick.tar.gz
+  get_url: url="http://downloads.sourceforge.net/project/imagemagick/old-sources/6.x/6.8/ImageMagick-6.8.7-10.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fimagemagick%2Ffiles%2Fold-sources%2F6.x%2F6.8%2F&ts=1394641256&use_mirror=iweb" dest=/tmp/ImageMagick.tar.gz
 
 - name: Imagemagick | Untar source
   unarchive: src=/tmp/ImageMagick.tar.gz dest=/tmp/ImageMagick
 
 - name: Imagemagick | Build and Install
-  shell: chdir=/tmp/ImageMagick creates=/usr/local/bin/convert ./configure '--with-png=yes' '--with-jpeg=yes' '--with-jp2=yes' '--with-freetype=yes' && make && make install
+  shell: chdir=/tmp/ImageMagick-6.8.7-10 creates=/usr/local/bin/convert ./configure '--with-png=yes' '--with-jpeg=yes' '--with-jp2=yes' '--with-freetype=yes' && make && make install
 
 - name: Imagemagick | Reload libraries
   shell: ldconfig /usr/local/lib
 
 - name: Imagemagick | Cleanup
-  file: path=$path state=absent
+  file: path={{ path }} state=absent
   with_items:
     - /tmp/ImageMagick.tar.gz
-    - /tmp/ImageMagick-6.8.8-7
+    - /tmp/ImageMagick-6.8.8-7-10
