@@ -15,7 +15,7 @@
   shell: ldconfig /usr/local/lib
 
 - name: Imagemagick | Cleanup
-  file: path={{ path }} state=absent
+  file: path={{ item }} state=absent
   with_items:
     - /tmp/ImageMagick.tar.gz
     - /tmp/ImageMagick-6.8.8-7-10
