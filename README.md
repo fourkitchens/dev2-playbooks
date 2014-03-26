@@ -1,11 +1,11 @@
 Dev2: Ubuntu 12.04 Development Server
 -------------------------------------
-Hello and welcome to the Four Kitchens development server README.  This repo uses ansible to allow you to spin up our bespoke development environment as a VM or in the cloud. You have a great amount of configuration options available to you via yml files but by default, after installing the latest virtual box and the latest version of vagrant you should be only a few steps away from a robust and comprehensive environment.
+Hello and welcome to the Four Kitchens development server README.  This repo uses ansible to allow you to spin up our bespoke development environment as a VM or in the cloud. You have a great amount of configuration options available to you via yml files but by default, after installing the latest virtual box (unless you have mavericks -then use 4.2.22) and the latest version of vagrant you should be only a few steps away from a robust and comprehensive environment.
 
 Basic Install Summary:
 --
 * Install Vagrant
-* Install Virtual Box (4.2.18 for mavericks)
+* Install Virtual Box (4.2.22 for mavericks)
 * Clone repo
 * Run vagrant commands to provision environment.
 
