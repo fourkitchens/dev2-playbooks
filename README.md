@@ -64,7 +64,7 @@ C) Clone this Repo in your /home/{user} folder.
 
 Provide customized settings (advanced). Type the following on your terminal: 
 
-    cp /home/{user}/{repofolder}/roles/common/vars/example.txt /home/{user}/{repofolder}/roles/common/vars/roles/common/vars/main.yml
+    cp /home/{user}/{repofolder}/roles/common/vars/example.txt /home/{user}/{repofolder}/roles/common/vars/main.yml
 
 Customize the settings in that new main.yml file to your preferences
 
