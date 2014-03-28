@@ -19,8 +19,10 @@ Vagrant.configure("2") do |config|
     # Shared folders through NFS. This is supported in Mac and Linux. Windows may have
     # issues, see Vagrant site for documentation.
     dev_config.vm.network :private_network, ip: "10.1.0.10"
-    dev_config.vm.synced_folder "../", "/home/vagrant/playbooks", type: "nfs"
-    dev_config.vm.synced_folder "~/www", "/home/vagrant/www", type: "nfs"
+    dev_config.vm.synced_folder "../", "/home/vagrant/playbooks",
+      type: "nfs", create: true
+    dev_config.vm.synced_folder "~/www", "/home/vagrant/www",
+      type: "nfs", create: true
 
     dev_config.vm.provision :shell, :path => "provision/ansible-setup.sh"
     dev_config.vm.provision :shell, :path => "provision/local-dev-setup.sh"
