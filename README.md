@@ -67,6 +67,15 @@ C) Clone this Repo in your /home/{user} folder.
 
 Provide customized settings (advanced).
 
+Change the default file synced folder behavior. Edit ``/home/{user}/{repofolder}/vagrant/VagrantFile``
+and change the ``synced_folder`` settings to meet your needs. By default the synced folders
+will be mounted using NFS. For users on OSX 10.8+ this is usually sufficient but you can see
+all the options for configuring synced folders in the [vagrant documentation](http://docs.vagrantup.com/v2/synced-folders/). Note that any changes you make to this file will be captured as diffs
+in git so be sure to stash changes that you don't intend to push upstream if you've alterd
+the file and plan to push new features upstream.
+
+Provide customized settings (advanced). Type the following on your terminal:
+
   1. Create a custom host vars file called ``development`` in ``/home/{user}/{repofolder}/vagrant/group_vars``
   2. Assign variables as needed for your local host, i.e.
 
