@@ -46,7 +46,7 @@ Type the following in your terminal:
 
 Following the instructions, if prompted for your password, that will be your local machine password.
 
-If you have issues, specifically with "Guest Additions" you may need to install a guest additions package on your local machine.  (see: https://github.com/dotless-de/vagrant-vbguest ```vagrant plugin install vagrant-vbguest```)
+If you have issues, specifically with "Guest Additions" you may need to install a guest additions package on your local machine.  (see: https://github.com/dotless-de/vagrant-vbguest ``vagrant plugin install vagrant-vbguest``)
 
 Ansible and virtual box will work together to download your VM image and then install and configure your environment. It will take some time.
 
@@ -62,7 +62,14 @@ C) Clone this Repo in your /home/{user} folder.
     cd ~
     git clone {repo clone info}
 
-Provide customized settings (advanced). Type the following on your terminal: 
+Change the default file synced folder behavior. Edit ``/home/{user}/{repofolder}/vagrant/VagrantFile``
+and change the ``synced_folder`` settings to meet your needs. By default the synced folders
+will be mounted using NFS. For users on OSX 10.8+ this is usually sufficient but you can see
+all the options for configuring synced folders in the [vagrant documentation](http://docs.vagrantup.com/v2/synced-folders/). Note that any changes you make to this file will be captured as diffs
+in git so be sure to stash changes that you don't intend to push upstream if you've alterd
+the file and plan to push new features upstream.
+
+Provide customized settings (advanced). Type the following on your terminal:
 
     cp /home/{user}/{repofolder}/roles/common/vars/example.txt /home/{user}/{repofolder}/roles/common/vars/main.yml
 
