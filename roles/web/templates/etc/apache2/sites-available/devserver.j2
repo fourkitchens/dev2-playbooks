@@ -24,6 +24,10 @@
   <Directory {{ apache_server_directory }}>
     Options Indexes FollowSymLinks MultiViews
     AllowOverride All
+{% if apache_server_local = true %}
+    Order allow,deny
+    Allow from all
+{% else %}
     Order deny,allow
     Deny from all
     AuthType Basic
@@ -32,6 +36,7 @@
     AuthUserFile /etc/apache2/htpasswd
     Require valid-user
     Satisfy Any
+{% endif %}
   </Directory>
 
 </VirtualHost>
