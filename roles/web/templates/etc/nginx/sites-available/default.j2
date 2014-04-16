@@ -55,7 +55,7 @@ server {
     include fastcgi_params;
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     fastcgi_intercept_errors on;
-    fastcgi_pass unix:{{ phpfpm_listen }};
+    fastcgi_pass {{ nginx_fpm_listen }};
   }
 
   # Fighting with ImageCache? This little gem is amazing.

@@ -5,11 +5,11 @@
 ##
 # This server allows a wildcard VirtualHost, so for example, going to:
 #
-# http://pete.training.example.com
+# https://pete.training.example.com
 #
 # ... will set the webroot for the request to /home/pete/www/training
 #
-<VirtualHost *:{{ apache_port }}>
+<VirtualHost *:443>
   ServerAdmin {{ apache_server_admin }}
   ServerAlias {{ apache_server_alias }}
 
@@ -24,14 +24,14 @@
   <Directory {{ apache_server_directory }}>
     Options Indexes FollowSymLinks MultiViews
     AllowOverride All
-    Order deny,allow
-    Deny from all
     AuthType Basic
-    AuthGroupFile /dev/null
     AuthName "Four Kitchens Sandbox"
     AuthUserFile /etc/apache2/htpasswd
     Require valid-user
     Satisfy Any
   </Directory>
 
+  SSLEngine on
+  SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
+  SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
 </VirtualHost>
