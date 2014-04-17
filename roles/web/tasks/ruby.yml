@@ -6,9 +6,29 @@
 - name: Ruby | Install rubygems
   action: apt pkg=rubygems state=installed
 
+
+
+
+- name: Install RVM
+  shell: curl -L get.rvm.io | bash -s stable creates=/etc/profile.d/rvm.sh
+
+- shell: rvm list
+  register: rvm_default
+
+- name: Install Ruby 2.0.0
+  shell: >
+    executable=/bin/bash source /etc/profile.d/rvm.sh;
+    rvm install 2.0.0
+  when: rvm_default.stdout.find('* ruby-2.0.0') == -1
+
+- name: Set default ruby version
+  shell: >
+    executable=/bin/bash source /etc/profile.d/rvm.sh;
+    rvm —-default use 2.0.0
+  when: rvm_default.stdout.find('* ruby-2.0.0') == -1
+
 - name: Ruby | Install Sass and all ruby gems
   action: gem name={{ item }} state=latest
   with_items:
     - bundler
 #    - github-pages This cannot be added until we have ruby 1.9.3
-
