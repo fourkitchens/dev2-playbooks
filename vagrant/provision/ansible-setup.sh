@@ -17,8 +17,8 @@ echo 'Setting up Ansible...'
 if [ `which ansible` ]; then
   echo 'Ansible already installed.'
   # Make sure the config files are up to date before bailing.
-  cp $home/playbooks/vagrant/hosts /etc/ansible/hosts
-  cp $home/playbooks/vagrant/group_vars/* /etc/ansible/group_vars
+  cp $home/hosts /etc/ansible/hosts
+  cp $home/group_vars/* /etc/ansible/group_vars
   exit 0
 fi
 
