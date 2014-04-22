@@ -30,7 +30,7 @@
     - restart mysql
 
 - name: MySQL | Delete anonymous MySQL server user for $server_hostname
-  action: mysql_user user="" host="{{ server_hostname }}" state="absent"
+  action: mysql_user user="" host="{{ ansible_hostmane }}" state="absent"
 
 - name: MySQL | Delete anonymous MySQL server user for localhost
   action: mysql_user user="" state="absent"
@@ -49,4 +49,3 @@
 
 - name: MySQL | Remove the MySQL test database
   action: mysql_db db=test state=absent
-

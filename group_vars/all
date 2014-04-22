@@ -4,3 +4,5 @@
 # ssh
 ssh_password_auth: 'no'
 
+# Install Bender's playbooks by defualt.
+github_playbooks: 1
