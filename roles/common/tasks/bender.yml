@@ -33,7 +33,10 @@
   action: shell ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
 - name: Users | Get the repo of the deploy scripts
-  action: git repo=git@github.com:fourkitchens/dev2-playbooks.git dest=/home/bender/dev2-playbooks version=master
+  action: git repo=git@github.com:fourkitchens/dev2-playbooks.git
+    dest=/home/bender/dev2-playbooks
+    version=master
+    depth=1
   when: github_playbooks == 1
 
 - name: Users | Let Bender own the repo.

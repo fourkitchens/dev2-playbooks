@@ -15,7 +15,6 @@ apache_server_alias: '*.local.dev'
 apache_server_virtual_docroot: '/home/vagrant/www/%-3'
 apache_server_directory: '/home/vagrant/www/*'
 apache_server_name: 'local'
-apache_server_home_alias: 'local.dev'
 
 # nginx
 nginx_default_server_name: '"~^(?<domain>[^\.]+)\.local.dev$"'

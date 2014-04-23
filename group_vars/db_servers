@@ -1,0 +1,9 @@
+---
+
+# MySQL
+mysql_root_password: 'password'
+
+# MongoDB
+mongo_root_password: 'password'
+mongo_app_password: 'password'
+mongo_restart_timeout: 60

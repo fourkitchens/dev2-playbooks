@@ -1,0 +1,11 @@
+[cache_servers]
+dev1
+
+[db_servers]
+dev1
+
+[search_servers]
+dev1
+
+[web_servers]
+dev1
