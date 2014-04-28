@@ -1,11 +1,11 @@
 [cache_servers]
-dev1
+dev1.fourkitchens.com
 
 [db_servers]
-dev1
+dev1.fourkitchens.com
 
 [search_servers]
-dev1
+dev1.fourkitchens.com
 
 [web_servers]
-dev1
+dev1.fourkitchens.com

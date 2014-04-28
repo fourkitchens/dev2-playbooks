@@ -35,8 +35,9 @@
 - name: Users | Get the repo of the deploy scripts
   action: git repo=git@github.com:fourkitchens/dev2-playbooks.git
     dest=/home/bender/dev2-playbooks
-    version=master
+    version=dev1
     depth=1
+    accept_hostkey=true
   when: github_playbooks == 1
 
 - name: Users | Let Bender own the repo.

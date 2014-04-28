@@ -3,13 +3,14 @@
 # Add a new user.
 #
 # user_name: The name of the new user, will also be used for group name.
+# fetch_key: Boolean that is used to fetch the users key.
 # user_mail: The user's email address as set on fourkitchens.com. Used for authorized_keys.
 #
 - hosts: all
   sudo: yes
   vars:
     fetch_key: false
-    
+
   tasks:
 
     - name: Create user group.
@@ -26,4 +27,9 @@
 
     - name: Authorized keys from 4K.com
       action: get_url thirsty=yes url=http://fourkitchens.com/authorized_keys?mail={{user_mail}} dest=/home/{{user_name}}/.ssh/authorized_keys owner={{user_name}} group={{user_name}} mode=644
-      when: fetch_key == true
+      when: fetch_key == "true"
+
+    - name:Authorized keys from string
+      action: authorized_key user={{ user_name }}
+                             key={{ key }}
+      when: fetch_key =="false"
