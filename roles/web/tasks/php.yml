@@ -3,7 +3,7 @@
 # PHP
 #
 - name: PHP | Add PHP 5.5 PPA
-  command: add-apt-repository ppa:ondrej/php5
+  command: add-apt-repository -y ppa:ondrej/php5
 
 - name: PHP | Update apt cache
   action: apt update-cache=yes
