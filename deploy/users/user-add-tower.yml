@@ -6,8 +6,10 @@
 # user_mail: The user's email address as set on fourkitchens.com. Used for authorized_keys.
 #
 - hosts: all
-  sudo: yes 
- 
+  sudo: yes
+  vars:
+    fetch_key: false
+    
   tasks:
 
     - name: Create user group.
@@ -24,3 +26,4 @@
 
     - name: Authorized keys from 4K.com
       action: get_url thirsty=yes url=http://fourkitchens.com/authorized_keys?mail={{user_mail}} dest=/home/{{user_name}}/.ssh/authorized_keys owner={{user_name}} group={{user_name}} mode=644
+      when: fetch_key == true
