@@ -29,7 +29,7 @@
       action: get_url thirsty=yes url=http://fourkitchens.com/authorized_keys?mail={{user_mail}} dest=/home/{{user_name}}/.ssh/authorized_keys owner={{user_name}} group={{user_name}} mode=644
       when: fetch_key == "true"
 
-    - name:Authorized keys from string
+    - name: Authorized keys from string
       action: authorized_key user={{ user_name }}
                              key={{ key }}
       when: fetch_key =="false"
