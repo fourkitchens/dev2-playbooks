@@ -8,20 +8,19 @@
 # db_name: The name of the database to create.
 # db_user: The username of the db user.
 #
-- hosts: localhost
-  connection: local
-  user: root
-
+- hosts: all
+  sudo: yes
+  
   tasks:
 
     - name: Simple test to make sure the user and site exists
-      action: command test -d /home/$user_name/www/$site_name creates=/home/$user_name/www/$site_name
+      action: command test -d /home/{{ user_name }}/www/{{ site_name }} creates=/home/{{ user_name }}/www/{{ site_name }}
 
     - name: Delete the site folder
-      action: file state=absent path=/home/$user_name/www/$site_name
+      action: file state=absent path=/home/{{ user_name }}/www/{{ site_name }}
 
     - name: Remove MySQL db
-      action: mysql_db name=$db_name state=absent
+      action: mysql_db name={{ db_name }} state=absent
 
     - name: Remove MySQL user
-      action: mysql_user name=$db_user state=absent
+      action: mysql_user name={{ db_user }} state=absent
