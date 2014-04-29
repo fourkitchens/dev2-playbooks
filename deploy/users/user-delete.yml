@@ -3,16 +3,15 @@
 # Delete a user
 #
 - hosts: all
-  user: root
-  connection: local
-
+  sudo: yes
+  
   tasks:
 
     - name: Remove the user account.
-      action: user name=$user_name state=absent
+      action: user name={{ user_name }} state=absent
 
     - name: Remove user group.
-      action: group name=$user_name state=absent
+      action: group name={{ user_name }} state=absent
 
     - name: Remove the user home directory.
-      action: file path=/home/$user_name state=absent
+      action: file path=/home/{{ user_name }} state=absent
