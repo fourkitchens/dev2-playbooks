@@ -9,7 +9,7 @@
 - hosts: all
   sudo: yes
   vars:
-    fetch_key: false
+    fetch_key: "false"
 
   tasks:
 
@@ -31,5 +31,5 @@
 
     - name: Authorized keys from string
       action: authorized_key user={{ user_name }}
-                             key={{ key }}
-      when: fetch_key =="false"
+                             key="{{ key }}"
+      when: fetch_key == "false"
