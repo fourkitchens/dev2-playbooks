@@ -14,7 +14,7 @@
 - name: Drush | Install drush
   action: command pear install drush/drush creates=/usr/bin/drush
 
-- name: Drush | Run drush once so it downloads it's dependencies
+- name: Drush | Run drush once so it downloads its dependencies
   action: command drush creates=/usr/bin/drush
 
 - name: Drush | Create a folder to hold site aliases
