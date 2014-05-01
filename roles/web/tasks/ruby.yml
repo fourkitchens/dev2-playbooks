@@ -1,14 +1,12 @@
 ---
 ##
 # Ruby tools
-#
+# Ruby and RVM are installed using a community playbook role which is
+# included in the codebase for convinience.
+# https://galaxy.ansible.com/list#/roles/607
 
-- name: Ruby | Install rubygems
-  action: apt pkg=rubygems state=installed
+- name: Add global gemrc file.
+  action: copy src=etc/ruby/gemrc dest=/etc/gemrc
 
-- name: Ruby | Install Sass and all ruby gems
-  action: gem name={{ item }} state=latest
-  with_items:
-    - bundler
-#    - github-pages This cannot be added until we have ruby 1.9.3
-
+- name: Ruby | Install bundler because other Gems are for projects not servers
+  action: gem name=bundler state=latest
