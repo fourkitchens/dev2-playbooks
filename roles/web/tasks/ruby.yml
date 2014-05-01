@@ -1,28 +1,9 @@
 ---
 ##
 # Ruby tools
-#
-
-- name: Ruby | Install rubygems
-  action: apt pkg=rubygems state=installed
-
-- name: Install RVM
-  shell: curl -L get.rvm.io | bash -s stable creates=/etc/profile.d/rvm.sh
-
-- shell: rvm list
-  register: rvm_default
-
-- name: Install Ruby 2.0.0
-  shell: >
-    executable=/bin/bash source /etc/profile.d/rvm.sh;
-    rvm install 2.0.0-p451
-  when: rvm_default.stdout.find('* ruby-2.0.0-p451') == -1
-
-- name: Set default ruby version
-  shell: >
-    executable=/bin/bash source /etc/profile.d/rvm.sh;
-    rvm —-default use 2.0.0-p451
-  when: rvm_default.stdout.find('* ruby-2.0.0-p451') == -1
+# Ruby and RVM are installed using a community playbook role which is
+# included in the codebase for convinience.
+# https://galaxy.ansible.com/list#/roles/607
 
 - name: Add global gemrc file.
   action: copy src=etc/ruby/gemrc dest=/etc/gemrc
