@@ -30,7 +30,7 @@
     - restart mysql
 
 - name: MySQL | Delete anonymous MySQL server user for $server_hostname
-  action: mysql_user user="" host="{{ ansible_hostmane }}" state="absent"
+  action: mysql_user user="" host="{{ ansible_hostname }}" state="absent"
 
 - name: MySQL | Delete anonymous MySQL server user for localhost
   action: mysql_user user="" state="absent"
@@ -45,7 +45,7 @@
   action: mysql_user user="root" password="{{ mysql_root_password }}" host="localhost"
 
 - name: MySQL | Secure the MySQL root user for $server_hostname domain
-  action: mysql_user user="root" password="{{ mysql_root_password }}" host="{{ server_hostname }}"
+  action: mysql_user user="root" password="{{ mysql_root_password }}" host="{{ ansible_hostname }}"
 
 - name: MySQL | Remove the MySQL test database
   action: mysql_db db=test state=absent

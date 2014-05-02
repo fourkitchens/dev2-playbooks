@@ -10,7 +10,3 @@
    - search
    - {role: ansible-rvm, tags:["ruby"]}
    - web
-- hosts: local
-  user: root
-  roles:
-    - local

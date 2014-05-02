@@ -10,3 +10,6 @@
 
 - name: Ruby | Install bundler because other Gems are for projects not servers
   action: gem name=bundler state=latest
+
+- name: RVM Group
+  action: user name=bender groups=rvm append=yes

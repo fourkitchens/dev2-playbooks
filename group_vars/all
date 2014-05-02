@@ -6,3 +6,30 @@ ssh_password_auth: 'no'
 
 # Install Bender's playbooks by defualt.
 github_playbooks: 1
+
+# nginx
+nginx_default_server_name: '"~^(?<domain>[^\.]+)\.local.dev$"'
+nginx_default_root: '/home/vagrant/www/$domain'
+
+# Apache
+apache_server_admin: 'it@fourkitchens.com'
+apache_server_alias: '*.*.webchefs.org'
+apache_server_virtual_docroot: '/home/%-4/www/%-3'
+apache_server_directory: '/home/*/www/*'
+apache_server_name: 'dev1'
+
+# MySQL
+mysql_root_password: 'password'
+
+# MongoDB
+mongo_root_password: 'password'
+mongo_app_password: 'password'
+mongo_restart_timeout: 60
+
+# Tomcat
+tomcat_user: 'tomcat'
+tomcat_password: '0jslEZg5spnT'
+
+# Ruby
+rvm:
+  ruby_version: ruby-2.0.0-p451

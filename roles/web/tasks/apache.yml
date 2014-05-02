@@ -3,7 +3,7 @@
 # Apache2 setup.
 #
 - name: Apache | Add Apache 2.4 PPA
-  command: add-apt-repository ppa:ondrej/apache2
+  command: add-apt-repository -y ppa:ondrej/apache2
 
 - name: Apache | Update apt cache
   action: apt update-cache=yes
@@ -77,4 +77,3 @@
   action: file path=/var/www/vhosts state=directory mode=755 owner=bender group=bender
   notify:
     - restart apache
-

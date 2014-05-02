@@ -13,7 +13,7 @@
   get_url: url="http://downloads.sourceforge.net/project/imagemagick/old-sources/6.x/6.8/ImageMagick-6.8.7-10.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fimagemagick%2Ffiles%2Fold-sources%2F6.x%2F6.8%2F&ts=1395340307&use_mirror=softlayer-ams" dest="/tmp/ImageMagick.tar.gz"
 
 - name: Imagemagick | Untar source
-  unarchive: src="/tmp/ImageMagick.tar.gz" dest=/tmp
+  command: /bin/tar -C /tmp -xzf /tmp/ImageMagick.tar.gz creates=/tmp/ImageMagick-6.8.7-10/changelog
 
 - name: Imagemagick | Build and Install
   shell: chdir=/tmp/ImageMagick-6.8.7-10 creates=/usr/local/bin/convert ./configure '--with-png=yes' '--with-jpeg=yes' '--with-jp2=yes' '--with-freetype=yes' && make && make install
