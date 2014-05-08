@@ -12,17 +12,17 @@
 # db_pass: The password of the db user.
 #
 - hosts: localhost
-  sudo: yes
+  user: root
   vars:
     branch: master
 
   tasks:
 
     - name: Simple test to make sure the user exists
-      action: command test -d /home/ {{ user_name }} creates=/home/{{ user_name }}
+      action: command test -d /home/{{ user_name }} creates=/home/{{ user_name }}
 
     - name: Checkout the git repo
-      action: git repo={{ repo }} dest=/home/{{ user_name }}/www/{{ site_name }} version= {{ branch }}
+      action: git repo={{ repo }} dest=/home/{{ user_name }}/www/{{ site_name }} version={{ branch }}
 
     - name: Let current user own the repo.
       action: "command chown -R {{ user_name }}: /home/{{ user_name }}/www/{{ site_name }}"

@@ -1,2 +1,5 @@
 [all]
-dev1.fourkitchens.com
+dev1.fourkitchens.com ansible_connection=ssh ansible_ssh_user=mirzu
+
+[local]
+localhost

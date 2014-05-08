@@ -11,11 +11,15 @@
 # user_name, user_mail and key, and a boolean for fetch_key.
 # Below is the bash script that would be used in the script box.
 #
-# if [ "$fetch_key" == true ]; then
-#   ansible-playbook -s -i hosts --connection=local --extra-vars="user_name=$user_name fetch_key=true user_mail='$user_mail'" deploy/users/user-add-tower.yml
-# else
-#   ansible-playbook -s -i hosts --connection=local --extra-vars="user_name=$user_name key='$key'" deploy/users/user-add-tower.yml
-# fi
+#!/bin/bash
+#
+#cd /home/bender/dev2-playbooks
+#
+#if [ $fetch_key == true ]; then
+#  ansible-playbook -s -i hosts --connection=local --extra-vars="user_name=$user_name fetch_key=true user_mail='$user_mail'" deploy/users/user-add-tower.yml
+#else
+#  ansible-playbook -s -i hosts --connection=local --extra-vars="user_name=$user_name key='$key'" deploy/users/user-add-tower.yml
+#fi
 #
 
 
