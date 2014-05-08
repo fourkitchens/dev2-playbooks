@@ -28,10 +28,10 @@
       action: "command chown -R www-data: /var/www/vhosts/$domain_name/sites/default/files"
 
     - name: Make a vhost config file.
-      action: template src=etc-apache2-sites-available-template.j2 dest=/etc/apache2/sites-available/$domain_name
+      action: template src=etc-apache2-sites-available-template.j2 dest=/etc/apache2/sites-available/$domain_name.conf
 
     - name: Enable our new site
-      action: command a2ensite $domain_name creates=/etc/apache2/sites-enabled/$domain_name
+      action: command a2ensite $domain_name.conf creates=/etc/apache2/sites-enabled/$domain_name.conf
 
     - name: Create MySQL db
       action: mysql_db name=$db_name

@@ -24,8 +24,8 @@
     Order deny,allow
     Deny from all
     AuthType Basic
-    AuthGroupFile /dev/null
     AuthName "Four Kitchens Staging"
+    AuthBasicProvider file
     AuthUserFile /etc/apache2/htpasswd
     Require valid-user
     Satisfy Any
