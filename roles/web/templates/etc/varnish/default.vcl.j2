@@ -60,6 +60,11 @@ sub vcl_recv {
     }
   }
 
+  # Pass for SSL requests as base URLs may vary.
+  if (req.http.X-Forwarded-Proto == "https") {
+    return (pass);
+  }
+
   # Do not cache these paths.
   if (req.url ~ "^/status\.php$" ||
       req.url ~ "^/update\.php$" ||

@@ -28,7 +28,17 @@
     - restart nginx
 
 - name: nginx | Enable default site
-  action: file path=/etc/nginx/sites-enabled/default src=/etc/nginx/sites-available/default state=link
+  action: file path=/etc/nginx/sites-enabled/99-default src=/etc/nginx/sites-available/default state=link
+  notify:
+    - restart nginx
+
+- name: nginx | Update ssl site
+  action: copy src=etc/nginx/sites-available/ssl dest=/etc/nginx/sites-available/ssl
+  notify:
+    - restart nginx
+
+- name: nginx | Enable ssl site
+  action: file path=/etc/nginx/sites-enabled/00-ssl src=/etc/nginx/sites-available/ssl state=link
   notify:
     - restart nginx
 
