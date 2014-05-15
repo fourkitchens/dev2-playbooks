@@ -23,9 +23,8 @@
               accept_hostkey=True
               recursive=no
               depth=1
-
-    - name: Let Bender own the repo.
-      action: "command chown -R bender: /var/www/vhosts/{{ domain_name }}"
+      sudo: yes
+      sudo_user: bender
 
     - name: Create sites/default/files if it doesn't exist ensure it's owned by the www-data user.
       action: file path=/var/www/vhosts/{{ domain_name }}/sites/default/files state=directory owner=www-data group=www-data
