@@ -11,36 +11,42 @@
 # db_pass: The password of the db user.
 #
 - hosts: all
-  sudo: yes
+  user: root
+  vars:
+    branch: master
 
   tasks:
 
     - name: Checkout the git repo
-      action: git repo=$repo dest=/var/www/vhosts/$domain_name version=master
+      action: git repo={{repo}} dest=/var/www/vhosts/{{domain_name}}
+              version={{branch}}
+              accept_hostkey=True
+              recursive=no
+              depth=1
 
     - name: Let Bender own the repo.
-      action: "command chown -R bender: /var/www/vhosts/$domain_name"
+      action: "command chown -R bender: /var/www/vhosts/{{ domain_name }}"
 
     - name: Create sites/default/files if it doesn't exist ensure it's owned by the www-data user.
-      action: file path=/var/www/vhosts/$domain_name/sites/default/files state=directory owner=www-data group=www-data
+      action: file path=/var/www/vhosts/{{ domain_name }}/sites/default/files state=directory owner=www-data group=www-data
 
     - name: Make www-data the owner of all sites/default/files
-      action: "command chown -R www-data: /var/www/vhosts/$domain_name/sites/default/files"
+      action: file path=/var/www/vhosts/{{ domain_name }}/sites/default/files state=directory owner=www-data group=www-data
 
     - name: Make a vhost config file.
-      action: template src=etc-apache2-sites-available-template.j2 dest=/etc/apache2/sites-available/$domain_name.conf
+      action: template src=etc-apache2-sites-available-template.j2 dest=/etc/apache2/sites-available/{{ domain_name }}.conf
 
     - name: Enable our new site
-      action: command a2ensite $domain_name.conf creates=/etc/apache2/sites-enabled/$domain_name.conf
+      action: command a2ensite {{ domain_name }}.conf creates=/etc/apache2/sites-enabled/{{ domain_name }}.conf
 
     - name: Create MySQL db
-      action: mysql_db name=$db_name
+      action: mysql_db name={{ db_name }}
 
     - name: Create MySQL user
-      action: mysql_user name=$db_user password=$db_pass priv=$db_name.*:ALL
+      action: mysql_user name={{ db_user }} password={{db_pass}} priv={{ db_name }}.*:ALL
 
     - name: Add a drush alias for the site
-      action: template src=./etc-drush-alias-template dest=/etc/drush/$domain_name.alias.drushrc.php
+      action: template src=./etc-drush-alias-template dest=/etc/drush/{{ domain_name }}.alias.drushrc.php
 
     - name: Restart apache2
       action: service name=apache2 state=restarted
