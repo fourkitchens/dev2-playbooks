@@ -14,11 +14,11 @@
   tasks:
 
     - name: Delete from the core file.
-      action: lineinfile dest=/usr/share/tomcat6/solr/solr.xml regexp="<core name=\"$core_name\" instanceDir=\"$core_name\" />" state=absent
+      action: lineinfile dest=/usr/share/tomcat6/solr/solr.xml regexp="<core name=\"{{ core_name }}\" instanceDir=\"{{ core_name }}\" />" state=absent
 
     - name: Restart tomcat
       action: service name=tomcat6 state=restarted
 
     - name: Remove the core
-      action: file path=/usr/share/tomcat6/solr/$core_name state=absent
+      action: file path=/usr/share/tomcat6/solr/{{ core_name }} state=absent
 

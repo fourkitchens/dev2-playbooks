@@ -13,28 +13,28 @@
   tasks:
 
     - name: Check to ensure variables are passed correctly and that target domain exists
-      action: command test -d /var/www/vhosts/$domain_name creates=/var/www/vhosts/$domain_name
+      action: command test -d /var/www/vhosts/{{ domain_name }} creates=/var/www/vhosts/{{ domain_name }}
 
     - name: Check to see vars are passed and target config exists.
-      action: command test -f /etc/apache2/sites-available/$domain_name creates=/etc/apache2/sites-available/$domain_name
+      action: command test -f /etc/apache2/sites-available/{{ domain_name }} creates=/etc/apache2/sites-available/{{ domain_name }}
 
     - name: Disable the site
-      action: command a2dissite $domain_name
+      action: command a2dissite {{ domain_name }}
 
     - name: Delete the checkout
-      action: file path=/var/www/vhosts/$domain_name state=absent
+      action: file path=/var/www/vhosts/{{ domain_name }} state=absent
 
     - name: Delete the vhost config file.
-      action: file path=/etc/apache2/sites-available/$domain_name state=absent
+      action: file path=/etc/apache2/sites-available/{{ domain_name }} state=absent
 
     - name: Delete MySQL db
-      action: mysql_db name=$db_name state=absent
+      action: mysql_db name={{ db_name }} state=absent
 
     - name: Delete MySQL user
-      action: mysql_user name=$db_user state=absent
+      action: mysql_user name={{ db_user }} state=absent
 
     - name: Restart apache2
       action: service name=apache2 state=restarted
 
     - name: Remove drush alias
-      action: file path=/etc/drush/$domain_name.alias.drushrc.php state=absent
+      action: file path=/etc/drush/{{ domain_name }}.alias.drushrc.php state=absent
