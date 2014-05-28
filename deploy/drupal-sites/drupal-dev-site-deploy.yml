@@ -28,7 +28,10 @@
               recursive=no
               depth=1
       sudo: yes
-      sudo_user: "{{user_name}}"
+      sudo_user: bender
+
+    - name: Let current user own the repo.
+      action: "command chown -R {{ user_name }}: /home/{{ user_name }}/www/{{ site_name }}"
 
     - name: Create MySQL db
       action: mysql_db name={{ db_name }}
