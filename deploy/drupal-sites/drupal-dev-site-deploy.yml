@@ -27,8 +27,6 @@
               accept_hostkey=True
               recursive=no
               depth=1
-      sudo: yes
-      sudo_user: "{{ user_name }}"
 
     - name: Let current user own the repo.
       action: "command chown -R {{ user_name }}: /home/{{ user_name }}/www/{{ site_name }}"
