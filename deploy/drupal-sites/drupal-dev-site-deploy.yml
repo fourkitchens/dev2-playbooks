@@ -11,7 +11,7 @@
 # db_user: The username of the db user.
 # db_pass: The password of the db user.
 #
-- hosts: localhost
+- hosts: all
   user: root
   vars:
     branch: master
@@ -22,10 +22,13 @@
       action: command test -d /home/{{ user_name }} creates=/home/{{ user_name }}
 
     - name: Checkout the git repo
-      action: git repo={{ repo }} dest=/home/{{ user_name }}/www/{{ site_name }} version={{ branch }}
-
-    - name: Let current user own the repo.
-      action: "command chown -R {{ user_name }}: /home/{{ user_name }}/www/{{ site_name }}"
+      action: git repo={{repo}} dest=/home/{{ user_name }}/www/{{site_name}}
+              version={{branch}}
+              accept_hostkey=True
+              recursive=no
+              depth=1
+      sudo: yes
+      sudo_user: "{{user_name}}"
 
     - name: Create MySQL db
       action: mysql_db name={{ db_name }}
