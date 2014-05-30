@@ -2,11 +2,18 @@
 ####
 # PHP
 #
+- name: PHP | Add PHP 5.5 PPA
+  command: add-apt-repository ppa:ondrej/php5
+
+- name: PHP | Update apt cache
+  action: apt update-cache=yes
+
 - name: PHP | Install required packages.
   action: apt pkg={{ item }} state=installed
   with_items:
-    - php5
-    - php-apc
+    - php5-common
+    - php5-dev
+    - php5-cli
     - php5-curl
     - php5-fpm
     - php5-gd
@@ -18,6 +25,7 @@
     - php-soap
     - php5-xdebug
     - php5-xmlrpc
+    - libapache2-mod-php5
   notify:
     - restart apache
     - restart php-fpm
@@ -53,20 +61,20 @@
   notify:
     - restart apache
 
-- name: PHP APC | Cache configuration file - apc.ini
-  action: template src=etc/php5/conf.d/apc.ini.j2 dest=/etc/php5/conf.d/apc.ini
+- name: PHP OPCache | Cache configuration file - opcache.ini
+  action: template src=etc/php5/mods-available/opcache.ini.j2 dest=/etc/php5/mods-available/opcache.ini
   notify:
     - restart apache
     - restart php-fpm
 
 - name: PHP XDebug | Configuration file - xdebug.ini
-  action: template src=etc/php5/conf.d/xdebug.ini.j2 dest=/etc/php5/conf.d/xdebug.ini
+  action: template src=etc/php5/mods-available/xdebug.ini.j2 dest=/etc/php5/mods-available/xdebug.ini
   notify:
     - restart apache
     - restart php-fpm
 
 - name: PHP MongoDB | Looking for mongo in installed php modules
-  command: php -m | grep 'mongo' -o
+  command: pecl list | grep 'mongo' -o
   register: mongo_db_present
 
 - name: PHP MongoDB | Install the PECL MongoDB extension
@@ -74,10 +82,20 @@
   when: mongo_db_present.stdout.find('mongo') == -1
 
 - name: PHP MongoDB | Configure PHP to use PECL MongoDB extension
-  action: copy src=etc/php5/conf.d/mongo.ini dest=/etc/php5/conf.d/mongo.ini
+  action: copy src=etc/php5/mods-available/mongo.ini dest=/etc/php5/mods-available/mongo.ini
+
+- name: PHP MongoDB | Enable PECL MongoDB extension
+  file: src=/etc/php5/mods-available/mongo.ini dest=/etc/php5/apache2/conf.d/20-mongo.ini state=link
   notify:
     - restart apache
+
+- name: PHP MongoDB | Enable PECL MongoDB extension
+  file: src=/etc/php5/mods-available/mongo.ini dest=/etc/php5/fpm/conf.d/20-mongo.ini state=link
+  notify:
     - restart php-fpm
+
+- name: PHP MongoDB | Enable PECL MongoDB extension
+  file: src=/etc/php5/mods-available/mongo.ini dest=/etc/php5/cli/conf.d/20-mongo.ini state=link
 
 ##
 # xhprof installation
@@ -104,10 +122,20 @@
   shell: make install chdir=/tmp/xhprof-master/extension/
 
 - name: PHP XhProf | Configure PHP to use Compile xhprof extension
-  action: copy src=etc/php5/conf.d/xhprof.ini dest=/etc/php5/conf.d/xhprof.ini
+  action: copy src=etc/php5/mods-available/xhprof.ini dest=/etc/php5/mods-available/xhprof.ini
+
+- name: PHP XhProf | Enable PECL XhProf extension
+  file: src=/etc/php5/mods-available/xhprof.ini dest=/etc/php5/apache2/conf.d/20-xhprof.ini state=link
   notify:
     - restart apache
+
+- name: PHP XhProf | Enable PECL XhProf extension
+  file: src=/etc/php5/mods-available/xhprof.ini dest=/etc/php5/fpm/conf.d/20-xhprof.ini state=link
+  notify:
     - restart php-fpm
+
+- name: PHP XhProf | Enable PECL XhProf extension
+  file: src=/etc/php5/mods-available/xhprof.ini dest=/etc/php5/cli/conf.d/20-xhprof.ini state=link
 
 - name: PHP XhProf | Adding xhprof temp dir
   action: file path=/var/tmp/xhprof state=directory mode=0777

@@ -24,10 +24,7 @@
   <Directory {{ apache_server_directory }}>
     Options Indexes FollowSymLinks MultiViews
     AllowOverride All
-    Order deny,allow
-    Deny from all
     AuthType Basic
-    AuthGroupFile /dev/null
     AuthName "Four Kitchens Sandbox"
     AuthUserFile /etc/apache2/htpasswd
     Require valid-user
