@@ -32,11 +32,13 @@ sub vcl_recv {
     set req.backend = apache;
   }
 
+{% if skip_server_auth != true %}
   # If Authorization header is not available, then deny. This auth is checked here
   # in Varnish AND in Apache. Changing one requires changing the other
   if (!req.http.Authorization ~ "{{ varnish_auth }}") {
     error 401 "Not authorized";
   }
+{% endif %}
 
   # Use anonymous, cached pages if all backends are down.
   if (!req.backend.healthy) {

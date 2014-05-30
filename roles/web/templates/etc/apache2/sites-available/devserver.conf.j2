@@ -24,11 +24,19 @@
   <Directory {{ apache_server_directory }}>
     Options Indexes FollowSymLinks MultiViews
     AllowOverride All
+{% if skip_server_auth == true %}
+    Order allow,deny
+    Allow from all
+{% else %}
+    Order deny,allow
+    Deny from all
     AuthType Basic
     AuthName "Four Kitchens Sandbox"
     AuthUserFile /etc/apache2/htpasswd
+    AuthGroupFile /dev/null
     Require valid-user
     Satisfy Any
+{% endif %}
   </Directory>
 
 </VirtualHost>
