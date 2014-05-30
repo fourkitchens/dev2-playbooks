@@ -24,7 +24,7 @@
   <Directory {{ apache_server_directory }}>
     Options Indexes FollowSymLinks MultiViews
     AllowOverride All
-{% if skip_server_auth = true %}
+{% if skip_server_auth == true %}
     Order allow,deny
     Allow from all
 {% else %}
