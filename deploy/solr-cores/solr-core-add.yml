@@ -15,16 +15,16 @@
   tasks:
 
     - name: Copying Drupal Solr Conf
-      action: file path=/usr/share/tomcat6/solr/$core_name state=directory owner=tomcat6
+      action: file path=/usr/share/tomcat6/solr/{{ core_name }} state=directory owner=tomcat6
 
     - name: Copy the core
-      action: command cp -R /usr/share/tomcat6/solr/conf/ /usr/share/tomcat6/solr/$core_name/conf/
+      action: command cp -R /usr/share/tomcat6/solr/conf/ /usr/share/tomcat6/solr/{{ core_name }}/conf/
 
     - name: Add to the core file.
-      action: lineinfile dest=/usr/share/tomcat6/solr/solr.xml regexp="<core name=\"$core_name\" instanceDir=\"$core_name\" />" insertbefore="</cores>" line="    <core name=\"$core_name\" instanceDir=\"$core_name\" />"
+      action: lineinfile dest=/usr/share/tomcat6/solr/solr.xml regexp="<core name=\"$core_name\" instanceDir=\"{{ core_name }}\" />" insertbefore="</cores>" line="    <core name=\"{{ core_name }}\" instanceDir=\"{{ core_name }}\" />"
 
     - name: Give the new core to tomcat.
-      action: "command chown -R tomcat6:tomcat6 /usr/share/tomcat6/solr/$core_name"
+      action: "command chown -R tomcat6:tomcat6 /usr/share/tomcat6/solr/{{ core_name }}"
 
     - name: Restart tomcat
       action: service name=tomcat6 state=restarted
