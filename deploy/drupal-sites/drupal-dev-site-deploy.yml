@@ -2,6 +2,9 @@
 ##
 # Create a new dev Drupal site on the server.
 #
+# On the commandline:
+#   sudo ansible-playbook -c local --extra-vars="repo=$repo domain_name=$domain_name db_name=$db_name db_user=$db_user db_pass=$db_pass" drupal-trunk-site-deploy.yml
+#
 # repo: The github repository
 #   eg: git@github.com:fourkitchens/trainingwheels-drupal-files-example.git
 # site_name: The machine name of the site.
