@@ -20,6 +20,7 @@ php_memory_limit: '192M'
 php_cgi_fix_pathinfo: '0'
 php_short_open_tag: 'Off'
 php_xdebug_remote_enable: 0
+php_xdebug_max_nesting_level: 200
 
 # OPCache
 opcache_memory_consumption: '128'
