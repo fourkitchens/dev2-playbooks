@@ -21,8 +21,18 @@ Vagrant.configure("2") do |config|
     dev_config.vm.network :private_network, ip: "10.1.0.10"
     dev_config.vm.synced_folder "../", "/home/vagrant/playbooks",
       type: "nfs", create: true
-    dev_config.vm.synced_folder "~/www", "/home/vagrant/www",
-      type: "nfs", create: true
+
+    # Sync using rsync instead instead of NFS for Drupal sites.
+    # Uncomment and modify to your needs.
+    # Once the initial sync is completed you will need to
+    # run "vagrant rsync-auto" when editing
+    # files locally.
+    # https://docs.vagrantup.com/v2/synced-folders/rsync.html
+    ########## UNCOMMENT BELOW. #####################
+    #config.vm.synced_folder "~/www/pri", "/home/vagrant/www/pri", type: "rsync",
+    #  rsync__exclude: ".git/"
+
+
 
     dev_config.vm.provision :shell, :path => "provision/ansible-setup.sh"
     dev_config.vm.provision :shell, :path => "provision/local-dev-setup.sh"
