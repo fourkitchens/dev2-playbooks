@@ -2,20 +2,32 @@
 ##
 # Drush install, a Drupal shell tool.
 #
+
+- name: Drush | Check if Drush is installed.
+  shell: /usr/bin/drush
+  register: drush_check
+  ignore_errors: True
+
 - name: Drush | Install PHP PEAR
-  action: apt pkg=php-pear state=installed
+  apt: pkg=php-pear state=installed
+  when: drush_check|failed
 
 - name: Drush | Update PEAR
-  action: command pear upgrade-all creates=/usr/bin/drush
+  command: pear upgrade-all
+  when: drush_check|failed
 
 - name: Drush | Setup PEAR channel
-  action: command pear channel-discover pear.drush.org creates=/usr/share/php/.channels/pear.drush.org.reg creates=/usr/bin/drush
+  command: pear channel-discover pear.drush.org creates=/usr/share/php/.channels/pear.drush.org.reg
+  when: drush_check|failed
 
 - name: Drush | Install drush
-  action: command pear install drush/drush creates=/usr/bin/drush
+  command: pear install drush/drush
+  when: drush_check|failed
 
 - name: Drush | Run drush once so it downloads its dependencies
-  action: command drush creates=/usr/bin/drush
+  command: drush
+  when: drush_check|failed
 
 - name: Drush | Create a folder to hold site aliases
-  action: file path=/etc/drush state=directory
+  file: path=/etc/drush state=directory
+  when: drush_check|failed
