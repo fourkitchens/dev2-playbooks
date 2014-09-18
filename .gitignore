@@ -1,4 +1,5 @@
 .vagrant
+hosts_vars/*
 config/settings.yml
 *.swp
 *.swo
