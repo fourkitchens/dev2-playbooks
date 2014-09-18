@@ -32,6 +32,10 @@ opcache_enable_cli: '1'
 # Apache
 apache_port: 8080
 apache_server_home_docroot: '/var/www/home'
+apache_server_admin: 'it@fourkittens.com'
+apache_server_alias: '*.*.webchefs.org'
+apache_server_virtual_docroot: '/home/%-4/www/%-3'
+apache_server_directory: '/home/*/www/*'
 
 # nginx
 nginx_user: 'nginx'

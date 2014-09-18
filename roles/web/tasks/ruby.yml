@@ -6,10 +6,10 @@
 # https://galaxy.ansible.com/list#/roles/607
 
 - name: Add global gemrc file.
-  action: copy src=etc/ruby/gemrc dest=/etc/gemrc
+  copy: src=etc/ruby/gemrc dest=/etc/gemrc
 
 - name: Ruby | Install bundler because other Gems are for projects not servers
-  action: gem name=bundler state=latest
+  gem: name=bundler state=latest
 
 - name: RVM Group
-  action: user name=bender groups=rvm append=yes
+  user: name=bender groups=rvm append=yes

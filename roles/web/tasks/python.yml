@@ -1,5 +1,0 @@
----
-- name: Python | Install required packages.
-  action: apt pkg={{ item }} state=installed
-  with_items:
-    - python-mysqldb

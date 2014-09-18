@@ -1,0 +1,51 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+HOSTNAME = "local.dev"
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.define :vagrant do |dev_config|
+
+    dev_config.ssh.forward_agent = true
+
+    dev_config.vm.box = "ubuntu/trusty64"
+    dev_config.vm.hostname = HOSTNAME
+
+    # VirtualBox specific configuration.
+    dev_config.vm.provider :virtualbox do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "2048"]
+      vb.customize ["modifyvm", :id, "--cpus", "2"]
+    end
+
+    # Shared folders through NFS. This is supported in Mac and Linux. Windows may have
+    # issues, see Vagrant site for documentation.
+    dev_config.vm.network :private_network, ip: "10.1.0.10"
+    dev_config.vm.synced_folder "../", "/home/vagrant/playbooks",
+      type: "nfs", create: true
+
+    # Sync using rsync instead instead of NFS for Drupal sites.
+    # Uncomment and modify to your needs.
+    # Once the initial sync is completed you will need to
+    # run "vagrant rsync-auto" when editing
+    # files locally.
+    # https://docs.vagrantup.com/v2/synced-folders/rsync.html
+    ########## UNCOMMENT BELOW. #####################
+    #config.vm.synced_folder "~/www/pri", "/home/vagrant/www/pri", type: "rsync",
+    #  rsync__exclude: ".git/"
+
+
+    dev_config.vm.provision "ansible" do |ansible|
+      ansible.playbook = "site.yml"
+      ansible.groups = {
+        "vagrant" => ["vagrant"],
+      }
+    end
+
+    # Load a local setup file if it exists, so you can use it to
+    # provide additional provisioning steps.
+    if File.exist?(File.join(File.dirname(__FILE__), "setup.local.sh"))
+      dev_config.vm.provision :shell, :path => "setup.local.sh"
+    end
+  end
+end

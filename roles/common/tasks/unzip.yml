@@ -1,3 +1,0 @@
----
-- name: Unzip | Install unzip
-  action: apt pkg=unzip state=installed

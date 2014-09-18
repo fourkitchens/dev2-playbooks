@@ -1,12 +1,18 @@
 ---
 # The main playbook to deploy the site
 
+- hosts: development
+  sudo: yes
+  roles:
+    - bender
+
 - hosts: all
-  user: root
+  sudo: yes
   roles:
    - common
    - cache
    - db
    - search
+   - nodesource.node
    - {role: ansible-rvm, tags:["ruby"]}
    - web

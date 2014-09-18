@@ -2,25 +2,30 @@
 ##
 # Varnish 3.0 installation
 #
-- name: Varnish | Add the Varnish apt key
-  action: apt_key url=http://repo.varnish-cache.org/debian/GPG-key.txt
+- name: Prerequisites for provisioning
+  apt: name=python-pycurl
 
-- name: Varnish | Add the Varnish repo
-  action: command add-apt-repository 'deb http://repo.varnish-cache.org/ubuntu/ precise varnish-3.0'
+- name: Add official APT repository
+  apt_repository: repo='deb https://repo.varnish-cache.org/{{ansible_distribution|lower()}}/ trusty varnish-4.0' state=present
+  register: varnish_repo
 
-- name: Varnish | Update the apt cache for the new repository
-  action: apt update-cache=yes
+- name: Add Varnish apt key
+  apt_key: url="http://repo.varnish-cache.org/{{ansible_distribution|lower()}}/GPG-key.txt"
+  register: varnish_key
 
-- name: Varnish | Install Varnish
-  action: apt pkg=varnish state=installed
+- name: Update apt cache
+  apt: update_cache=yes
+  when: varnish_key.changed or varnish_repo.changed
+
+- name: Install Varnish
+  apt: name=varnish state=present
 
 - name: Varnish | Copy configuration file
-  action: template src=etc/varnish/default.vcl.j2 dest=/etc/varnish/default.vcl
+  template: src=etc/varnish/default.vcl.j2 dest=/etc/varnish/default.vcl
   notify:
     - restart varnish
 
 - name: Varnish | Copy the daemon config file
-  action: template src=etc/default/varnish.j2 dest=/etc/default/varnish
+  template: src=etc/default/varnish.j2 dest=/etc/default/varnish
   notify:
     - restart varnish
-

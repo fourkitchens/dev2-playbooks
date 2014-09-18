@@ -6,6 +6,9 @@ Basic Install Summary:
 --
 * Install Vagrant
 * Install Virtual Box (4.2.22 for mavericks)
+* Install ansible
+* Install the following ansbile galaxy roles
+  * nodesource.node
 * Clone repo
 * Run vagrant commands to provision environment.
 
@@ -203,4 +206,3 @@ echo "localhost" > /etc/ansible/hosts
 or:
 
     ``ansible-playbook --tags="common,..." setup.yml``
-

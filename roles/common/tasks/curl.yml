@@ -1,3 +1,0 @@
----
-- name: Curl | Install curl
-  action: apt pkg=curl state=installed
