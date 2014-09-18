@@ -27,6 +27,7 @@
 {% if skip_server_auth == true %}
     Order allow,deny
     Allow from all
+    Require all granted
 {% else %}
     Order deny,allow
     Deny from all
