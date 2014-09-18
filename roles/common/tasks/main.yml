@@ -7,5 +7,4 @@
 - include: mc.yml tags=mc
 - include: motd.yml tags=motd
 - include: ssh.yml tags=ssh
-- include: svn.yml tags=svn
 - include: tty.yml tags=tty

@@ -3,7 +3,7 @@
 # PHP
 #
 - name: PHP | Add PHP 5.5 PPA
-  add-apt-repository: repo='ppa:ondrej/php5'
+  apt_repository: repo='ppa:ondrej/php5'
 
 - name: PHP | Install required packages.
   apt: pkg={{ item }} state=installed

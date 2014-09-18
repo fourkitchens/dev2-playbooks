@@ -25,8 +25,8 @@
 - name: MongoDB | Create users
   mongodb_user: database={{ item.db }} user={{ item.user }} password={{ item.password }}
   with_items:
-    - { db: 'admin', user: 'root', password: {{ mongo_root_password }}}
-    - { db: 'xhprof', user: 'xhprof', password: {{ mongo_app_password }}}
+    - { db: 'admin', user: 'root', password: mongo_root_password }
+    - { db: 'xhprof', user: 'xhprof', password: mongo_app_password }
 
 - name: MongoDB | Configuration file mongodb.conf
   template: src=etc/mongodb.conf.j2 dest=/etc/mongodb.conf
