@@ -32,6 +32,7 @@
   </Directory>
 
   SSLEngine on
+  SSLProtocol All -SSLv2 -SSLv3
   SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
   SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
 </VirtualHost>
