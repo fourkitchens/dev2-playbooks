@@ -10,6 +10,9 @@
   apt: pkg=apt-transport-https state=installed
   when: not apt_https_transport.stat.exists
 
+- name: Ensure we have the latest apt registry.
+  apt: update-cache=yes
+
 - name: All simple packages from apt-get
   apt: name={{ item }} state=installed
   with_items:
@@ -21,3 +24,5 @@
     - sendmail
     - mailutils
     - unzip
+    - python-pip
+    - python-pycurl

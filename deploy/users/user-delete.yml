@@ -4,7 +4,10 @@
 #
 - hosts: all
   sudo: yes
-  
+
+  vars_prompt:
+    user_name: "Which user would you like to delete?"
+
   tasks:
 
     - name: Remove the user account.

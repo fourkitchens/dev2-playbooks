@@ -3,7 +3,7 @@
 # Configuration for MongoDB database
 #
 - name: MongoDB | Add the key
-  command: apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+  apt_key: id=7F0CEB10 url="http://docs.mongodb.org/10gen-gpg-key.asc"
 
 - name: MongoDB | Add the MongoDB repo
   copy: src=etc/apt/sources.list.d/mongodb.list dest=/etc/apt/sources.list.d/mongodb.list force=no

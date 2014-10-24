@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     dev_config.vm.network :private_network, ip: "10.1.0.10"
     dev_config.vm.synced_folder "~/www", "/home/vagrant/www",
       type: "nfs", create: true
-      
+
     # Sync using rsync instead instead of NFS for Drupal sites.
     # Uncomment and modify to your needs.
     # Once the initial sync is completed you will need to
@@ -36,7 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 
     dev_config.vm.provision "ansible" do |ansible|
-      ansible.playbook = "site.yml"
+      ansible.playbook = "playbooks.yml"
       ansible.groups = {
         "vagrant" => ["vagrant"],
       }

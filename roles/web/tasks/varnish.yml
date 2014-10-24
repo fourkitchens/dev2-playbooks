@@ -6,7 +6,7 @@
   apt: name=python-pycurl
 
 - name: Add official APT repository
-  apt_repository: repo='deb https://repo.varnish-cache.org/{{ansible_distribution|lower()}}/ trusty varnish-4.0' state=present
+  apt_repository: repo='deb https://repo.varnish-cache.org/{{ansible_distribution|lower()}}/ trusty varnish-3.0' state=present
   register: varnish_repo
 
 - name: Add Varnish apt key
