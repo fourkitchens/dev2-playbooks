@@ -32,3 +32,7 @@ tomcat_password: 'password'
 
 # Local overrides
 local_key: 1
+
+# Ruby
+rvm:
+  ruby_version: ruby-2.0.0-p451
