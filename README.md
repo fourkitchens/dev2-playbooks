@@ -1,34 +1,60 @@
-Dev2: Ubuntu 14.04 Development Server
+Four Kitchens: Ubuntu 14.04 Development Server
 -------------------------------------
+
 Hello and welcome to the Four Kitchens development server README.  This repo uses ansible to allow you to spin up our bespoke development environment as a VM or in the cloud. You have a great amount of configuration options available to you via yml files but by default, after installing the latest virtual box (unless you have mavericks -then use 4.2.22) and the latest version of vagrant you should be only a few steps away from a robust and comprehensive environment.
+
+## Requirements
+
+* Mac / nix based environment
+* Ansible (http://docs.ansible.com/intro_installation.html)
+* The following Ansible Galaxy Roles
+  * nodesource.node (https://github.com/nodesource/ansible-nodejs-role)
+  * zzet.rbenv (https://galaxy.ansible.com/list#/roles/102)
+
+
+## Use for Vagrant Machine
+
+Install Vagrant (http://downloads.vagrantup.com/) and VirtualBox (https://www.virtualbox.org/wiki/Downloads) to your local machine. Clone this repo, and then within the repo, run ```vagrant up```. Vagrant and Ansible will then create your machine for you, and provision all of the pieces you need.
+
+To update your machine, pull the latest within the repository, and run ```vagrant provision```.
+
+To then access your machine, run ```vagrant ssh```.
+
+If you want to customize any of the settings within the playbooks, create a host_vars/vagrant file, with any settings overrides you need.
+
+
+## Use for remote machines
+
+* Create a hosts file
+* Run ansible-playbooks -i hosts playbook.yml
+* Magic.
+
+
+
+
+# Old Directions:
+
 
 Basic Install Summary:
 --
-* Install Vagrant
-* Install Virtual Box (4.2.22 for mavericks)
+* Install Vagrant (http://downloads.vagrantup.com/)
+* Install Virtual Box
 * Install ansible
 * Install the following ansbile galaxy roles
-  * nodesource.node
+  *
+  * zzet.rbenv
 * Clone repo
-* Run vagrant commands to provision environment.
-
-Custom Install Summary:
---
-* Install Vagrant
-* Install Virtual Box
-* Clone repo
-* Create custom .yml files in specific directories to override default settings.
 * Run vagrant commands to provision environment.
 
 
 Basic Set up:
 --
 A) Install Vagrant
-Vagrant (http://downloads.vagrantup.com/)
 
 B) Install Virtual Box
-VirtualBox (https://www.virtualbox.org/wiki/Downloads).
-NOTE: If you are running Mavericks - install 4.2.18.
+
+C) Install Ansible
+
 
 C) Clone this Repo in your /home/{user} folder.
 
