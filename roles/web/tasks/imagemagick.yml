@@ -16,7 +16,7 @@
   command: /bin/tar -C /tmp -xzf /tmp/ImageMagick.tar.gz creates=/tmp/ImageMagick-6.8.7-10/changelog
 
 - name: Imagemagick | Build and Install
-  shell: chdir=/tmp/ImageMagick-6.8.7-10 creates=/usr/local/bin/convert ./configure '--with-png=yes' '--with-jpeg=yes' '--with-jp2=yes' '--with-freetype=yes' && make && make install
+  shell: chdir=/tmp/ImageMagick-6.8.7-10 creates=/usr/local/bin/convert ./configure '--with-png=yes' '--with-jpeg=yes' '--with-jp2=yes' '--with-freetype=yes' && sudo make && sudo make install
 
 - name: Imagemagick | Reload libraries
   shell: ldconfig /usr/local/lib

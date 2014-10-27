@@ -10,6 +10,8 @@ php_xdebug_remote_port: 9000
 mysql_root_password: 'password'
 
 # Apache
+apache_vhost_user: 'vagrant'
+apache_vhost_group: 'vagrant'
 apache_server_admin: 'you@fourkitchens.com'
 apache_server_alias: '*.local.dev'
 apache_server_virtual_docroot: '/home/vagrant/www/%-3'

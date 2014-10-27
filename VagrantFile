@@ -40,6 +40,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.groups = {
         "vagrant" => ["vagrant"],
       }
+      # Hint: If you want to test playbooks from a certin task
+      # use the following pattern.
+      #ansible.start_at_task = "Imagemagick | Download sources"
     end
 
     # Load a local setup file if it exists, so you can use it to
