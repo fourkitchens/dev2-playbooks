@@ -14,8 +14,8 @@
 - name: Directory for Jenkins stuff
   file: path=/home/bender/jenkins state=directory owner=bender group=bender mode=755
 
-- name: Bender's auth key for ssh
-  copy: src=authorized_keys dest=/home/bender/.ssh/authorized_keys mode=644 owner=bender group=bender
+- name: Authorized keys from GitHub
+  action: get_url thirsty=yes url=https://github.com/fkbender.keys dest=/home/bender/.ssh/authorized_keys owner=bender group=bender mode=644
 
 - name: Allow Bender sudo access to the server.
   copy: src=sudoers.d.bender dest=/etc/sudoers.d/bender owner=root group=root mode=440
