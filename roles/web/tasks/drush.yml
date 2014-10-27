@@ -12,6 +12,7 @@
     dest={{ drush_install_path }}
     version={{ drush_version }}
     update={{ drush_keep_updated }}
+    force=no
 
 - name: Install Drush dependencies with Composer.
   shell: >
