@@ -16,7 +16,8 @@
 
 - name: Ruby | Register users
   command: users
+  register: rvm_users
 
 - name: RVM Group
   user: name={{ item }} groups=rvm append=yes
-  with_items: users.stdout_lines
+  with_items: rvm_users.stdout_lines
