@@ -8,9 +8,11 @@
 #  eg: beautyhammer
 # core_type: drupal or solr
 #
-- hosts: localhost
-  connection: local
-  user: root
+- hosts: all
+  sudo: yes
+
+  vars_prompt:
+    core_name: "Whats the name of the core you'd like to build? (ex: elccs_dd, dor2_dd)"
 
   tasks:
 
