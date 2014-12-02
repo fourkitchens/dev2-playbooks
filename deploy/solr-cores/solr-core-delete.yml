@@ -7,9 +7,11 @@
 # core_name: The core name.
 #  eg: beautyhammer
 #
-- hosts: localhost
-  connection: local
-  user: root
+- hosts: all
+  sudo: yes
+
+  vars_prompt:
+    core_name: "What's the name of the core you want to delete?"
 
   tasks:
 
@@ -21,4 +23,3 @@
 
     - name: Remove the core
       action: file path=/usr/share/tomcat6/solr/{{ core_name }} state=absent
-

@@ -10,6 +10,17 @@
 - hosts: all
   sudo: yes
 
+  vars_prompt:
+    - name: domain_name
+      prompt: "Site name? i.e. http://domain_name.webchefs.org"
+      private: no
+    - name: db_name
+      prompt: "MySQL database name?"
+      private: no
+    - name: db_user
+      prompt: "MySQL database username?"
+      private: no
+
   tasks:
 
     - name: Check to ensure variables are passed correctly and that target domain exists

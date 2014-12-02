@@ -1,7 +1,9 @@
 Four Kitchens: Ubuntu 14.04 Development Server
 -------------------------------------
 
-Hello and welcome to the Four Kitchens development server README.  This repo uses ansible to allow you to spin up our bespoke development environment as a VM or in the cloud. You have a great amount of configuration options available to you via yml files but by default, after installing the latest virtual box (unless you have mavericks -then use 4.2.22) and the latest version of vagrant you should be only a few steps away from a robust and comprehensive environment.
+Hello and welcome to the Four Kitchens development server README.  This repo uses ansible to allow you to spin up our bespoke development environment as a VM or in the cloud. A list of features is available at the bottom of this document.
+
+You have a great amount of configuration options available to you via yml files but by default, after installing the latest virtual box (unless you have mavericks -then use 4.2.22) and the latest version of vagrant you should be only a few steps away from a robust and comprehensive environment.
 
 ## Requirements
 
@@ -11,155 +13,93 @@ Hello and welcome to the Four Kitchens development server README.  This repo use
   * nodesource.node (https://github.com/nodesource/ansible-nodejs-role)
   * zzet.rbenv (https://galaxy.ansible.com/list#/roles/102)
 
-
 ## Use for Vagrant Machine
 
-Install Vagrant (http://downloads.vagrantup.com/) and VirtualBox (https://www.virtualbox.org/wiki/Downloads) to your local machine. Clone this repo, and then within the repo, run ```vagrant up```. Vagrant and Ansible will then create your machine for you, and provision all of the pieces you need.
+* Install Vagrant (http://downloads.vagrantup.com/)
+* VirtualBox (https://www.virtualbox.org/wiki/Downloads) to your local machine.
+* Install Ansible (http://docs.ansible.com/intro_installation.html)
+* Install Ansible Galaxy Roles ```ansible-galaxy install nodesource.node zzet.rbenv```
+* Clone this repo ```git clone git@github.com:fourkitchens/dev2-playbooks.git```
+* Go into the repo ```cd dev2-playbooks```
+* run ```vagrant up```
+
+Vagrant and Ansible will then create your machine for you, and provision all of the pieces you need.
 
 To update your machine, pull the latest within the repository, and run ```vagrant provision```.
 
 To then access your machine, run ```vagrant ssh```.
 
-If you want to customize any of the settings within the playbooks, create a host_vars/vagrant file, with any settings overrides you need.
 
 
-## Use for remote machines
+### Troubleshooting Vagrant
+* If prompted for your password, that will be your local machine password.
+* If you have issues, specifically with "Guest Additions" you may need to install a guest additions package on your local machine.  (see: https://github.com/dotless-de/vagrant-vbguest ``vagrant plugin install vagrant-vbguest``)
 
-* Create a hosts file
-* Run ansible-playbooks -i hosts playbook.yml
-* Magic.
+### Advanced Vagrant Options
+* If you want to customize any of the settings within the playbooks, create a host_vars/vagrant file, with any settings overrides you need.
 
+* After installation you can copy your public key into the vagrant user's .ssh authorized_keys. This will allow you to connect to your VM with your own key (if desired).
 
-
-
-# Old Directions:
-
-
-Basic Install Summary:
---
-* Install Vagrant (http://downloads.vagrantup.com/)
-* Install Virtual Box
-* Install ansible
-* Install the following ansbile galaxy roles
-  *
-  * zzet.rbenv
-* Clone repo
-* Run vagrant commands to provision environment.
-
-
-Basic Set up:
---
-A) Install Vagrant
-
-B) Install Virtual Box
-
-C) Install Ansible
-
-
-C) Clone this Repo in your /home/{user} folder.
-
-    ```
-    cd ~
-    git clone {repo clone info}
-    ```
-
-D) Provision the environment
-Go to the vagrant folder within the repo in your terminal:
-
-    ``cd /home/{user}/dev2-playbooks/vagrant``
-
-Type the following in your terminal:
-
-
-   ``vagrant up``
-
-
-Following the instructions, if prompted for your password, that will be your local machine password.
-
-If you have issues, specifically with "Guest Additions" you may need to install a guest additions package on your local machine.  (see: https://github.com/dotless-de/vagrant-vbguest ``vagrant plugin install vagrant-vbguest``)
-
-Ansible and virtual box will work together to download your VM image and then install and configure your environment. It will take some time.
-
-Post Set up options:
---
-* After installation you can use: "vagrant ssh" to ssh into the box from there you can copy your public key into the vagrant user's .ssh authorized_keys. This will allow you to connect to your VM with your own key (if desired).
-
-Custom Set up:
---
-Take a few extra actions on item C above:
-C) Clone this Repo in your /home/{user} folder.
-
-    ```
-    cd ~
-    git clone {repo clone info}
-    ```
-
-Provide customized settings (advanced).
-
-Change the default file synced folder behavior. Edit ``/home/{user}/{repofolder}/vagrant/VagrantFile``
+* To Change the default file synced folder behavior. Edit ``/home/{user}/{repofolder}/vagrant/VagrantFile``
 and change the ``synced_folder`` settings to meet your needs. By default the synced folders
 will be mounted using NFS. For users on OSX 10.8+ this is usually sufficient but you can see
 all the options for configuring synced folders in the [vagrant documentation](http://docs.vagrantup.com/v2/synced-folders/). Note that any changes you make to this file will be captured as diffs
 in git so be sure to stash changes that you don't intend to push upstream if you've alterd
 the file and plan to push new features upstream.
 
-Provide customized settings (advanced). Type the following on your terminal:
+## Use for remote machines
 
-  1. Create a custom host vars file called ``development`` in ``/home/{user}/{repofolder}/vagrant/group_vars``
-  2. Assign variables as needed for your local host, i.e.
-
-    ```
-    ---
-    foo: 'bar'
-    php_xdebug_remote_enable: 1
-    ```
-
-(proceed to step D in Basic Set up)
-
+* Provision an Ubuntu Trusty Server on your favorite Host.
+* Create a inventory file called ```hosts``` (http://docs.ansible.com/intro_inventory.html)
+* Run ```ansible-playbooks -i hosts playbook.yml```
+* Magic.
 
 Ansible Scripts:
 --
-All Ansible scripts for configuring and doing deployment on dev2.
 
-See: https://fourkitchens.atlassian.net/wiki/display/FK/Dev2+on+Rackspace+Cloud
+Ansible deployment scripts, located in the ```deploy``` directory can be used for common deployment tasks.
+```
+$ ansible-playbook -i hosts deploy/user-add.yml
+```
+Fill out the prompts or include them in the extra-vars ```-e``` argument
+```
+$ ansible-playbook -i hosts -e="user_name=bender github=fkbender" deploy/user-add.yml
+```
+### Vagrant Ansible Scripts:
+To use the Ansible scripts locally use the included ```vagrant-playbook``` command
+```
+$ bash ./vagrant-playbook deploy/users/user-add.yml
+```
 
-Deployment Scripts:
+### Available Vagrant Scripts
+
+#### Drupal Sites
+- Deploy Drupal dev site ```deploy/drupal-sites/drupal-dev-site-deploy.yml```
+- Remove Drupal dev site ```deploy/drupal-sites/drupal-dev-site-remove.yml```
+- Deploy Drupal trunk site ```deploy/drupal-sites/drupal-trunk-site-deploy.yml```
+- Remove Drupal trunk site  ```deploy/drupal-sites/drupal-trunk-site-remove.yml```
+
+#### Solr Cores
+- Add Solr Core  ```deploy/solr-cores/solr-core-add.yml```
+- Delete Solr Core  ```deploy/solr-cores/solr-core-delete.yml```
+
+#### Users
+- Add User ```deploy/users/user-add.yml```
+- Delete User ```deploy/users/user-delete.yml```
+
+Dev Server Features
 --
-Deploy a trunk site with the address 'test.webchef2.com':
+In addition to the easy execution of common tasks, and partiy between our Development and local enviroments the playbooks provide a number of features.
 
-    ``ansible-playbook --extra-vars="repo=git@github.com:fourkitchens/trainingwheels-drupal-files-example.git domain_name=test.webchef2.com db_name=test db_user=test db_pass=test" drupal-trunk-site-deploy.yml``
+### Standard Stuff
+* The wwww folder in your home folder will serve all content in subfolders at easy to use URLs. For example: ```/home/vagrant/www/drupal``` will be available at the URL http://vagrant.drupal.local.dev/ on a vagrant box and http://username.drupal.example.com/ on a dev server.
+* All sites created with the deploy scripts have drush aliases created. Try ```drush sa``` to see a list.
+* [Xdebug](http://xdebug.org/) is available for PHP debugging.
+* [rvm](http://rvm.io/) is used to manage ruby gems.
+* [Apache SOLR](https://lucene.apache.org/solr/index.html) cores can be created using the Ansible script or a Jenkin's Job. The core can be used by Drupal at (http://localhost:8888/solr/core_name) and the SOLR admin is available at (http://hostname.tld:8888/solr/core_name/admin)
 
-Remove the same trunk site:
+### Multiple Webservers
 
-    ``ansible-playbook --extra-vars="domain_name=test.webchef2.com db_name=test db_user=test" drupal-trunk-site-remove.yml``
-
-Dev site deploy, for user 'mark', name of the site 'test'.
-
-    ``ansible-playbook --extra-vars="repo=git@github.com:fourkitchens/trainingwheels-drupal-files-example.git user_name=mark site_name=test db_name=mark_test db_user=mark_test db_pass=password" drupal-dev-site-deploy.yml``
-
-Dev site remove:
-
-    ``ansible-playbook --extra-vars="user_name=mark site_name=test db_name=mark_test db_user=mark_test" drupal-dev-site-remove.yml``
-
-
-SOLR core create (in deploy/solr-cores):
-
-    ``ansible-playbook --extra-vars="core_name=test_dd" solr-core-add.yml``
-
-SOLR core remove (in deploy/solr-cores):
-
-    ``ansible-playbook --extra-vars="core_name=test_dd" solr-core-delete.yml``
-
-Drush sync:
-
-    ```
-    drush sa
-    drush sql-sync @alias-of-main-site
-    ```
-
-
-Multiple Webservers
---
 The dev2 playbooks now install both apache and nginx. This will allow us to more closely emulate Pantheon (nginx+php-fpm), or more common (apache) application server environments. You can switch between the two by sending either a GET argument (``varnish_backend`` by default) or by setting a request header (``X-varnish-backend`` by default).
 
 For example, the following requests would hit the respective servers:
@@ -175,60 +115,6 @@ The default webserver can be set from your settings file before running the play
 
 Protip: you can use the chrome extension [ModHeader](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj) to send custom headers and avoid needing to use GET arguments on every request.
 
-XHProf
---
+### XHProf
+
 You can utilize XHProf with mongodb xhprof which will provide you with a Drupal interface to view the XHProf results without using devel.
-
-
-Manual Server How-to Guide (Legacy)
---
-### 1) Obtain a fresh, up-to-date Ubuntu 12.04 installation.
-
-### 2) Open a root terminal.
-
-If you are doing this via a VM, and SSH isnt enabled, run this:
-
-    ``sudo apt-get install openssh-server``
-
-### 3) Install and setup Ansible:
-
-Install full release.
-
-```
-aptitude -y install git python-jinja2 python-yaml python-paramiko python-software-properties
-add-apt-repository -y ppa:rquillo/ansible/ubuntu
-aptitude update
-aptitude install ansible
-echo "localhost" > /etc/ansible/hosts
-```
-
-Install dev release.
-```
-mkdir /usr/local/src/ansible
-git clone https://github.com/ansible/ansible.git /usr/local/src/ansible
-cd /usr/local/src/ansible
-git checkout devel
-aptitude install build-essential
-make install
-echo "localhost" > /etc/ansible/hosts
-```
-
-### 4) Grab the repository
-
-    ``git@github.com:fourkitchens/dev2-playbooks.git``
-
-(Special note: if you don't have your key either on your VM or have key forwarding enabled, this will fail. It will also fail if you are doing a 'sudo su -' to be root. I fixed this by copying my authorized_keys file to root, and then ssh-ing directly to that.
-
-    ``cp /home/{username}/.ssh/authorized_keys /root/.ssh/``
-
-
-### 5) Setup the server!
-
-    ```
-    cd dev2-playbooks/config/
-    ansible-playbook setup.yml
-    ```
-
-or:
-
-    ``ansible-playbook --tags="common,..." setup.yml``
