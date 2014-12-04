@@ -78,6 +78,11 @@ sub vcl_recv {
        return (pass);
   }
 
+  # Special WordPress paths.
+  if (req.url ~ "nocache|wp-admin|wp-(comments-post|login|signup|activate|mail|cron)\.php|preview\=true|admin-ajax\.php|xmlrpc\.php|bb-admin|server-status|control\.php|bb-login\.php|bb-reset-password\.php|register\.php") {
+    return(pass);
+  }
+
   # Do not allow outside access to cron.php or install.php.
   #if (req.url ~ "^/(cron|install)\.php$" && !client.ip ~ internal) {
     # Have Varnish throw the error directly.
@@ -91,6 +96,12 @@ sub vcl_recv {
   # and keep them equal.
   if (req.url ~ "(?i)\.(pdf|asc|dat|txt|doc|xls|ppt|tgz|csv|png|gif|jpeg|jpg|ico|swf)(\?.*)?$") {
     unset req.http.Cookie;
+  }
+
+  # Another WordPress-specific change. These are the cookies that WordPress
+  # cares about. If they exist, then just return it.
+  if (req.http.Cookie ~ "wp-postpass_|wordpress_logged_in_|comment_author|PHPSESSID") {
+    return(pass);
   }
 
   # Remove all cookies that Drupal doesn't need to know about. We explicitly
