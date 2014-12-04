@@ -20,6 +20,7 @@
     - php-soap
     - php5-xdebug
     - php5-xmlrpc
+    - php5-mcrypt
     - libapache2-mod-php5
   notify:
     - restart apache
