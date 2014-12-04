@@ -69,6 +69,6 @@
     - restart apache
 
 - name: Apache | Directory for virtual hosts.
-  file: path=/var/www/vhosts state=directory mode=755 owner=bender group=bender
+  file: path=/var/www/vhosts state=directory mode=755 owner={{ apache_vhost_user }} group={{ apache_vhost_group }}
   notify:
     - restart apache

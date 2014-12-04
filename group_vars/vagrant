@@ -5,11 +5,14 @@
 php_xdebug_remote_enable: 1
 php_xdebug_remote_host: 10.1.0.1
 php_xdebug_remote_port: 9000
+php_xdebug_max_nesting_level: 200
 
 # MySQL
 mysql_root_password: 'password'
 
 # Apache
+apache_vhost_user: 'vagrant'
+apache_vhost_group: 'vagrant'
 apache_server_admin: 'you@fourkitchens.com'
 apache_server_alias: '*.local.dev'
 apache_server_virtual_docroot: '/home/vagrant/www/%-3'

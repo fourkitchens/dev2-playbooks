@@ -1,21 +1,32 @@
 ---
 ##
 # Drush install, a Drupal shell tool.
+# Copied 100% from https://github.com/geerlingguy/ansible-role-drush
+# We cannot use the galaxy role because it depends on his php role,
+# and his php role can't provide both http and fpm php installations.
 #
-- name: Drush | Install PHP PEAR
-  apt: pkg=php-pear state=installed
 
-- name: Drush | Update PEAR
-  command: pear upgrade-all creates=/usr/bin/drush
+- name: Clone Drush from GitHub.
+  git: >
+    repo=https://github.com/drush-ops/drush.git
+    dest={{ drush_install_path }}
+    version={{ drush_version }}
+    update={{ drush_keep_updated }}
+    force=no
 
-- name: Drush | Setup PEAR channel
-  command: pear channel-discover pear.drush.org creates=/usr/share/php/.channels/pear.drush.org.reg creates=/usr/bin/drush
+- name: Install Drush dependencies with Composer.
+  shell: >
+    {{ composer_path }} install --prefer-source --no-interaction
+    chdir={{ drush_install_path }}
+    creates={{ drush_install_path }}/vendor/autoload.php
 
-- name: Drush | Install drush
-  command: pear install drush/drush creates=/usr/bin/drush
+- name: Create drush symlink.
+  file: >
+    src={{ drush_install_path }}/drush
+    dest={{ drush_path }}
+    state=link
 
-- name: Drush | Run drush once so it downloads its dependencies
-  command: drush creates=/usr/bin/drush
-
-- name: Drush | Create a folder to hold site aliases
-  file: path=/etc/drush state=directory
+- name: Run drush to finish setting it up.
+  command: "{{ drush_path }}"
+  register: drush_result
+  changed_when: "'Execute a drush command' not in drush_result.stdout"

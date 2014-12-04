@@ -2,8 +2,6 @@
 ####
 # PHP
 #
-- name: PHP | Add PHP 5.5 PPA
-  apt_repository: repo='ppa:ondrej/php5'
 
 - name: PHP | Install required packages.
   apt: pkg={{ item }} state=installed
@@ -75,7 +73,7 @@
   register: mongo_db_present
 
 - name: PHP MongoDB | Install the PECL MongoDB extension
-  command: pecl install mongo
+  shell: yes | pecl install mongo
   when: mongo_db_present.stdout.find('mongo') == -1
 
 - name: PHP MongoDB | Configure PHP to use PECL MongoDB extension
