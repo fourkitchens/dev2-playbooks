@@ -1,0 +1,8 @@
+---
+# Installing git.
+
+- name: Install Git PPA
+  apt_repository: repo="ppa:git-core/ppa"
+
+- name: Install Git
+  apt: name=git=1:2.2.1-0ppa2~ubuntu14.04.1 state=present

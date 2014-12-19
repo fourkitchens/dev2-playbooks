@@ -2,6 +2,7 @@
 # The playbook for common tasks
 
 - include: apt.yml tags=apt
+- include: git.yml tags=git
 - include: editors.yml tags=editors
 - include: etckeeper.yml tags=etckeeper
 - include: mc.yml tags=mc
