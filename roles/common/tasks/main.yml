@@ -9,3 +9,4 @@
 - include: motd.yml tags=motd
 - include: ssh.yml tags=ssh
 - include: tty.yml tags=tty
+- include: hosts.yml tags=hosts
