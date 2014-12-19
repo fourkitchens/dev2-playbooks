@@ -16,7 +16,6 @@
 - name: All simple packages from apt-get
   apt: name={{ item }} state=installed
   with_items:
-    - git
     - subversion
     - curl
     - htop
@@ -26,3 +25,10 @@
     - unzip
     - python-pip
     - python-pycurl
+
+- name: Install Git PPA
+  apt_repository: repo="ppa:git-core/ppa"
+
+- name: Install Git
+  apt: name="git" state=installed
+
