@@ -5,11 +5,8 @@
 - name: motd | Message of the day explaining server is under Ansible control.
   copy: src=etc/update-motd.d/95-ansible dest=/etc/update-motd.d/95-ansible mode=755
 
-- name: motd | Message of the day logo script.
-  copy: src=etc/update-motd.d/05-splash dest=/etc/update-motd.d/05-splash mode=755
-
-- name: motd | Message of the day logo file.
-  copy: src=etc/update-motd.d/dev2-terminal-logo dest=/etc/update-motd.d/dev2-terminal-logo mode=644
+- name: motd | Message of the day noting which server we are on.
+  copy: src=etc/update-motd.d/96-fqdn dest=/etc/update-motd.d/96-fqdn mode=755
 
 - name: motd | Disable default motd scripts.
   file: path=/etc/update-motd.d/00-header mode=444
