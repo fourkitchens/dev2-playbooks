@@ -42,4 +42,4 @@ skip_server_auth: true
 rbenv:
   env: system
   version: v0.4.0
-  ruby_version: 2.0.0-p451
+  ruby_version: 2.0.0-p481
