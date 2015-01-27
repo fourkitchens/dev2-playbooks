@@ -10,14 +10,3 @@
 
 - name: Ruby | Install bundler because other Gems are for projects not servers
   gem: name=bundler state=latest
-
-- name: Create the rvm group
-  group: name=rvm state=present
-
-- name: Ruby | Register users
-  command: users
-  register: rvm_users
-
-- name: RVM Group
-  user: name={{ item }} groups=rvm append=yes
-  with_items: rvm_users.stdout_lines

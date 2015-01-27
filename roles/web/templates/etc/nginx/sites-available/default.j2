@@ -1,8 +1,8 @@
 server {
   listen   {{ nginx_port }}; ## listen for ipv4; this line is  default and implied
 
-  server_name {{ nginx_default_server_name }};
-  root {{ nginx_default_root }};
+  server_name {{ ansible_fqdn }};
+  root {{ nginx_webroot }};
 
   port_in_redirect off;
 
@@ -72,4 +72,3 @@ server {
     log_not_found off;
   }
 }
-
