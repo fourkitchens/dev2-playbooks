@@ -1,6 +1,0 @@
-# Variables for all instances.
-
----
-# ssh
-ssh_password_auth: 'no'
-

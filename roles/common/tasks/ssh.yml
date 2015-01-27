@@ -3,10 +3,12 @@
 # SSH config
 #
 - name: SSH | Install ssh server
-  action: apt pkg=openssh-server state=installed
+  apt: pkg=openssh-server state=installed
 
 - name: SSH | Server config
-  action: template src=etc/ssh/sshd_config.j2 dest=/etc/ssh/sshd_config
+  template: src=etc/ssh/sshd_config.j2 dest=/etc/ssh/sshd_config
   notify:
     - restart ssh
 
+- name: SSH | Add GitHub repo host key to known_hosts file
+  shell: ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts

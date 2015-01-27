@@ -22,6 +22,13 @@ php_short_open_tag: 'Off'
 php_xdebug_remote_enable: 0
 php_xdebug_max_nesting_level: 200
 
+# Drush
+composer_path: /usr/local/bin/composer
+drush_install_path: /usr/local/share/drush
+drush_path: /usr/local/bin/drush
+drush_version: 6.4.0
+drush_keep_updated: yes
+
 # OPCache
 opcache_memory_consumption: '128'
 opcache_interned_strings_buffer: '8'
@@ -33,6 +40,12 @@ opcache_enable_cli: '1'
 # Apache
 apache_port: 8080
 apache_server_home_docroot: '/var/www/home'
+apache_server_admin: 'it@fourkittens.com'
+apache_server_alias: '*.*.webchefs.org'
+apache_server_virtual_docroot: '/home/%-4/www/%-3'
+apache_server_directory: '/home/*/www/*'
+apache_vhost_user: www-data
+apache_vhost_group: www-data
 
 # nginx
 nginx_user: 'nginx'

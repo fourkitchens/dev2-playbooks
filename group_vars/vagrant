@@ -1,21 +1,23 @@
-# Settings specific to developer vagrant instances
-
 ---
+# Special group vars just for vagrant.
+
 # PHP
 php_xdebug_remote_enable: 1
 php_xdebug_remote_host: 10.1.0.1
 php_xdebug_remote_port: 9000
+php_xdebug_max_nesting_level: 200
 
 # MySQL
 mysql_root_password: 'password'
 
 # Apache
+apache_vhost_user: 'vagrant'
+apache_vhost_group: 'vagrant'
 apache_server_admin: 'you@fourkitchens.com'
 apache_server_alias: '*.local.dev'
 apache_server_virtual_docroot: '/home/vagrant/www/%-3'
 apache_server_directory: '/home/vagrant/www/*'
 apache_server_name: 'local'
-apache_server_home_alias: 'local.dev'
 
 # nginx
 nginx_default_server_name: '"~^(?<domain>[^\.]+)\.local.dev$"'
@@ -33,6 +35,11 @@ tomcat_password: 'password'
 # Local overrides
 local_key: 1
 
+# Turning off HTTP auth.
+skip_server_auth: true
+
 # Ruby
-rvm:
-  ruby_version: ruby-2.0.0-p451
+rbenv:
+  env: system
+  version: v0.4.0
+  ruby_version: 2.0.0-p481

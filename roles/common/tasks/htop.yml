@@ -1,3 +1,0 @@
----
-- name: htop
-  action: apt pkg=htop state=installed

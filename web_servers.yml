@@ -1,6 +1,0 @@
----
-- hosts: web_servers
-  user: root
-  roles:
-   - {role: ansible-rvm, tags:["ruby"]}
-   - web

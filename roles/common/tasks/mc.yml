@@ -3,7 +3,7 @@
 # Install Midnight Commander -- powerful text-based file manager
 #
 - name: Midnight Commander | Install packages
-  action: apt pkg={{ item }} state=installed
+  apt: pkg={{ item }} state=installed
   with_items:
     - mc
     - mc-data

@@ -1,9 +1,0 @@
----
-##
-# Apt package installation of general software.
-#
-- name: Sendmail | Install required packages.
-  action: apt pkg={{ item }} state=installed
-  with_items:
-    - sendmail
-    - mailutils

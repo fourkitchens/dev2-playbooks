@@ -2,17 +2,11 @@
 ##
 # Remove extra ttys
 #
-- name: General | Remove ttys
-  action: file path=/etc/init/tty2.conf state=absent
-
-- name: General | Remove ttys
-  action: file path=/etc/init/tty3.conf state=absent
-
-- name: General | Remove ttys
-  action: file path=/etc/init/tty4.conf state=absent
-
-- name: General | Remove ttys
-  action: file path=/etc/init/tty5.conf state=absent
-
-- name: General | Remove ttys
-  action: file path=/etc/init/tty6.conf state=absent
+- name: ttys | Remove extra ttys
+  file: path=/etc/init/tty{{ item }}.conf state=absent
+  with_items:
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6

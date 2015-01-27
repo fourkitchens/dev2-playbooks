@@ -1,0 +1,18 @@
+---
+# The main playbook to deploy the site
+
+- hosts: development
+  sudo: yes
+  roles:
+    - bender
+
+- hosts: all
+  sudo: yes
+  roles:
+   - common
+   - cache
+   - db
+   - search
+   - nodesource.node
+   - {role: zzet.rbenv, tags:["ruby"]}
+   - web

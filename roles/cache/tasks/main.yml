@@ -1,4 +1,7 @@
 ---
 # Playbooks related to cache servers.
 
-- include: memcache.yml tags=memcache
+- name: Memcached | Install packages
+  apt: pkg=memcached state=installed
+  notify:
+    - restart memcache

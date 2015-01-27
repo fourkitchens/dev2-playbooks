@@ -1,0 +1,8 @@
+---
+# Installing git.
+
+- name: Install Git PPA
+  apt_repository: repo="ppa:git-core/ppa"
+
+- name: Install Git
+  apt: name="git" state=present
