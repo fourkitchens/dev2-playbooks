@@ -15,9 +15,9 @@ You have a great amount of configuration options available to you via yml files 
 
 ## Use for Vagrant Machine
 
-* Install Vagrant (http://downloads.vagrantup.com/)
-* VirtualBox (https://www.virtualbox.org/wiki/Downloads) to your local machine.
-* Install Ansible (http://docs.ansible.com/intro_installation.html)
+* Install Vagrant, version >= 1.7.2 (http://downloads.vagrantup.com/)
+* VirtualBox, version version >= 4.2.2 (https://www.virtualbox.org/wiki/Downloads) to your local machine.
+* Install Ansible, version >= 1.8.2 (http://docs.ansible.com/intro_installation.html)
 * Install Ansible Galaxy Roles ```ansible-galaxy install nodesource.node zzet.rbenv```
 * Clone this repo ```git clone git@github.com:fourkitchens/dev2-playbooks.git```
 * Go into the repo ```cd dev2-playbooks```
@@ -57,7 +57,7 @@ the file and plan to push new features upstream.
 Ansible Scripts:
 --
 
-Ansible deployment scripts, located in the ```deploy``` directory can be used for common deployment tasks.
+Ansible deployment scripts, located in the ```deploy``` directory can be used for common deployment tasks. Deployment commands can be run on a development server using the following syntax, however to use them in a Vagrant virtual machine you'll need to use the bash script located below.
 ```
 $ ansible-playbook -i hosts deploy/user-add.yml
 ```
@@ -65,19 +65,36 @@ Fill out the prompts or include them in the extra-vars ```-e``` argument
 ```
 $ ansible-playbook -i hosts -e="user_name=bender github=fkbender" deploy/user-add.yml
 ```
-### Vagrant Ansible Scripts:
-To use the Ansible scripts locally use the included ```vagrant-playbook``` command
-```
-$ bash ./vagrant-playbook deploy/users/user-add.yml
-```
+### Available Dev Server Deployment Scripts
 
-### Available Vagrant Scripts
+### Databases
+- Create MySQL database ```deploy/database/mysql-db-create.yml```
 
 #### Drupal Sites
 - Deploy Drupal dev site ```deploy/drupal-sites/drupal-dev-site-deploy.yml```
 - Remove Drupal dev site ```deploy/drupal-sites/drupal-dev-site-remove.yml```
 - Deploy Drupal trunk site ```deploy/drupal-sites/drupal-trunk-site-deploy.yml```
 - Remove Drupal trunk site  ```deploy/drupal-sites/drupal-trunk-site-remove.yml```
+
+#### Solr Cores
+- Add Solr Core  ```deploy/solr-cores/solr-core-add.yml```
+- Delete Solr Core  ```deploy/solr-cores/solr-core-delete.yml```
+
+#### Users
+- Add User ```deploy/users/user-add.yml```
+- Delete User ```deploy/users/user-delete.yml```
+
+### Vagrant Ansible Scripts:
+To use the Ansible scripts with vagrant use the ```vagrant-playbook``` from the playbooks root.
+
+```
+$ ./vagrant-playbook deploy/database/mysql-db-create.yml
+```
+
+The following commands will work on the vagrant machine:
+
+### Databases
+- Create MySQL database ```deploy/database/mysql-db-create.yml```
 
 #### Solr Cores
 - Add Solr Core  ```deploy/solr-cores/solr-core-add.yml```
