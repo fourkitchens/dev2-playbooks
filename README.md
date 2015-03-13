@@ -12,7 +12,7 @@ The Four Kitchens development server uses ansible for using our bespoke developm
 
 ## Installation
 
-### Local
+### Local (OS X)
 
 Start by installing [Homebrew](http://brew.sh/), a package manager for OS X. Additional instructions can be found in the [Homebrew documentation](https://github.com/Homebrew/homebrew/tree/master/share/doc/homebrew#readme).
 
@@ -30,7 +30,7 @@ Optionally, install [Vagrant Manager](http://vagrantmanager.com/) to manage your
 
     brew cask install vagrant-manager
 
-The last steps are to install [Ansible](http://docs.ansible.com/intro_installation.html), an automation tool for configuration, deployment and other IT tasks.
+Next, install [Ansible](http://docs.ansible.com/intro_installation.html), an automation tool for configuration, deployment and other IT tasks.
 
     brew install ansible
 
@@ -51,6 +51,34 @@ Within the project, run a single, magical command:
     vagrant up
 
 The virtual machine will be created and configured for you.
+
+### Local (Linux)
+
+Install [VirtualBox](https://www.virtualbox.org/wiki/Linux_Downloads), the virtualization platform.
+
+Then, install [Vagrant](https://www.vagrantup.com/downloads.html), which creates and configures virtual environments. Must be version 1.5.* or greater. Do not use the version provided by apt-get as it is not supported.
+
+Next, install [Ansible](http://docs.ansible.com/intro_installation.html), an automation tool for configuration, deployment and other IT tasks.
+
+Two [Ansible Galaxy Roles](https://galaxy.ansible.com/intro) (bundled automation content) are required; [nodesource.node](https://github.com/nodesource/ansible-nodejs-role) and  [zzet.rbenv](https://galaxy.ansible.com/list#/roles/102).
+
+    ansible-galaxy install nodesource.node
+    ansible-galaxy install zzet.rbenv
+
+Change directory to where you want to store your project configuration and clone this repository.
+
+    cd ~/projects
+    PROJECT_NAME=dev2-playbooks
+    git clone git@github.com:fourkitchens/dev2-playbooks.git $PROJECT_NAME
+    cd $PROJECT_NAME
+
+Within the project, run a single, magical command:
+
+    vagrant up
+
+The virtual machine will be created and configured for you.
+
+_Pro Tip:_ If you have trouble mounting shared folders with NFS, which is a [known issue](http://serverfault.com/questions/200759/exportfs-warning-home-user-share-does-not-support-nfs-export) for directories encrypted with ecryptfs, see the VagrantFile at the root of this repository for alternative options.
 
 #### Usage
 
