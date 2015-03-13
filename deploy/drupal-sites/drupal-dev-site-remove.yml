@@ -10,7 +10,22 @@
 #
 - hosts: all
   sudo: yes
-  
+
+  vars_prompt:
+    - name: user_name
+      prompt: "What is the username that has has the site you want to delete?"
+      default: "vagrant"
+      private: no
+    - name: site_name
+      prompt: "What is the site name you want to delete ?"
+      private: no
+    - name: db_name
+      prompt: "What is the MySQL database you want to delete named?"
+      private: no
+    - name: db_user
+      prompt: "What is the MySQL database username you want to delete?"
+      private: no
+
   tasks:
 
     - name: Simple test to make sure the user and site exists

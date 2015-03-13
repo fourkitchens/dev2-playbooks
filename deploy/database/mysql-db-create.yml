@@ -1,0 +1,27 @@
+# repo: The github repository
+#   eg: git@github.com:fourkitchens/trainingwheels-drupal-files-example.git
+# core_name: The core name.
+#  eg: beautyhammer
+# core_type: drupal or solr
+#
+- hosts: all
+  sudo: yes
+
+  vars_prompt:
+    - name: db_name
+      prompt: "MySQL database name?"
+      private: no
+    - name: db_user
+      prompt: "MySQL database username?"
+      private: no
+    - name: db_pass
+      prompt: "MySQL database password?"
+      private: no
+  tasks:
+
+    - name: Create MySQL db
+      action: mysql_db name={{ db_name }}
+
+    - name: Create MySQL user
+      action: mysql_user name={{ db_user }} password={{ db_pass }} priv={{ db_name }}.*:ALL/*.*:SELECT
+

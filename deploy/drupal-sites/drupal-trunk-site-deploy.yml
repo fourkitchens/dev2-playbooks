@@ -14,9 +14,28 @@
 # db_pass: The password of the db user.
 #
 - hosts: all
-  user: root
-  vars:
-    branch: master
+  sudo: yes
+
+  vars_prompt:
+    - name: domain_name
+      prompt: "Site name? i.e. http://domain_name.webchefs.org"
+      private: no
+    - name: repo
+      prompt: "Git Repo to checkout?"
+      private: no
+    - name: branch
+      prompt: "Git branch to checkout?"
+      default: master
+      private: no
+    - name: db_name
+      prompt: "MySQL database name?"
+      private: no
+    - name: db_user
+      prompt: "MySQL database username?"
+      private: no
+    - name: db_pass
+      prompt: "MySQL database password?"
+      private: no
 
   tasks:
 

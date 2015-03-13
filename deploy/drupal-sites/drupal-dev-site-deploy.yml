@@ -15,12 +15,34 @@
 # db_pass: The password of the db user.
 #
 - hosts: all
-  user: root
-  vars:
-    branch: master
+  sudo: yes
+
+  vars_prompt:
+    - name: user_name
+      prompt: "Username the site will be created under"
+      default: "vagrant"
+      private: no
+    - name: site_name
+      prompt: "Site name? i.e. www/site_name"
+      private: no
+    - name: repo
+      prompt: "Git Repo to checkout?"
+      private: no
+    - name: branch
+      prompt: "Git branch to checkout?"
+      default: master
+      private: no
+    - name: db_name
+      prompt: "MySQL database name?"
+      private: no
+    - name: db_user
+      prompt: "MySQL database username?"
+      private: no
+    - name: db_pass
+      prompt: "MySQL database password?"
+      private: no
 
   tasks:
-
     - name: Simple test to make sure the user exists
       action: command test -d /home/{{ user_name }} creates=/home/{{ user_name }}
 

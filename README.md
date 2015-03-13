@@ -64,6 +64,100 @@ To update your machine, pull the latest within the repository, then run:
 
 If you want to customize any of the settings within the playbooks, create a host_vars/vagrant file, with any settings overrides you need.
 
+Ansible Scripts:
+--
+
+Ansible deployment scripts, located in the ```deploy``` directory can be used for common deployment tasks. Deployment commands can be run on a development server using the following syntax, however to use them in a Vagrant virtual machine you'll need to use the bash script located below.
+
+    ansible-playbook -i hosts deploy/user-add.yml
+
+Fill out the prompts or include them in the extra-vars ```-e``` argument
+
+    ansible-playbook -i hosts -e="user_name=bender github=fkbender" deploy/user-add.yml
+
+A special bash script is available that makes it possible to run deployment scripts locally.
+
+    ./vagrant-playook deploy/user-add.yml
+
+The following commands will work on the vagrant machine and on the dev server:
+
+### Databases
+- Create MySQL database
+
+        ./vagrant-playbook deploy/database/mysql-db-create.yml
+
+### Solr Cores
+
+- Add Solr Core  
+
+        ./vagrant-playbook deploy/solr-cores/solr-core-add.yml
+
+- Delete Solr Core  
+
+        ./vagrant-playbook deploy/solr-cores/solr-core-delete.yml
+
+### Users
+
+- Add User
+
+        ./vagrant-playbook deploy/users/user-add.yml
+
+- Delete User
+
+        ./vagrant-playbook deploy/users/user-delete.yml
+
+The following commands only work on a remote dev server:
+
+### Drupal Sites
+
+- Deploy Drupal dev site
+
+        deploy/drupal-sites/drupal-dev-site-deploy.yml
+
+- Remove Drupal dev site
+
+        deploy/drupal-sites/drupal-dev-site-remove.yml
+
+- Deploy Drupal trunk site
+
+        deploy/drupal-sites/drupal-trunk-site-deploy.yml
+
+- Remove Drupal trunk site
+
+        deploy/drupal-sites/drupal-trunk-site-remove.yml
+
+Dev Server Features
+--
+In addition to the easy execution of common tasks, and parity between our Development and local environments the playbooks provide a number of features.
+
+### Standard Stuff
+* The www folder in your home folder will serve all content in subfolders at easy to use URLs. For example: ```/home/vagrant/www/drupal``` will be available at the URL http://vagrant.drupal.local.dev/ on a vagrant box and http://username.drupal.example.com/ on a dev server.
+* All sites created with the deploy scripts have drush aliases created. Try ```drush sa``` from inside the vm to see a list.
+* [Xdebug](http://xdebug.org/) is available for PHP debugging.
+* [rvm](http://rvm.io/) is used to manage ruby gems.
+* [Apache SOLR](https://lucene.apache.org/solr/index.html) cores can be created using the Ansible script or a Jenkin's Job. The core can be used by Drupal at (http://localhost:8888/solr/core_name) and the SOLR admin is available at (http://hostname.tld:8888/solr/core_name/admin)
+
+### Multiple Webservers
+
+The dev2 playbooks now install both apache and nginx. This will allow us to more closely emulate Pantheon (nginx+php-fpm), or more common (apache) application server environments. You can switch between the two by sending either a GET argument (``varnish_backend`` by default) or by setting a request header (``X-varnish-backend`` by default).
+
+For example, the following requests would hit the respective servers:
+
+* apache
+    * http://fpl.local.dev?varnish_backend=apache
+    * http://fpl.local.dev (X-varnish-backend: apache)
+* nginx
+    * http://fpl.local.dev?varnish_backend=nginx
+    * http://fpl.local.dev (X-varnish-backend: nginx)
+
+The default webserver can be set from your settings file before running the playbooks but will be set to apache by default.
+
+Protip: you can use the chrome extension [ModHeader](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj) to send custom headers and avoid needing to use GET arguments on every request.
+
+### XHProf
+
+You can utilize XHProf with mongodb xhprof which will provide you with a Drupal interface to view the XHProf results without using devel.
+
 ### Remote
 
 * Create a hosts file
