@@ -90,42 +90,41 @@ The following commands will work on the vagrant machine and on the dev server:
 
 - Add Solr Core  
 
-    ./vagrant-playbook deploy/solr-cores/solr-core-add.yml
+        ./vagrant-playbook deploy/solr-cores/solr-core-add.yml
 
 - Delete Solr Core  
 
-    ./vagrant-playbook deploy/solr-cores/solr-core-delete.yml
-
+        ./vagrant-playbook deploy/solr-cores/solr-core-delete.yml
 
 ### Users
+
 - Add User
 
-    ./vagrant-playbook deploy/users/user-add.yml
+        ./vagrant-playbook deploy/users/user-add.yml
 
 - Delete User
 
-    ./vagrant-playbook deploy/users/user-delete.yml
-
+        ./vagrant-playbook deploy/users/user-delete.yml
 
 The following commands only work on a remote dev server:
 
 ### Drupal Sites
+
 - Deploy Drupal dev site
 
-    deploy/drupal-sites/drupal-dev-site-deploy.yml
+        deploy/drupal-sites/drupal-dev-site-deploy.yml
 
 - Remove Drupal dev site
 
-    deploy/drupal-sites/drupal-dev-site-remove.yml
+        deploy/drupal-sites/drupal-dev-site-remove.yml
 
 - Deploy Drupal trunk site
 
-    deploy/drupal-sites/drupal-trunk-site-deploy.yml
+        deploy/drupal-sites/drupal-trunk-site-deploy.yml
 
 - Remove Drupal trunk site
 
-    deploy/drupal-sites/drupal-trunk-site-remove.yml
-
+        deploy/drupal-sites/drupal-trunk-site-remove.yml
 
 Dev Server Features
 --
@@ -145,11 +144,11 @@ The dev2 playbooks now install both apache and nginx. This will allow us to more
 For example, the following requests would hit the respective servers:
 
 * apache
- * http://fpl.local.dev?varnish_backend=apache
- * http://fpl.local.dev (X-varnish-backend: apache)
+    * http://fpl.local.dev?varnish_backend=apache
+    * http://fpl.local.dev (X-varnish-backend: apache)
 * nginx
- * http://fpl.local.dev?varnish_backend=nginx
- * http://fpl.local.dev (X-varnish-backend: nginx)
+    * http://fpl.local.dev?varnish_backend=nginx
+    * http://fpl.local.dev (X-varnish-backend: nginx)
 
 The default webserver can be set from your settings file before running the playbooks but will be set to apache by default.
 
