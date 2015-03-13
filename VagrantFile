@@ -18,21 +18,28 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.customize ["modifyvm", :id, "--cpus", "2"]
     end
 
-    # Shared folders through NFS. This is supported in Mac and Linux. Windows may have
-    # issues, see Vagrant site for documentation.
+    # Synced Folders.
     dev_config.vm.network :private_network, ip: "10.1.0.10"
     dev_config.vm.synced_folder "~/www", "/home/vagrant/www",
-      type: "nfs", create: true
+      create: true,
+    # Choose a synced folder type and make sure it is uncommented below.
+    # - NFS: This is supported on Mac. Linux and Windows may have issues.
+    # - VirtualBox: This is supported on all systems if you are using VirtualBox
+    #   as the provider.
+    #   NOTE: You will want to disable sendfile in Nginx and Apache config.
+    #   http://docs.vagrantup.com/v2/synced-folders/virtualbox.html
+    ########## UNCOMMENT A SINGLE TYPE BELOW. #####################
+      type: "nfs"
+    #  type: "virtualbox"
 
-    # Sync using rsync instead instead of NFS for Drupal sites.
-    # Uncomment and modify to your needs.
-    # Once the initial sync is completed you will need to
-    # run "vagrant rsync-auto" when editing
-    # files locally.
+    # Sync individual directories (for a single Drupal site, for instance) using
+    # rsync instead instead of NFS or vboxfs. Uncomment and modify to your
+    # needs. Once the initial sync is completed you will need to run
+    # "vagrant rsync-auto" when editing files locally.
     # https://docs.vagrantup.com/v2/synced-folders/rsync.html
     ########## UNCOMMENT BELOW. #####################
-    #config.vm.synced_folder "~/www/pri", "/home/vagrant/www/pri", type: "rsync",
-    #  rsync__exclude: ".git/"
+    #dev_config.vm.synced_folder "~/www/{directory}", "/home/vagrant/www/{directory}",
+    #  type: "rsync", rsync__exclude: ".git/"
 
 
     dev_config.vm.provision "ansible" do |ansible|
