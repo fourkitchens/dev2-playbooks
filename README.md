@@ -132,8 +132,8 @@ Dev Server Features
 In addition to the easy execution of common tasks, and parity between our Development and local environments the playbooks provide a number of features.
 
 ### Standard Stuff
-* The wwww folder in your home folder will serve all content in subfolders at easy to use URLs. For example: ```/home/vagrant/www/drupal``` will be available at the URL http://vagrant.drupal.local.dev/ on a vagrant box and http://username.drupal.example.com/ on a dev server.
-* All sites created with the deploy scripts have drush aliases created. Try ```drush sa``` to see a list.
+* The www folder in your home folder will serve all content in subfolders at easy to use URLs. For example: ```/home/vagrant/www/drupal``` will be available at the URL http://vagrant.drupal.local.dev/ on a vagrant box and http://username.drupal.example.com/ on a dev server.
+* All sites created with the deploy scripts have drush aliases created. Try ```drush sa``` from inside the vm to see a list.
 * [Xdebug](http://xdebug.org/) is available for PHP debugging.
 * [rvm](http://rvm.io/) is used to manage ruby gems.
 * [Apache SOLR](https://lucene.apache.org/solr/index.html) cores can be created using the Ansible script or a Jenkin's Job. The core can be used by Drupal at (http://localhost:8888/solr/core_name) and the SOLR admin is available at (http://hostname.tld:8888/solr/core_name/admin)
