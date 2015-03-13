@@ -1,14 +1,14 @@
 # Four Kitchens: Ubuntu 14.04 Development Server
 
-The Four Kitchens development server uses ansible for using our bespoke development environment as a VM or in the cloud. You have a great amount of configuration options available to you via yml files but by default, after installing the latest virtual box (unless you have mavericks -then use 4.2.22) and the latest version of vagrant you should be only a few steps away from a robust and comprehensive environment.
+The Four Kitchens development server uses ansible for using our bespoke development environment as a VM or in the cloud. You have a great amount of configuration options available to you via `yml` files but by default, after installing the latest VirtualBox and the latest version of Vagrant you should be only a few steps away from a robust and comprehensive environment.
 
 ## Requirements
 
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads), a virtualization platform.
 * [Vagrant](http://downloads.vagrantup.com/), which creates and configures virtual environments.
-* [Ansible](http://docs.ansible.com/), an automation tool for configuration, deployment and other IT tasks.
-    * [nodesource.node](https://github.com/nodesource/ansible-nodejs-role)
-    * [zzet.rbenv](https://galaxy.ansible.com/list#/roles/102)
+* [Ansible](http://docs.ansible.com/), an automation tool for configuration, deployment and other IT tasks. Two [Ansible Galaxy Roles](https://galaxy.ansible.com/intro) (bundled automation content) are required:
+    * [nodesource.node](https://github.com/nodesource/ansible-nodejs-role) - Node.js installation
+    * [zzet.rbenv](https://galaxy.ansible.com/list#/roles/102) - rbenv installation
 
 ## Installation
 
@@ -30,7 +30,7 @@ Optionally, install [Vagrant Manager](http://vagrantmanager.com/) to manage your
 
     brew cask install vagrant-manager
 
-You'll need to install [Ansible](http://docs.ansible.com/intro_installation.html)
+You'll need to install Ansible.
 
     brew install ansible
 
@@ -38,17 +38,17 @@ Continue to [Local (All)](#local-all) to complete installation.
 
 ### Local (Linux)
 
-Install [VirtualBox](https://www.virtualbox.org), the virtualization platform. See the [Linux Downloads](https://www.virtualbox.org/wiki/Linux_Downloads) page and follow the instructions that match your environment.
+Install VirtualBox; see the [Linux Downloads](https://www.virtualbox.org/wiki/Linux_Downloads) page and follow the instructions that match your environment.
 
-Then, install [Vagrant](https://www.vagrantup.com), which creates and configures virtual environments. See the [download](https://www.vagrantup.com/downloads.html) page and download the package that matches your environment. _Note:_ Must be version 1.5.* or greater. Do not use the version provided by apt-get as it is not supported.
+Then, install Vagrant; see the [download](https://www.vagrantup.com/downloads.html) page and download the package that matches your environment. _Note:_ Must be version `1.5.*` or greater. Do not use the version provided by `apt-get` as it is not supported.
 
-Next, install [Ansible](http://www.ansible.com/home), an automation tool for configuration, deployment and other IT tasks. See their [installation](http://docs.ansible.com/intro_installation.html) page and follow the instructions that match your environment.
+Next, install Ansible; see their [installation](http://docs.ansible.com/intro_installation.html) page and follow the instructions that match your environment.
 
 Continue to [Local (All)](#local-all) to complete installation.
 
 ### Local (All)
 
-Two [Ansible Galaxy Roles](https://galaxy.ansible.com/intro) (bundled automation content) are required; [nodesource.node](https://github.com/nodesource/ansible-nodejs-role) and [zzet.rbenv](https://galaxy.ansible.com/list#/roles/102).
+Two Ansible Galaxy roles are required.
 
     ansible-galaxy install nodesource.node
     ansible-galaxy install zzet.rbenv
