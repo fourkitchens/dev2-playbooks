@@ -84,7 +84,7 @@ The following commands will work on the vagrant machine and on the dev server:
 ### Databases
 - Create MySQL database
 
-    ./vagrant-playbook deploy/database/mysql-db-create.yml
+        ./vagrant-playbook deploy/database/mysql-db-create.yml
 
 ### Solr Cores
 
