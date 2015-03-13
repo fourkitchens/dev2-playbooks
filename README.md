@@ -11,18 +11,6 @@ The Four Kitchens development server uses ansible for using our bespoke developm
     * [nodesource.node](https://github.com/nodesource/ansible-nodejs-role)
     * [zzet.rbenv](https://galaxy.ansible.com/list#/roles/102)
 
-## Use for Vagrant Machine
-
-* Install Vagrant, version >= 1.7.2 (http://downloads.vagrantup.com/)
-* VirtualBox, version version >= 4.2.2 (https://www.virtualbox.org/wiki/Downloads) to your local machine.
-* Install Ansible, version >= 1.8.2 (http://docs.ansible.com/intro_installation.html)
-* Install Ansible Galaxy Roles ```ansible-galaxy install nodesource.node zzet.rbenv```
-* Clone this repo ```git clone git@github.com:fourkitchens/dev2-playbooks.git```
-* Go into the repo ```cd dev2-playbooks```
-* run ```vagrant up```
-
-Vagrant and Ansible will then create your machine for you, and provision all of the pieces you need.
-
 ## Installation
 
 ### Local
