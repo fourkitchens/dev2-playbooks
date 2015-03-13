@@ -16,6 +16,7 @@
     - php5-intl
     - php5-ldap
     - php5-memcache
+    - php5-mongo
     - php5-mysql
     - php-soap
     - php5-xdebug
@@ -68,30 +69,6 @@
   notify:
     - restart apache
     - restart php-fpm
-
-- name: PHP MongoDB | Looking for mongo in installed php modules
-  command: pecl list | grep 'mongo' -o
-  register: mongo_db_present
-
-- name: PHP MongoDB | Install the PECL MongoDB extension
-  shell: yes | pecl install mongo
-  when: mongo_db_present.stdout.find('mongo') == -1
-
-- name: PHP MongoDB | Configure PHP to use PECL MongoDB extension
-  copy: src=etc/php5/mods-available/mongo.ini dest=/etc/php5/mods-available/mongo.ini
-
-- name: PHP MongoDB | Enable PECL MongoDB extension
-  file: src=/etc/php5/mods-available/mongo.ini dest=/etc/php5/apache2/conf.d/20-mongo.ini state=link
-  notify:
-    - restart apache
-
-- name: PHP MongoDB | Enable PECL MongoDB extension
-  file: src=/etc/php5/mods-available/mongo.ini dest=/etc/php5/fpm/conf.d/20-mongo.ini state=link
-  notify:
-    - restart php-fpm
-
-- name: PHP MongoDB | Enable PECL MongoDB extension
-  file: src=/etc/php5/mods-available/mongo.ini dest=/etc/php5/cli/conf.d/20-mongo.ini state=link
 
 ##
 # xhprof installation
