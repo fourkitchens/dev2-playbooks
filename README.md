@@ -26,13 +26,19 @@ Then, install Vagrant.
 
     brew cask install vagrant
 
-Optionally, install [Vagrant Manager](http://vagrantmanager.com/) to manage your VMs.
+Next, install dnsmasq.
 
-    brew cask install vagrant-manager
+    brew install dnsmasq
+
+    vagrant plugin install vagrant-dnsmasq
 
 You'll need to install Ansible.
 
     brew install ansible
+
+Optionally, install [Vagrant Manager](http://vagrantmanager.com/) to manage your VMs.
+
+        brew cask install vagrant-manager
 
 Continue to [Local (All)](#local-all) to complete installation.
 

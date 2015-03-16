@@ -7,6 +7,10 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define :vagrant do |dev_config|
 
+    # set domain ending (required)
+    # adding this line enables dnsmasq handling
+    dev_config.dnsmasq.domain = '.local.dev'
+
     dev_config.ssh.forward_agent = true
 
     dev_config.vm.box = "ubuntu/trusty64"
@@ -51,6 +55,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       # use the following pattern.
       #ansible.start_at_task = "Imagemagick | Download sources"
     end
+
+    # overwrite default location for /etc/dnsmasq.conf
+    brew_prefix = '/usr/local'
+    dev_config.dnsmasq.dnsmasqconf = brew_prefix + '/etc/dnsmasq.conf'
+
+    # command for reloading dnsmasq after config changes
+    dev_config.dnsmasq.reload_command = 'sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist; sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist'
+
 
     # Load a local setup file if it exists, so you can use it to
     # provide additional provisioning steps.
