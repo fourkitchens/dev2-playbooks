@@ -11,7 +11,7 @@
       prompt: "Name of database to import into?"
       private: no
     - name: target
-      prompt: "Database dump file name. (must be in ~/www)"
+      prompt: "Database dump file name? (must be in ~/www)"
       private: no
   tasks:
     - name: Delete Database
