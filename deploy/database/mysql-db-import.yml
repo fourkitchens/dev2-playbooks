@@ -1,18 +1,17 @@
-# repo: The github repository
-#   eg: git@github.com:fourkitchens/trainingwheels-drupal-files-example.git
-# core_name: The core name.
-#  eg: beautyhammer
-# core_type: drupal or solr
+# db_name: database to import into
+#   eg: fkblog
+# target: Database dump file, must be located in www folder.
+#   eg: fkblog.sql
 #
 - hosts: all
   sudo: yes
 
   vars_prompt:
     - name: db_name
-      prompt: "MySQL database name?"
+      prompt: "Name of database to import into?"
       private: no
     - name: target
-      prompt: "Database dump file in 'www' folder?"
+      prompt: "Database dump file name. (must be in ~/www)"
       private: no
   tasks:
     - name: Delete Database
