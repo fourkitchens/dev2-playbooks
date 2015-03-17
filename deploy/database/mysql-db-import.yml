@@ -1,0 +1,24 @@
+# db_name: database to import into
+#   eg: fkblog
+# target: Database dump file, must be located in www folder.
+#   eg: fkblog.sql
+#
+- hosts: all
+  sudo: yes
+
+  vars_prompt:
+    - name: db_name
+      prompt: "Name of database to import into?"
+      private: no
+    - name: target
+      prompt: "Database dump file name? (must be in ~/www)"
+      private: no
+  tasks:
+    - name: Delete Database
+      action: mysql_db name={{ db_name }} state=absent
+
+    - name: Create Database
+      action: mysql_db name={{ db_name }} state=present
+
+    - name: Import Database
+      action: mysql_db name={{ db_name }} state=import target=/home/vagrant/www/{{ target }}

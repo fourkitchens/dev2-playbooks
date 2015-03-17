@@ -97,9 +97,13 @@ A special bash script is available that makes it possible to run deployment scri
 The following commands will work on the vagrant machine and on the dev server:
 
 ### Databases
-Create MySQL database
+Create MySQL Database
 
     ./vagrant-playbook deploy/database/mysql-db-create.yml
+
+Import MySQL Database
+
+    ./vagrant-playbook deploy/database/mysql-db-import.yml
 
 ### Solr Cores
 
