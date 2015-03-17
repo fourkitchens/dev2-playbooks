@@ -7,10 +7,6 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define :vagrant do |dev_config|
 
-    # set domain ending (required)
-    # adding this line enables dnsmasq handling
-    dev_config.dnsmasq.domain = '.local.dev'
-
     dev_config.ssh.forward_agent = true
 
     dev_config.vm.box = "ubuntu/trusty64"
@@ -56,6 +52,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       #ansible.start_at_task = "Imagemagick | Download sources"
     end
 
+    # set domain ending (required)
+    # adding this line enables dnsmasq handling
+    config.dnsmasq.domain = '.dev'
+    # this plugin runs 'hostname -I' on the guest machine to obtain
+    # the guest ip address. you can overwrite this behaviour.
+    config.dnsmasq.ip = '127.0.0.1'
     # overwrite default location for /etc/dnsmasq.conf
     brew_prefix = '/usr/local'
     dev_config.dnsmasq.dnsmasqconf = brew_prefix + '/etc/dnsmasq.conf'
