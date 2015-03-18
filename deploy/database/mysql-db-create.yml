@@ -1,8 +1,9 @@
-# repo: The github repository
-#   eg: git@github.com:fourkitchens/trainingwheels-drupal-files-example.git
-# core_name: The core name.
-#  eg: beautyhammer
-# core_type: drupal or solr
+# db_name: Database name.
+#   eg: fkblog
+# db_user: Database user.
+#   eg: imapotato
+# db_pass: database password.
+#   eg: secretsauce
 #
 - hosts: all
   sudo: yes
@@ -24,4 +25,3 @@
 
     - name: Create MySQL user
       action: mysql_user name={{ db_user }} password={{ db_pass }} priv={{ db_name }}.*:ALL/*.*:SELECT
-
