@@ -14,5 +14,5 @@
    - db
    - search
    - nodesource.node
-   - {role: zzet.rbenv, tags:["ruby"]}
+   - {role: zzet.rbenv, tags: ["ruby"]}
    - web
