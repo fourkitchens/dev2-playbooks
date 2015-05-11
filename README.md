@@ -22,6 +22,10 @@ Start by installing [Homebrew](http://brew.sh/), a package manager for OS X. Add
 
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
+Next install the [Homebrew](http://brew.sh/) extension [Cask](http://caskroom.io/), an application package manager that deals with prebuilt binaries for desktop applications. Additional instructions can be found in the [documentation](https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md).
+
+    brew install caskroom/cask/brew-cask
+
 Next, install VirtualBox.
 
     brew cask install virtualbox
