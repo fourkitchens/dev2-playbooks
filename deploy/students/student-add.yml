@@ -35,8 +35,8 @@
     - name: Checkout class files
       action: git repo=git@github.com:fourkitchens/train-headless.git dest=/home/{{ user_name }}/train-headless
 
-    - name: Drupal Folder Permissions.
-      action: file path=/home/{{ user_name }}/train-headless state=directory owner={{ user_name }} group={{ user_name }} mode=755
+    - name: Training Folder Permissions.
+      action: file path=/home/{{ user_name }}/train-headless state=directory owner={{ user_name }} group={{ user_name }} mode=755 recurse=yes
 
     - name: Drush Make
       action: shell drush -y make --no-cache /home/{{ user_name }}/train-headless/drupal/site.make /home/{{ user_name }}/www/drupal
