@@ -1,0 +1,67 @@
+---
+##
+# Add a new user.
+#
+# user_name: The name of the new user, will also be used for group name.
+# github: The GitHub username.
+#
+- hosts: all
+  sudo: yes
+  gather_facts: no
+
+  vars_prompt:
+    user_name: "What should the username be?"
+
+  tasks:
+    - name: Create user group.
+      action: group name={{ user_name }}
+
+    - name: Create the user account.
+      action: user name={{ user_name }} groups=www-data password=$6$rounds=100000$SJNlP89vKwCyKjmq$0TFIgTMOobMLttJ54SqPBU1LpPfFqEqQvwCZk1TCS7.z8Qn8k5gIo1SJ.Nt.6hImIL6SDRL.ugLayQgMIrUuc0 shell=/bin/bash state=present
+
+    - name: WWW Folder.
+      action: file path=/home/{{ user_name }}/www state=directory owner={{ user_name }} group={{ user_name }} mode=755
+
+    - name: Create MySQL db
+      action: mysql_db name={{ user_name }}
+
+    - name: Create MySQL user
+      action: mysql_user name={{ user_name }} password={{ user_name }} priv={{ user_name }}.*:ALL/*.*:SELECT
+
+    - name: Checkout class files
+      action: git repo=git@github.com:fourkitchens/train-headless.git dest=/home/{{ user_name }}/train-headless
+
+    - name: Drush Make
+      action: shell drush -y make --no-cache /home/{{ user_name }}/train-headless/drupal/site.make /home/{{ user_name }}/www/drupal
+      sudo: yes
+      sudo_user: "{{ user_name }}"
+
+    - name: Drupal Folder Permissions.
+      action: file path=/home/{{ user_name }}/www/drupal state=directory owner={{ user_name }} group={{ user_name }} mode=755
+
+    - name: Custom folder
+      action: file path=/home/{{ user_name }}/www/drupal/sites/all/modules/custom state=directory owner={{ user_name }} group={{ user_name }}
+
+    - name: Copy fkblog module
+      action: shell cp -R /home/{{ user_name }}/train-headless/drupal/modules/fkblog /home/{{ user_name }}/www/drupal/sites/all/modules/custom
+      sudo: yes
+      sudo_user: "{{ user_name }}"
+
+    - name: Copy fkblog_features module
+      action: shell cp -R /home/{{ user_name }}/train-headless/drupal/modules/fkblog_features /home/{{ user_name }}/www/drupal/sites/all/modules/custom
+      sudo: yes
+      sudo_user: "{{ user_name }}"
+
+    - name: Create migration directory
+      action: file path=/home/{{ user_name }}/www/drupal/sites/default/files/migration/blog state=directory owner=www-data group=www-data
+
+    - name: Copy migration files
+      action: shell cp /home/{{ user_name }}/train-headless/drupal/migration/blog/blog.xml /home/{{ user_name }}/www/drupal/sites/default/files/migration/blog
+
+    - name: Enable the site
+      action: shell drush si -r /home/{{ user_name }}/www/drupal -y --account-name=admin --account-pass=admin --db-url=mysql://{{ user_name }}:{{ user_name }}@localhost/{{ user_name }}
+
+    - name: Configure the site
+      action: shell drush en fkblog -r /home/{{ user_name }}/www/drupal -y && drush mar -r /home/{{ user_name }}/www/drupal -y && drush mi BlogPost -r /home/{{ user_name }}/www/drupal -y && drush dis toolbar -r /home/{{ user_name }}/www/drupal -y
+      sudo: yes
+      sudo_user: "{{ user_name }}"

@@ -1,5 +1,9 @@
 # Four Kitchens: Ubuntu 14.04 Development Server
 
+```bash
+ansible-playbook -l 23.253.165.22  -i hosts deploy/students/student-add.yml -e user_name=mike
+```
+
 The Four Kitchens development server uses ansible for using our bespoke development environment as a VM or in the cloud. You have a great amount of configuration options available to you via `yml` files but by default, after installing the latest VirtualBox and the latest version of Vagrant you should be only a few steps away from a robust and comprehensive environment.
 
 ## Requirements
