@@ -55,8 +55,8 @@
     - name: Enable the site
       action: shell drush si -r /home/{{ user_name }}/www/drupal -y --account-name=admin --account-pass=admin --db-url=mysql://{{ user_name }}:{{ user_name }}@localhost/{{ user_name }}
 
-    - name: Checkout restful_forword module files
-      action: git repo=git@github.com:fourkitchens/restful_fourword.git dest=/home/{{ user_name }}/www/drupal/sites/all/modules/custom/restful_forword force=yes key_file=~/.ssh/id_rsa version=23557eb77fceb1b5c8e9f076ef4f27383086f1ea
+    - name: Checkout restful_fourword module files
+      action: git repo=git@github.com:fourkitchens/restful_fourword.git dest=/home/{{ user_name }}/www/drupal/sites/all/modules/custom/restful_fourword force=yes key_file=~/.ssh/id_rsa version=23557eb77fceb1b5c8e9f076ef4f27383086f1ea
 
     - name: Drupal Folder Permissions.
       action: file path=/home/{{ user_name }}/www/drupal state=directory owner={{ user_name }} group={{ user_name }} mode=755 recurse=yes
