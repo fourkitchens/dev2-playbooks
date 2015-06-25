@@ -15,4 +15,5 @@
    - search
    - nodesource.node
    - {role: zzet.rbenv, tags: ["ruby"]}
+   - { role: geerlingguy.redis }
    - web
