@@ -59,9 +59,17 @@
       action: git repo=git@github.com:fourkitchens/restful_fourword.git dest=/home/{{ user_name }}/www/drupal/sites/all/modules/custom/restful_forward force=yes key_file=~/.ssh/id_rsa version=23557eb77fceb1b5c8e9f076ef4f27383086f1ea
 
     - name: Drupal Folder Permissions.
-      action: file path=/home/{{ user_name }}/www/drupal state=directory owner={{ user_name }} group={{ user_name }} mode=755
+      action: file path=/home/{{ user_name }}/www/drupal state=directory owner={{ user_name }} group={{ user_name }} mode=755 recurse=yes
 
-    - name: Configure the site
+    - name: Drupal Files folder permissions.
+      action: file path=/home/{{ user_name }}/www/drupal/sites/default/files state=directory owner={{ user_name }} group=www-data mode=775 recurse=yes
+
+    - name: Import the Database.
       action: shell drush sql-query -r /home/{{ user_name }}/www/drupal -y --file=/usr/share/tcdc.sql
+      sudo: yes
+      sudo_user: "{{ user_name }}"
+
+    - name: Clear the Drupal Cache
+      action: shell drush cc all -r /home/{{ user_name }}/www/drupal
       sudo: yes
       sudo_user: "{{ user_name }}"
