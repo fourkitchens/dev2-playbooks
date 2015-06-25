@@ -23,6 +23,9 @@
     - name: Add port.
       action: copy content={{ port }} dest=/home/{{user_name}}/port-{{ port }} owner={{ user_name }} group={{ user_name }}
 
+    - name: Add port to .profile
+      action: copy content=export PORT={{ port }} dest=/home/{{user_name}}/.profile owner={{ user_name }} group={{ user_name }}
+
     - name: WWW Folder.
       action: file path=/home/{{ user_name }}/www state=directory owner={{ user_name }} group={{ user_name }} mode=755
 
