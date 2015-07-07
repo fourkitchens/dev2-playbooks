@@ -6,6 +6,7 @@
 - name: Node.js | Install required npm packages
   npm: name={{ item }} global=yes
   with_items:
+    - nodemon
     - bower
     - coffee-script
     - forever

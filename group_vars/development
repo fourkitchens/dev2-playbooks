@@ -4,3 +4,4 @@ skip_server_auth: true
 apache_server_alias: '*.*.headless.4kclass.com'
 apache_server_directory: '/home/*/www/*'
 apache_server_virtual_docroot: '/home/%-5/www/%-4'
+ssh_password_auth: yes
