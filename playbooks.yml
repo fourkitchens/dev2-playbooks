@@ -17,3 +17,4 @@
    - {role: zzet.rbenv, tags: ["ruby"]}
    - { role: geerlingguy.redis }
    - web
+   - training

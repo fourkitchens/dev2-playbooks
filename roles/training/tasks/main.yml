@@ -3,4 +3,4 @@
 # Training Specific Stuff.
 #
 - name: Training | Copy the database that will be used to create students.
-  file: copy: src=tcdc.sql dest=/usr/share/tcdc.sql owner=root mode=755
+  copy: src=tcdc.sql dest=/usr/share/tcdc.sql owner=root mode=755
