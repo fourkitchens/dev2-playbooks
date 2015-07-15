@@ -18,7 +18,7 @@
       action: group name={{ user_name }}
 
     - name: Create the user account.
-      action: user name={{ user_name }} groups=www-data password=$6$rounds=100000$fjXayJQYOk6yE6QN$SaC8dubqNceoOrB8J0v3MYydbk756.ztNrOAKBXqgU0j/M3LExa2uLssnPGPNQp2Z1tguKkei3qiFvonRH/WO. shell=/bin/bash state=present
+      action: user name={{ user_name }} groups=www-data password=$6$rounds=100000$/oAgorZJIcOF3TE1$WsYU5W91O5rYx/lj3a913E.g7trGjf9p84IfVUlJYNBjsvbp1Ze/1rAnrPa1bASA49YPNo6/wpZr.TTZMCgtX0 shell=/bin/bash state=present
 
     - name: Add port.
       action: copy content={{ port }} dest=/home/{{user_name}}/port-{{ port }} owner={{ user_name }} group={{ user_name }}
