@@ -1,2 +1,3 @@
 ---
 apache_vhost_user: bender
+skip_server_auth: false

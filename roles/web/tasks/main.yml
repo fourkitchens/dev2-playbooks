@@ -15,4 +15,3 @@
 
 # Tools
 - include: drush.yml tags=drush
-- include: imagemagick.yml tags=imagemagick

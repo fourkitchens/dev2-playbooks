@@ -9,6 +9,7 @@ The Four Kitchens development server uses ansible for using our bespoke developm
 * [Ansible](http://docs.ansible.com/), an automation tool for configuration, deployment and other IT tasks. Two [Ansible Galaxy Roles](https://galaxy.ansible.com/intro) (bundled automation content) are required:
     * [nodesource.node](https://github.com/nodesource/ansible-nodejs-role) - Node.js installation
     * [zzet.rbenv](https://galaxy.ansible.com/list#/roles/102) - rbenv installation
+    * [crushlovely.imagemagick,v2.0.0](https://galaxy.ansible.com/list#/roles/1180) - imagemagick
 
 ## Installation
 
@@ -52,10 +53,9 @@ Continue to [Local (All)](#local-all) to complete installation.
 
 ### Local (All)
 
-Two Ansible Galaxy roles are required.
+Ansible Galaxy roles need to be installed, and they are listed in the roles.txt file. The command below will automatically install and/or update roles locally.
 
-    ansible-galaxy install nodesource.node
-    ansible-galaxy install zzet.rbenv
+    ansible-galaxy install --force -r roles.txt
 
 Change directory to where you want to store your project configuration and clone this repository.
 

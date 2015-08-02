@@ -16,3 +16,4 @@
    - nodesource.node
    - {role: zzet.rbenv, tags: ["ruby"]}
    - web
+   - crushlovely.imagemagick
