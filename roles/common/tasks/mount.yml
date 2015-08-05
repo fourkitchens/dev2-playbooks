@@ -1,0 +1,17 @@
+---
+# Mounts Rackspace Drives
+
+- name: Mount MySQL storage volume.
+  mount: name=/mnt/xvdc1-mysql src=/dev/xvdc1 fstype=ext4 opts=defaults,noatime,_netdev,nofail state=mounted
+
+- name: Symlink MySQL storage
+  file: src=/mnt/xvdc1-mysql/mysql dest=/var/lib/mysql owner=mysql group=mysql state=link
+
+- name: Mount home folder storage volume.
+  mount: name=/mnt/xvdc2-home src=/dev/xvdc2 fstype=ext4 opts=defaults,noatime,_netdev,nofail state=mounted
+
+- name: Mount www folder storage volume.
+  mount: name=/mnt/xvdc3-www src=/dev/xvdc3 fstype=ext4 opts=defaults,noatime,_netdev,nofail state=mounted
+
+- name: Symlink www storage
+  file: src=/mnt/xvdc3-www dest=/var/www owner=mysql group=mysql state=link

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+echo "+----------------------------------------------------------------------------------+"
+echo "| Four kitchens dev server                                                         |"
+echo "|                                                                                  |"
+echo "| dev.fourkitchens.com                                                             |"
+echo "|                                                                                  |"
+echo "| Sites in www will be availabe at http:/[user].[folder].webchefs.org              |"
+echo "|                                                                                  |"
+echo "| For more info visit: https://github.com/fourkitchens/dev2-playbooks              |"
+echo "+----------------------------------------------------------------------------------+"

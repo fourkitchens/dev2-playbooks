@@ -1,3 +1,6 @@
 ---
 apache_vhost_user: bender
 skip_server_auth: false
+motd: 'dev'
+mount_rack_volumes: false
+mysql_root_password: 'password'

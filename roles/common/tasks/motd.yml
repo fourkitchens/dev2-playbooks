@@ -2,8 +2,17 @@
 ##
 # Message of the day configuration.
 #
-- name: motd | Message of the day explaining server is under Ansible control.
+- name: motd | Message of the day with fancy graphic.
   copy: src=etc/update-motd.d/95-ansible dest=/etc/update-motd.d/95-ansible mode=755
+
+- name: motd | Message of the day for Dev Server
+  copy: src=etc/update-motd.d/96-ansible-dev dest=/etc/update-motd.d/96-ansible-dev
+  when: motd == 'dev'
+
+- name: motd | Message of the day for local Server
+  copy: src=etc/update-motd.d/96-ansible-dev dest=/etc/update-motd.d/96-ansible-dev
+  when: motd == 'local'
+
 
 - name: motd | Message of the day noting which server we are on.
   copy: src=etc/update-motd.d/96-fqdn dest=/etc/update-motd.d/96-fqdn mode=755

@@ -1,0 +1,11 @@
+#!/bin/sh
+echo " +----------------------------------------------------------------------------+"
+echo " | The Oven, by Four Kitchens                                                 |"
+echo " |                                                                            |"
+echo " | Welcome to the development server by Four Kitchens. We use this            |"
+echo " |   internally to help aid our development process. It has all the tools     |"
+echo " |   needed to develop a modern Drupal site (and more!).                      |"
+echo " |                                                                            |"
+echo " | For more help, please see:                                                 |"
+echo " | https://github.com/fourkitchens/the-oven                                   |"
+echo " +----------------------------------------------------------------------------+"
