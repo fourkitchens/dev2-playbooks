@@ -13,8 +13,8 @@
    - cache
    - db
    - search
-   - nodesource.node
-   - {role: zzet.rbenv, tags: ["ruby"]}
+   - { role: ANXS.nodejs, nodejs_version: "0.12.4", nodejs_install_method: "binary" }
+   - { role: zzet.rbenv, tags: ["ruby"]}
    - { role: geerlingguy.redis }
    - web
    - training

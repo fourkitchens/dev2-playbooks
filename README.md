@@ -58,8 +58,9 @@ Continue to [Local (All)](#local-all) to complete installation.
 
 Two Ansible Galaxy roles are required.
 
-    ansible-galaxy install nodesource.node
+    ansible-galaxy install ANXS.nodejs
     ansible-galaxy install zzet.rbenv
+    ansible-galaxy install geerlingguy.redis
 
 Change directory to where you want to store your project configuration and clone this repository.
 
