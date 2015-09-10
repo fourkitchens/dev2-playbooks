@@ -188,5 +188,5 @@ You can utilize XHProf with mongodb xhprof which will provide you with a Drupal 
 ### Remote
 
 * Create a hosts file
-* `ansible-playbooks -i hosts playbook.yml`
+* `ansible-playbook -i hosts playbooks.yml`
 * Magic.
