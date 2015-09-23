@@ -26,7 +26,7 @@ php_xdebug_max_nesting_level: 256
 composer_path: /usr/local/bin/composer
 drush_install_path: /usr/local/share/drush
 drush_path: /usr/local/bin/drush
-drush_version: 6.4.0
+drush_version: 7.0.0
 drush_keep_updated: yes
 
 # OPCache
