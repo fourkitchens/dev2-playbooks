@@ -25,3 +25,6 @@
     - unzip
     - python-pip
     - python-pycurl
+
+- name: Run apt-get dist upgrade
+  apt: upgrade=dist
