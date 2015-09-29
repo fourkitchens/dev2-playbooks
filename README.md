@@ -31,13 +31,29 @@ Then, install Vagrant.
 
     brew cask install vagrant
 
-Optionally, install [Vagrant Manager](http://vagrantmanager.com/) to manage your VMs.
+Next, install DNSmasq & DNSmasq Vagrant plugin.
 
-    brew cask install vagrant-manager
+    brew install dnsmasq
+
+    vagrant plugin install vagrant-dnsmasq
+
+Set DNSmasq to start when you restart your computer.
+
+    sudo cp -fv /usr/local/opt/dnsmasq/*.plist /Library/LaunchDaemons
+
+    sudo chown root /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
+
+Start DNSmasq now.
+
+    sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
 
 You'll need to install Ansible.
 
     brew install ansible
+
+Optionally, install [Vagrant Manager](http://vagrantmanager.com/) to manage your VMs.
+
+        brew cask install vagrant-manager
 
 Continue to [Local (All)](#local-all) to complete installation.
 

@@ -52,6 +52,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       #ansible.start_at_task = "Imagemagick | Download sources"
     end
 
+    if Vagrant.has_plugin?("vagrant-dnsmasq")
+      # set domain ending (required)
+      # adding this line enables dnsmasq handling
+      config.dnsmasq.domain = '.dev'
+      # this plugin runs 'hostname -I' on the guest machine to obtain
+      # the guest ip address. you can overwrite this behaviour.
+      config.dnsmasq.ip = '127.0.0.1'
+      # overwrite default location for /etc/dnsmasq.conf
+      brew_prefix = '/usr/local'
+      dev_config.dnsmasq.dnsmasqconf = brew_prefix + '/etc/dnsmasq.conf'
+
+      # command for reloading dnsmasq after config changes
+      dev_config.dnsmasq.reload_command = 'sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist; sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist'
+    end
+
     # Load a local setup file if it exists, so you can use it to
     # provide additional provisioning steps.
     if File.exist?(File.join(File.dirname(__FILE__), "setup.local.sh"))
