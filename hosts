@@ -1,4 +1,4 @@
 [development]
-alias ansible_ssh_host=dcbarcelona.4kclass.com
+alias ansible_ssh_host=headless-{code}.4kclass.com
 alias ansible_ssh_user=ubuntu
 alias ansible_ssh_private_key_file=~/.ssh/id_rsa
