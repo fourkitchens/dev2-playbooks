@@ -39,7 +39,7 @@
       action: mysql_user name={{ user_name }} password={{ user_name }} priv={{ user_name }}.*:ALL/*.*:SELECT
 
     - name: Checkout class files
-      action: git repo=git@github.com:fourkitchens/train-headless.git version=dcb-2015 dest=/home/{{ user_name }}/train-headless force=yes key_file=~/.ssh/id_rsa
+      action: git repo=git@github.com:fourkitchens/train-headless.git version=generic dest=/home/{{ user_name }}/train-headless force=yes key_file=~/.ssh/id_rsa
 
     - name: Training Folder Permissions.
       action: file path=/home/{{ user_name }}/train-headless state=directory owner={{ user_name }} group={{ user_name }} mode=755 recurse=yes
