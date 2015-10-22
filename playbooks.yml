@@ -1,12 +1,12 @@
 ---
 # The main playbook to deploy the site
 
-- hosts: development
+- hosts: headless-generic
   sudo: yes
   roles:
     - bender
 
-- hosts: all
+- hosts: headless-generic
   sudo: yes
   roles:
    - common

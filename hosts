@@ -2,3 +2,8 @@
 alias ansible_ssh_host=dcbarcelona.4kclass.com
 alias ansible_ssh_user=ubuntu
 alias ansible_ssh_private_key_file=~/.ssh/id_rsa
+
+[headless-generic]
+alias ansible_ssh_host=train-headless.4kclass.com
+alias ansible_ssh_user=ubuntu
+alias ansible_ssh_private_key_file=~/.ssh/id_rsa
