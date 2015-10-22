@@ -5,7 +5,7 @@
 # user_name: The name of the new user, will also be used for group name.
 # github: The GitHub username.
 #
-- hosts: all
+- hosts: headless-generic
   sudo: yes
   gather_facts: no
 
@@ -18,7 +18,7 @@
       action: group name={{ user_name }}
 
     - name: Create the user account.
-      action: user name={{ user_name }} groups=www-data password=$6$rounds=656000$M0CFVb5ftr2hi5Bv$ceDD/fDmz6jh6ssJymPiw.FMOMypSAaW3tKvqEuDYnPGhrX7teIP0CYrCY87ShIw9T6lsUCeD9En8exS0OejR1 shell=/bin/bash state=present
+      action: user name={{ user_name }} groups=www-data password=$6$rounds=656000$3vHSbksDyePSPM1R$rZpi6aIMH4DpLNFH7M1/Y79bocSarVHCb3IdjN1A.I2TU9H8ASOyNrR.8JzA4r3nekXorFcnnPp6jORpVPKXm. shell=/bin/bash state=present
 
     - name: Add port.
       action: copy content={{ port }} dest=/home/{{user_name}}/port-{{ port }} owner={{ user_name }} group={{ user_name }}
@@ -39,7 +39,7 @@
       action: mysql_user name={{ user_name }} password={{ user_name }} priv={{ user_name }}.*:ALL/*.*:SELECT
 
     - name: Checkout class files
-      action: git repo=git@github.com:fourkitchens/train-headless.git version=dcb-2015 dest=/home/{{ user_name }}/train-headless force=yes key_file=~/.ssh/id_rsa
+      action: git repo=git@github.com:fourkitchens/train-headless.git version=generic dest=/home/{{ user_name }}/train-headless force=yes key_file=~/.ssh/id_rsa
 
     - name: Training Folder Permissions.
       action: file path=/home/{{ user_name }}/train-headless state=directory owner={{ user_name }} group={{ user_name }} mode=755 recurse=yes
